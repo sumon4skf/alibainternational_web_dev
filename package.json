@@ -1,0 +1,42 @@
+{
+    "name": "@sumon4skf/chinaonlinebd_web",
+    "author": "Sumon Ahmed sumon4skf@gmail.com",
+    "private": true,
+    "license": "MIT",
+    "scripts": {
+        "dev": "cross-var $npm_execpath run development",
+        "development": "cross-env NODE_ENV=development webpack --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
+        "watch": "cross-var $npm_execpath run development -- --watch",
+        "watch-poll": "cross-var $npm_execpath run watch -- --watch-poll",
+        "hot": "cross-env NODE_ENV=development webpack-dev-server --inline --hot --config=node_modules/laravel-mix/setup/webpack.config.js",
+        "prod": "cross-var $npm_execpath run production",
+        "production": "cross-env NODE_ENV=production webpack --no-progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
+        "test": "cross-env NODE_ENV=test jest",
+        "tdd": "cross-var $npm_execpath run test -- --watch --notify"
+    },
+    "devDependencies": {
+        "axios": "^0.19",
+        "bootstrap": "^4.3.1",
+        "cross-env": "^7.0",
+        "cross-var": "^1.1.0",
+        "jquery": "^1.12.4",
+        "laravel-mix": "^5.0.1",
+        "lodash": "^4.17.13",
+        "pace": "github:HubSpot/pace#v1.0.2",
+        "perfect-scrollbar": "^1.4.0",
+        "popper.js": "^1.15.0",
+        "resolve-url-loader": "^3.1.1",
+        "sass": "^1.21.0",
+        "sass-loader": "^8.0.0",
+        "sweetalert2": "^9.3.5",
+        "vue-template-compiler": "^2.6.14",
+        "webpack-livereload-plugin": "^1.2.0"
+    },
+    "browserslist": {
+        "development": "last 1 version",
+        "production": ">2%, Firefox ESR"
+    },
+    "engines": {
+        "node": ">=6.0.0"
+    }
+}

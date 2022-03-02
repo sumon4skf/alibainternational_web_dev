@@ -1,0 +1,14 @@
+{
+    "/js/app.js": "/js/app.js",
+    "/js/backend.js": "/js/backend.js",
+    "/js/lib.js": "/js/lib.js",
+    "/css/lib.css": "/css/lib.css",
+    "/css/app.css": "/css/app.css",
+    "/css/backend.css": "/css/backend.css",
+    "/js/manifest.js": "/js/manifest.js",
+    "/js/plugins.js": "/js/plugins.js",
+    "/js/product.js": "/js/product.js",
+    "/js/vendor.js": "/js/vendor.js",
+    "/css/plugins.css": "/css/plugins.css",
+    "/css/product.css": "/css/product.css"
+}

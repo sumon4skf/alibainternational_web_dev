@@ -1,0 +1,233 @@
+.navbar_bottom {
+    background-color: $themeColor;
+    color: $themeFontColor;
+    border-top: 1px solid rgba(115, 115, 115, 0.18);
+    border-bottom: 1px solid rgba(115, 115, 115, 0.18);
+}
+
+.nav_search_field {
+    border: 1px solid $themeColor;
+    height: auto;
+    font-size: 14px;
+    color: $themeFontColor;
+    &:hover,
+    &:focus {
+        border-color: $themeHoverColor;
+    }
+}
+
+.search_group_button {
+    label,
+    button {
+        line-height: 1;
+        background-color: $themeColor;
+        color: $themeFontColor;
+        border: none;
+        &:hover,
+        &:focus {
+            background-color: $themeHoverColor;
+            border: none;
+        }
+    }
+
+    label {
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+        //border-right: 2px solid #a71d01;
+        i {
+            font-size: 24px;
+        }
+    }
+
+    button {
+        i {
+            font-size: 18px;
+            color: #fff;
+        }
+    }
+}
+
+.card {
+  background: #fff;
+  box-shadow: 0 0 0 1px rgba(63, 63, 68, 0.1);
+  border-radius: 6px;
+  border: none;
+}
+
+.product_description {
+    .table {
+        &.table-sm {
+            th {
+                font-weight: 400;
+            }
+        }
+    }
+}
+
+.pr_detail {
+    .table {
+        font-size: 14px;
+    }
+}
+
+#breadcrumbs {
+    background-color: #e9ecef;
+}
+
+.alert {
+    .header-message {
+        border-radius: 0 !important;
+    }
+}
+
+.nestedTable {
+    tr {
+        th {
+            font-weight: 600;
+            font-size: 14px;
+            padding: 0 4px;
+            vertical-align: middle;
+            border: 1px solid #ddd;
+            border-top: none;
+            text-align: center;
+        }
+
+        td {
+            font-size: 14px;
+            padding: 0 4px;
+            vertical-align: middle;
+            border: 1px solid #ddd;
+            text-align: center;
+        }
+    }
+}
+
+.table thead th {
+    vertical-align: middle;
+    border-bottom: 2px solid #dee2e6;
+    font-weight: 600;
+}
+
+.lds-ellipsis-custom {
+    margin: 0 auto;
+    position: relative;
+    top: 50%;
+    -webkit-transform: translateY(0%);
+    transform: translateY(0%);
+    width: 64px;
+    text-align: center;
+    z-index: 999;
+}
+
+.lds-ellipsis-custom span {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: $themeColor;
+    -webkit-animation: ball-pulse-sync 0.6s 0s infinite ease-in-out;
+    animation: ball-pulse-sync 0.6s 0s infinite ease-in-out;
+    margin-right: 4px;
+}
+
+.lds-ellipsis-custom span:last-child {
+    margin-right: 0;
+}
+
+.searchSuggestText {
+    display: none;
+    width: 77%;
+    background: $themeColor;
+    color: #fff;
+    padding: 0 16px;
+    font-weight: 400;
+    border-radius: 4px;
+}
+
+table {
+    .input-group {
+        max-width: 115px;
+        margin: 0 auto;
+    }
+}
+
+.btn-quantity {
+    border: none;
+    color: #fff;
+    background: #ec8923;
+    background: linear-gradient(to right, #ec8923, #b5a409);
+    padding-left: 10px !important;
+    padding-right: 10px !important;
+    &:hover {
+        color: #fff;
+    }
+}
+
+.btn-addToCart,
+.btnBuyNow,
+.add_wishlist {
+    border: none;
+    color: #fff;
+    background: #ec8923;
+    color: #fff;
+    background: linear-gradient(to right, #ec8923, #b5a409);
+    font-size: 1rem;
+    &:hover,
+    &:focus {
+        color: #fff;
+        background: linear-gradient(to right, #ec8920, #b5a404);
+    }
+    &.active {
+        color: #fff;
+        background: #ec8920;
+    }
+}
+
+.payment_label {
+    cursor: pointer;
+    border: 2px solid #e6e6e6;
+    border-radius: 4px;
+    &.active {
+        border: 2px solid $themeColor;
+    }
+}
+
+.easy_connect {
+    position: fixed;
+    top: auto;
+    right: 20px;
+    bottom: 20px;
+    left: auto;
+    z-index: 99999;
+    .list-group {
+        .list-group-item {
+            background-color: $themeColor;
+            padding: 6px 10px;
+        }
+        .mobile {
+            color: #fff;
+        }
+    }
+}
+
+li.dropdown-mega-menu {
+    position: inherit;
+    .dropdown-toggler {
+        position: relative;
+    }
+}
+
+.product_details_table_header {
+    background-color: $themeColor;
+    color: $themeFontColor;
+    font-weight: normal;
+    padding: 7px 10px;
+}
+
+.info_text_color {
+    color: $themeColor;
+}
+
+.btn-primary {
+    color: #ffffff;
+}
