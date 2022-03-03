@@ -247,7 +247,7 @@ class OrderController extends Controller
     $customers = User::role('user')->withCount('orders')->orderBy('first_name')->get();
     $findable[''] = ' - Select Customer - ';
     foreach ($customers as $customer) {
-      $findable[$customer->id] = $customer->full_name;
+      $findable[$customer->id] = $customer->name;
     }
 
     return view('backend.content.order.wallet.index', ['findable' => $findable]);

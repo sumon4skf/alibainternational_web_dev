@@ -18,8 +18,7 @@
 
 <header class="header_wrap">
 
-  @include('frontend.includes.topHeader')
-
+  {{-- @include('frontend.includes.topHeader') --}}
   <div class="middle-header dark_skin">
     <div class="container">
       <div class="nav_block">

@@ -81,7 +81,7 @@ class WalletTable extends TableComponent
       Column::make('Customer', 'user.name')
         ->searchable()
         ->format(function (OrderItem $model) {
-          return $model->user->name ?? $model->user->full_name ?? 'N/A';
+          return $model->user->name  ?? 'N/A';
         }),
       Column::make('phone', 'user.phone')
         ->searchable()

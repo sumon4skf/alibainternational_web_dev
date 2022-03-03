@@ -22,3 +22,11 @@
     </div> <!-- card-body-->
   </div> <!-- card-->
 @endsection
+
+@push('after-styles')
+@livewireStyles
+@endpush
+
+@push('after-scripts')
+@livewireScripts
+@endpush

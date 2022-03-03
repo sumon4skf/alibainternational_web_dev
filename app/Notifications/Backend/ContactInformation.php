@@ -48,7 +48,7 @@ class ContactInformation extends Notification
     return (new MailMessage)
       ->subject('Direct Contact')
       ->replyTo($contact->email)
-      ->greeting('Hello, ' . $notifiable->full_name)
+      ->greeting('Hello, ' . $notifiable->name)
       ->line($contact->message)
       ->line('Customer Name: ' . $contact->name)
       ->line('Customer Phone: ' . $contact->phone)

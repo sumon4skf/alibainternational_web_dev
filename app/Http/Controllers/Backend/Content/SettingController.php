@@ -11,10 +11,9 @@ use Illuminate\Support\Facades\Storage;
 class SettingController extends Controller
 {
 
-  public function __construct(Setting $setting)
+  public function __construct()
   {
-    $settings =  $setting->whereNotNull('active')->get();
-    Cache::put('settings', $settings, now()->addDays(180));
+    Cache::forget('settings'); // remove setting cache
   }
 
   public function general()
@@ -38,7 +37,6 @@ class SettingController extends Controller
       $data['favicon'] = store_picture(\request()->file('favicon'), 'setting/logo');
     }
     Setting::save_settings($data);
-    Cache::forget('settings'); // remove setting cache
 
     return redirect()->back()->withFlashSuccess('Logo Updated Successfully');
   }
@@ -64,7 +62,6 @@ class SettingController extends Controller
     }
 
     Setting::save_settings($data);
-    Cache::forget('settings'); // remove setting cache
 
     return redirect()->back()->withFlashSuccess('Setting Updated Successfully');
   }
@@ -90,7 +87,6 @@ class SettingController extends Controller
     unset($data['_token']);
 
     Setting::save_settings($data);
-    Cache::forget('settings'); // remove setting cache
 
     return redirect()->back()->withFlashSuccess('Setting Updated Successfully');
   }
@@ -139,7 +135,6 @@ class SettingController extends Controller
     $data[$sms . 'refunded'] = \request($sms . 'refunded', null);
 
     Setting::save_settings($data);
-    Cache::forget('settings'); // remove setting cache
 
     return redirect()->back()->withFlashSuccess('Message Updated Successfully');
   }
@@ -151,7 +146,6 @@ class SettingController extends Controller
     $shipping = request('shipping');
     $data['air_shipping_charges'] = json_encode($shipping);
     Setting::save_settings($data);
-    Cache::forget('settings'); // remove setting cache
 
     return redirect()->back()->withFlashSuccess('Shipping Charges Updated Successfully');
   }

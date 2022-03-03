@@ -17,22 +17,6 @@ if (!function_exists('app_name')) {
 }
 
 
-if (!function_exists('convertedPrice')) {
-  /**
-   * Helper to grab the application name.
-   *
-   * @param $original_price
-   * @param $rate
-   * @return mixed
-   */
-  function convertedPrice($original_price)
-  {
-    $rate = get_setting('increase_rate');
-    return round($original_price * $rate);
-    // return number_format($original_price * $rate, 2, '.', '');
-  }
-}
-
 
 if (!function_exists('floating')) {
   function floating($price, $length = 2)
@@ -46,34 +30,6 @@ if (!function_exists('weight_floating')) {
   function weight_floating($price, $length = 2)
   {
     return number_format($price, $length, '.', '');
-  }
-}
-
-
-if (!function_exists('get_setting')) {
-  /**
-   * Helper to grab the application name.
-   *
-   * @param $key
-   * @param null $default
-   * @return mixed
-   */
-  function get_setting($key, $default = null)
-  {
-    $setting = general_settings()->where('key', $key)->first();
-    return $setting ? $setting->value : $default;
-  }
-}
-
-if (!function_exists('currency_icon')) {
-  /**
-   * Helper to grab the application name.
-   *
-   * @return mixed
-   */
-  function currency_icon()
-  {
-    return get_setting('currency_icon');
   }
 }
 
@@ -116,9 +72,60 @@ if (!function_exists('general_settings')) {
       return json_encode($settings->pluck('value', 'key')->toArray());
     }
 
-    return collect([]);
+    return $settings ? $settings : collect([]);
   }
 }
+
+
+
+if (!function_exists('get_setting')) {
+  /**
+   * Helper to grab the application name.
+   *
+   * @param $key
+   * @param null $default
+   * @return mixed
+   */
+  function get_setting($key, $default = null)
+  {
+    $setting = general_settings()->where('key', $key)->first();
+    return $setting ? $setting->value : $default;
+  }
+}
+
+
+
+if (!function_exists('currency_icon')) {
+  /**
+   * Helper to grab the application name.
+   *
+   * @return mixed
+   */
+  function currency_icon()
+  {
+    return get_setting('currency_icon');
+  }
+}
+
+
+if (!function_exists('convertedPrice')) {
+  /**
+   * Helper to grab the application name.
+   *
+   * @param $original_price
+   * @param $rate
+   * @return mixed
+   */
+  function convertedPrice($original_price)
+  {
+    $rate = get_setting('increase_rate');
+    return round($original_price * $rate);
+    // return number_format($original_price * $rate, 2, '.', '');
+  }
+}
+
+
+
 
 if (!function_exists('gravatar')) {
   /**

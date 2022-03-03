@@ -70,9 +70,7 @@ $purchasedCount = $orders->where('status', 'purchased')->count();
 
 
 @push('after-styles')
-
 @livewireStyles
-
 @endpush
 
 @push('after-scripts')

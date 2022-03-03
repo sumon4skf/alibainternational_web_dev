@@ -50,7 +50,7 @@ class UserTable extends TableComponent
       Column::make('Name', 'name')
         ->searchable()
         ->format(function (User $model) {
-          return $model->name ? $model->name : $model->full_name;
+          return $model->name ? $model->name : $model->name;
         }),
       Column::make('Phone', 'phone')
         ->searchable(),

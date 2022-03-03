@@ -150,7 +150,7 @@
     padding: 0.8rem 0.6rem;
     text-transform: capitalize;
     font-size: 1rem;
-    color: $themeFontColor;
+    color: #1a1a1a;
 }
 
 .navbar .navbar-nav > li > a.active,
@@ -159,12 +159,12 @@
 .light_skin.transparent_header.nav-fixed .navbar .navbar-nav > li:hover > a,
 .transparent_header.nav-fixed .light_skin .navbar .navbar-nav > li > a.active,
 .transparent_header.nav-fixed .light_skin .navbar .navbar-nav > li:hover > a {
-    color: $themeFontColor;
+    color: #030202;
 }
 
 .light_skin .navbar .navbar-nav .dropdown-item,
 .light_skin .navbar .navbar-nav .dropdown-header {
-    color: $themeFontColor;
+  color: #1a1a1a;
 }
 
 .light_skin .item_remove {
@@ -1704,24 +1704,24 @@ input.text {
     position: relative;
 }
 
-.categories_btn i {
-    font-size: 26px;
-    vertical-align: middle;
-    margin-right: 10px;
-    color: $themeFontColor;
-}
-
 .categories_menu i {
     margin-right: 10px;
 }
 
 .categories_btn {
     border: none;
-    color: $themeFontColor;
+    color: #1a1a1a;
     text-align: left;
     background: transparent;
     padding: 0.8rem 0;
     font-weight: 600;
+}
+
+.categories_btn i {
+    font-size: 26px;
+    vertical-align: middle;
+    margin-right: 10px;
+    color: #1a1a1a;
 }
 
 #navCatContent li {
@@ -1883,11 +1883,11 @@ input.text {
 .contact_phone i {
     font-size: 30px;
     margin-right: 10px;
-    color: #fff;
+    color: #1a1a1a;
 }
 
 .contact_phone span {
-    color: #fff;
+    color: #1a1a1a;
 }
 
 .banner_content_inner {

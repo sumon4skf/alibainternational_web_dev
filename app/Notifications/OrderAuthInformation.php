@@ -54,7 +54,7 @@ class OrderAuthInformation extends Notification
     $dueForProducts = $order->dueForProducts ?? null;
     $userName = User::find($order->user_id);
     return (new MailMessage)->markdown('notification/OrderAuthInfo', [
-      'full_name' => $userName->full_name,
+      'full_name' => $userName->name,
       'transaction_id' => $transaction_id,
       'amount' => $amount,
       'needToPay' => $needToPay,

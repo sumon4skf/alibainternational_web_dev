@@ -237,7 +237,7 @@ class AjaxController extends Controller
     $couponCode = $summary['couponCode'] ?? null;
     $couponDiscount = $summary['couponDiscount'] ?? null;
     $data = [
-      'name' => $user->full_name,
+      'name' => $user->name,
       'email' => $user->email,
       'phone' => $user->phone ?? '',
       'amount' => $summary['productTotal'],

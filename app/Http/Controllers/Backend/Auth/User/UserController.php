@@ -161,7 +161,7 @@ class UserController extends Controller
     $users = User::whereNull('api_token')->get();
     $assignable = [];
     foreach ($users as $user) {
-      $assignable[$user->id] = $user->full_name . ' | ' . $user->email;
+      $assignable[$user->id] = $user->name . ' | ' . $user->email;
     }
 
     return view('backend.auth.apiUser.create', compact('assignable'));
@@ -188,7 +188,7 @@ class UserController extends Controller
     $users = User::whereNotNull('api_token')->get();
     $assignable = [];
     foreach ($users as $user) {
-      $assignable[$user->id] = $user->full_name . ' | ' . $user->email;
+      $assignable[$user->id] = $user->name . ' | ' . $user->email;
     }
     return view('backend.auth.apiUser.edit', compact('user', 'assignable'));
   }
@@ -212,6 +212,4 @@ class UserController extends Controller
     $logs = ApiCallLog::with('user')->where('user_id', $user->id)->paginate();
     return view('backend.auth.apiUser.log', compact('user', 'logs'));
   }
-
-
 }

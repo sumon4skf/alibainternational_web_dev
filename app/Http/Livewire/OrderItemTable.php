@@ -81,7 +81,7 @@ class OrderItemTable extends TableComponent
         ->searchable()
         ->sortable()
         ->format(function (OrderItem $model) {
-          return $model->user->name ? $model->user->full_name : 'N/A';
+          return $model->user->name ? $model->user->name : 'N/A';
         }),
       Column::make('Tracking No.', 'tracking_number')
         ->searchable()

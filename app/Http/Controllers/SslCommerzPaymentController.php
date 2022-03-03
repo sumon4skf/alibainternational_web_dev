@@ -97,20 +97,20 @@ class SslCommerzPaymentController extends Controller
     if (isset($customer->email)) {
       $email = $customer->email;
     }
-    if (isset($customer->full_name)) {
-      $fullName = $customer->full_name ? $customer->full_name : null;
+    if (isset($customer->name)) {
+      $fullName = $customer->name ? $customer->name : null;
     }
 
     if (is_array($shipping)) {
       $fullAddress = $shipping['address'] ?? 'Shipping Address Not Found';
       $phone = $shipping['phone_one'] ?? null;
       $name = $shipping['name'] ?? null;
-      $fullName = $customer->full_name ? $customer->full_name : $name;
+      $fullName = $customer->name ? $customer->name : $name;
     } else {
       $fullAddress = isset($shipping->address) ? $shipping->address : 'Shipping Address Not Found';
       $phone = $shipping->phone_one ?? null;
       $name = $shipping->name ?? null;
-      $fullName = $customer->full_name ? $customer->full_name : $name;
+      $fullName = $customer->name ? $customer->name : $name;
     }
 
     if (!$phone) {
@@ -322,20 +322,20 @@ class SslCommerzPaymentController extends Controller
     if (isset($customer->email)) {
       $email = $customer->email;
     }
-    if (isset($customer->full_name)) {
-      $fullName = $customer->full_name ? $customer->full_name : null;
+    if (isset($customer->name)) {
+      $fullName = $customer->name ? $customer->name : null;
     }
 
     if (is_array($shipping)) {
       $fullAddress = $shipping['address'] ?? 'Shipping Address Not Found';
       $phone = $shipping['phone_one'] ?? null;
       $name = $shipping['name'] ?? null;
-      $fullName = $customer->full_name ? $customer->full_name : $name;
+      $fullName = $customer->name ? $customer->name : $name;
     } else {
       $fullAddress = isset($shipping->address) ? $shipping->address : 'Shipping Address Not Found';
       $phone = $shipping->phone_one ?? null;
       $name = $shipping->name ?? null;
-      $fullName = $customer->full_name ? $customer->full_name : $name;
+      $fullName = $customer->name ? $customer->name : $name;
     }
 
     if (!$phone) {
