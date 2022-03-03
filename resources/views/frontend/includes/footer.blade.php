@@ -12,15 +12,15 @@
             </div>
             <ul class="contact_info">
               <li>
-                <i class="ti-location-pin"></i>
+                <i class="icon-location"></i>
                 {!! get_setting('office_address') !!}
               </li>
               <li>
-                <i class="ti-email"></i>
+                <i class="icon-mail"></i>
                 <a href="mailto:{{get_setting('office_email')}}">{{get_setting('office_email')}}</a>
               </li>
               <li>
-                <i class="ti-mobile"></i>
+                <i class="icon-mobile"></i>
                 <p>
                   <a href="tel:{{get_setting('office_phone')}}" style="color: inherit;font-size: 14px;">
                     {{get_setting('office_phone')}}
@@ -35,21 +35,21 @@
               <li>
                 <a href="{{get_setting('facebook')}}" class="sc_facebook" data-toggle="tooltip" title="Facebook"
                   target="_blank">
-                  <i class="fab fa-facebook-f"></i>
+                  <i class="icon-facebook"></i>
                 </a>
               </li>
               @endif
               @if (get_setting('instagram'))
               <li>
                 <a href="{{get_setting('instagram')}}" class="sc_instagram" data-toggle="tooltip" title="Instagram">
-                  <i class="fab fa-instagram"></i>
+                  <i class="icon-instagram-1"></i>
                 </a>
               </li>
               @endif
               @if (get_setting('youtube'))
               <li>
                 <a href="{{get_setting('youtube')}}" class="sc_youtube" data-toggle="tooltip" title="Youtube">
-                  <i class="fab fa-youtube"></i>
+                  <i class="icon-youtube-play"></i>
                 </a>
               </li>
               @endif
@@ -144,7 +144,7 @@
 </footer> <!-- END FOOTER -->
 
 
-{{-- <a href="#" class="scrollup" style="display: none;"><i class="ion-ios-arrow-up"></i></a> --}}
+{{-- <a href="#" class="scrollup" style="display: none;"><i class=" icon-up"></i></a> --}}
 
 <!--
   Developed By Sumon Ahmed

@@ -1074,8 +1074,8 @@
             text-align: center;
             padding: 0;
             .nav-link {
-                text-align: center;
-                padding: 10px 15px;
+              text-align: center;
+              padding: 6px 0px;
                 i {
                     font-size: 30px;
                     color: $themeColor;
@@ -1089,11 +1089,10 @@
             }
 
             .mobile_home_icon {
-                position: absolute;
-                top: -20px;
-                left: auto;
-                right: auto;
-                padding: 8px;
+                i {
+                    font-size: 44px;
+                    color:rgb(0, 128, 0);
+                }
                 img {
                     width: 70px !important;
                     border-radius: 50%;

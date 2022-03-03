@@ -14,10 +14,10 @@
     <div class="input-group-append search_group_button">
       <button type="button" class="btn pictureSearchBtn" data-toggle="tooltip" title="@lang('Picture search')"
         style="border-right: 2px solid rgba(255, 255, 255, 0.72);">
-        <i class="fas fa-camera"></i>
+        <i class="icon-camera-outline"></i>
       </button>
       <button type="submit" class="btn btn-default" data-toggle="tooltip" title="@lang('Plain text search')">
-        <i class="fas fa-search"></i>
+        <i class="icon-search"></i>
       </button>
     </div>
   </div> <!-- input-group -->

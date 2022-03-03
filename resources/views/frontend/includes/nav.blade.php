@@ -33,14 +33,14 @@
         <ul class="navbar-nav attr-nav align-items-center">
           <li>
             <a href="{{route('frontend.user.wishlist.index')}}" class="nav-link">
-              <i class="ti-heart"></i>
+              <i class="icon-heart"></i>
               <span class="wishlist_count wishlistCount">0</span>
             </a>
           </li>
 
           <li class="cart_trigger">
             <a href="{{route('frontend.shoppingCart')}}" class="nav-link">
-              <i class="linearicons-bag2"></i>
+              <i class="icon-shopping-bag"></i>
               <span class="cart_count">0</span>
             </a>
           </li>
@@ -48,7 +48,7 @@
           @guest
           <li class="d-none d-lg-inline">
             <a href="{{route('frontend.auth.login')}}" class="nav-link">
-              <i class="ti-user"></i> <span>{{__('Login')}}</span>
+              <i class="icon-user-male"></i> <span>{{__('Login')}}</span>
             </a>
           </li>
           @else
@@ -58,7 +58,7 @@
             @endphp
             <a class="dropdown-toggle nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true"
               aria-expanded="false">
-              <i class="ti-user"></i>
+              <i class=" icon-user-male"></i>
               <span class="ml-1 d-none d-md-inline">{{$logged_in_user->name}}</span>
             </a>
             <div class="dropdown-menu dropdown-menu-right">
@@ -98,7 +98,7 @@
           <div class="categories_wrap">
             <button type="button" data-toggle="collapse" data-target="#navCatContent" aria-expanded="false"
               class="categories_btn  d-none d-md-inline categories_btn categories_menu collapsed">
-              <i class="linearicons-menu"></i><span>All Categories </span>
+              <i class="icon-menu"></i><span>All Categories </span>
             </button>
             @include('frontend.includes.navCatContent')
           </div>
@@ -122,7 +122,7 @@
               </ul>
             </div>
             <div class="contact_phone contact_support">
-              <i class="fas fa-language"></i>
+              <i class="icon-language"></i>
               <span>English</span>
             </div>
           </nav>

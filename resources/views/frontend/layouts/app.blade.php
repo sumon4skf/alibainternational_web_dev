@@ -26,8 +26,7 @@
 
   @yield('meta')
 
-
-  <link rel="stylesheet" href="{{asset('css/icons.css')}}">
+  <link rel="stylesheet" href="{{asset('assets/plugins/fontello/css/fontello.css')}}">
 
   @stack('before-styles')
 
@@ -79,7 +78,7 @@
     <ul class="list-group">
       <li class="list-group-item">
         <a class="mobile" href="https://m.me/232" target="_blank">
-          <span class="desktop_stick_nav_icon"><i class="fas fa-comments"></i></span>
+          <span class="desktop_stick_nav_icon"><i class="icon-chat-empty"></i></span>
           <span class="desktop_stick_nav_text">Chat Us</span>
         </a>
       </li>
