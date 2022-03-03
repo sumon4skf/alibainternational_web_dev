@@ -64,7 +64,9 @@ class HomeController extends Controller
     }
     $taxonomies = get_all_taxonomies();
     $category = $taxonomies->where('slug', trim($slug))->first();
-
+    if (!$category) {
+      abort(404);
+    }
     if (!$category->children_count) {
       $subcategory = null;
       $search = $category->keyword ? $category->keyword : $category->name;

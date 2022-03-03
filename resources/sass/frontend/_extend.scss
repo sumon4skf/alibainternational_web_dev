@@ -52,6 +52,12 @@
     box-shadow: 0 0 0 1px rgba(63, 63, 68, 0.1);
     border-radius: 6px;
     border: none;
+
+    .card-body {
+        ul {
+            margin-left: 20px;
+        }
+    }
 }
 
 .product_description {

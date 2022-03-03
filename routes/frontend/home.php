@@ -30,7 +30,7 @@ Route::get('contact-us', [ContactController::class, 'index'])->name('contact');
 Route::post('contact/send', [ContactController::class, 'send'])->name('contact.send');
 
 Route::get('about-us', [HomeController::class, 'aboutUs'])->name('aboutUs');
-Route::get('fags', [HomeController::class, 'faqs'])->name('faqs');
+Route::get('faqs', [HomeController::class, 'faqs'])->name('faqs');
 
 Route::get('shop-now', [HomeController::class, 'shopNow'])->name('shopNow');
 // Route::get('compare', [HomeController::class, 'compare'])->name('compare');

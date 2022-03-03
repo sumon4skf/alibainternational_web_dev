@@ -4,43 +4,27 @@
 
 @section('content')
 
-  <!-- START SECTION BREADCRUMB -->
-  <div class="breadcrumb_section bg_gray page-title-mini">
-    <div class="container">
-      <div class="row align-items-center">
-        <div class="col-md-6">
-          <div class="page-title">
-            <h1>{{$about->post_title}}</h1>
-          </div>
-        </div>
-        <div class="col-md-6">
-          <ol class="breadcrumb justify-content-md-end">
-            <li class="breadcrumb-item"><a href="{{route('frontend.index')}}">Home</a></li>
-            <li class="breadcrumb-item active">About</li>
-          </ol>
-        </div>
-      </div>
-    </div><!-- END CONTAINER-->
+<!--  BREADCRUMB -->
+<div class="breadcrumb_section bg_gray page-title-mini">
+  <div class="container">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="{{route('frontend.index')}}">Home</a></li>
+      <li class="breadcrumb-item active">{{$about->post_title}}</li>
+    </ol>
   </div>
-  <!-- END SECTION BREADCRUMB -->
+</div>
+<!--  BREADCRUMB -->
 
-  <!-- START MAIN CONTENT -->
-  <div class="main_content">
-
-    <!-- STAT SECTION ABOUT -->
-    <div class="section">
-      <div class="container">
-        <div class="row align-items-center">
-          <div class="col-lg-12">
-            {!! $about->post_content !!}
-          </div>
-        </div>
+<div class="section pt-4">
+  <div class="container">
+    <div class="card">
+      <div class="card-body">
+        <h2 class="mb-4">{{$about->post_title}}</h2>
+        {!! $about->post_content !!}
       </div>
     </div>
-    <!-- END SECTION ABOUT -->
-
   </div>
-  <!-- END MAIN CONTENT -->
+</div>
 
 
 @endsection

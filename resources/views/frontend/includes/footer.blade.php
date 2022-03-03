@@ -81,7 +81,7 @@
               <li><a href="{{url('delivery-charges')}}">Delivery Charges</a></li>
               <li><a href="{{url('minimum-order-quantity')}}">Minimum Order Quantity</a></li>
               <li><a href="{{url('prohibited-items')}}">Prohibited Items</a></li>
-              <li><a href="{{url('fags')}}">FAQ</a></li>
+              <li><a href="{{url('faqs')}}">FAQ</a></li>
             </ul>
           </div>
         </div>
@@ -89,10 +89,15 @@
           <div class="widget">
             <h6 class="widget_title">My Account</h6>
             <ul class="widget_links">
+              @guest
               <li><a href="{{url('login')}}">Sign In</a></li>
-              <li><a href="{{url('shopping-cart')}}">View Cart</a></li>
+              @else
+              <li><a href="{{url('account')}}">Account</a></li>
+              <li><a href="{{url('dashboard')}}">Dashboard</a></li>
+              @endif
+              <li><a href="{{url('checkout')}}">View Cart</a></li>
               <li><a href="{{url('wishlist')}}">My Wishlist</a></li>
-              <li><a href="{{url('fags')}}">Help</a></li>
+              <li><a href="{{url('faqs')}}">Help</a></li>
             </ul>
           </div>
         </div>
