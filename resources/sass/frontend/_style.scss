@@ -1,30 +1,17 @@
-@import './includes/general'; // 01.GENERAL STYLE (body, link color, section-title, buttons, overlay, section-padding etc...)
-@import './includes/header'; // 02.START HEADER STYLE
-@import './includes/banner-slider'; // 03.START BANNER,SLIDER STYLE
-@import './includes/shop-browser'; // 04.START SHOP BANNER STYLE
-@import './includes/categories'; // 05.START CATEGORIES STYLE
-@import './includes/extend-categories-styles'; // 05.START CATEGORIES STYLE
-// @import './includes/icon-box'; // 06.START ICON BOX STYLE
-// @import './includes/portfolio'; // 07.START PORTFOLIO STYLE
-// @import './includes/testimonial'; // 08.START TESTIMONIAL STYLE
-// @import './includes/blog'; // 09.START BLOG STYLE
-// @import './includes/newsletter'; // 10.START NEWLETTER STYLE
-@import './includes/footer'; // 11.START FOOTER STYLE
-// @import './includes/map'; // 12.START MAP STYLE
-// @import './includes/team'; // 13.START TEAM STYLE
-// @import './includes/client'; // 14.START CLIENT LOGO STYLE
-@import './includes/breadcrumb'; // 15.START BREADCRUMB STYLE
-@import './includes/contact'; // 16.START CONTACT STYLE
-@import './includes/divider'; // 17.START DIVIDER STYLE
-@import './includes/accordion'; // 18.START ACCORDION STYLE
+@import "./includes/general"; // 01.GENERAL STYLE (body, link color, section-title, buttons, overlay, section-padding etc...)
+@import "./includes/header"; // 02.START HEADER STYLE
+@import "./includes/banner-slider"; // 03.START BANNER,SLIDER STYLE
+@import "./includes/shop-browser"; // 04.START SHOP BANNER STYLE
+@import "./includes/categories"; // 05.START CATEGORIES STYLE
+@import "./includes/extend-categories-styles"; // 05.START CATEGORIES STYLE
+@import "./includes/footer"; // 11.START FOOTER STYLE
+@import "./includes/breadcrumb"; // 15.START BREADCRUMB STYLE
+@import "./includes/contact"; // 16.START CONTACT STYLE
+@import "./includes/divider"; // 17.START DIVIDER STYLE
+@import "./includes/accordion"; // 18.START ACCORDION STYLE
 // @import './includes/error-404'; // 19.START 404 ERROR STYLE
-// @import './includes/registration'; // 20.START LOGIN REGISTER STYLE
-// @import './includes/comming-soon'; // 21.START COMMING SOON STYLE
-// @import './includes/end-deal'; // 22.START DEAL OF THE DAY STYLE
-@import './includes/shop-design'; // 23.START SHOP DESIGN
-@import './includes/element'; // 24.START ELEMENT DESIGN
-
-
+@import "./includes/shop-design"; // 23.START SHOP DESIGN
+@import "./includes/element"; // 24.START ELEMENT DESIGN
 
 /*Demo Switcher Css*/
 span.statcounter {
@@ -38,7 +25,7 @@ span.statcounter {
     top: 20%;
 }
 
-.demo>ul>li>a {
+.demo > ul > li > a {
     font-size: 22px;
     text-align: center;
     display: block;
@@ -49,7 +36,7 @@ span.statcounter {
     transition: all 0.5s ease-in-out;
 }
 
-.demo>ul>li>a.menu_icon {
+.demo > ul > li > a.menu_icon {
     line-height: 44px;
     font-size: 25px;
 }
@@ -71,7 +58,6 @@ span.statcounter {
     background-color: #fff;
     position: fixed;
     right: -360px;
-    ;
     max-width: 360px;
     padding: 5px;
     overflow: auto;
@@ -135,7 +121,7 @@ body.switch-open {
     position: relative;
 }
 
-.demo>ul>li>a.demo_icon.switch-active {
+.demo > ul > li > a.demo_icon.switch-active {
     position: relative;
     transition: all 0.5s ease-in-out;
     -moz-transform: translateX(-360px);
@@ -143,13 +129,13 @@ body.switch-open {
     transform: translateX(-360px);
 }
 
-.demo>ul>li>a.demo_icon.switch-active i::before {
+.demo > ul > li > a.demo_icon.switch-active i::before {
     content: "\f129";
     font-size: 20px;
     vertical-align: middle;
 }
 
-.demo>ul>li>a.menu_icon.switch-active {
+.demo > ul > li > a.menu_icon.switch-active {
     line-height: 36px;
 }
 
@@ -170,8 +156,7 @@ body.switch-open {
     padding: 10px;
     position: absolute;
     top: 0;
-    transition: all .5s ease-in-out;
-    ;
+    transition: all 0.5s ease-in-out;
     width: 200px;
     z-index: 999;
 }
@@ -213,19 +198,19 @@ body.switch-open {
 }
 
 .orange {
-    background-color: #FF9F54;
+    background-color: #ff9f54;
 }
 
 .red {
-    background-color: #F0222C;
+    background-color: #f0222c;
 }
 
 .yellow {
-    background-color: #FFBB00;
+    background-color: #ffbb00;
 }
 
 .pink {
-    background-color: #E53153;
+    background-color: #e53153;
 }
 
 .demo_list li a span {
@@ -254,27 +239,26 @@ body.switch-open {
         max-width: 270px;
     }
 
-    .demo>ul>li>a.demo_icon.switch-active {
+    .demo > ul > li > a.demo_icon.switch-active {
         -moz-transform: translateX(-270px);
         -webkit-transform: translateX(-270px);
         transform: translateX(-270px);
     }
 }
 
-
-input[type=number] {
+input[type="number"] {
     /*for absolutely positioning spinners*/
     position: relative;
     padding: 5px;
     padding-right: 25px;
 }
 
-input[type=number]::-webkit-inner-spin-button,
-input[type=number]::-webkit-outer-spin-button {
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
     opacity: 1;
 }
 
-input[type=number]::-webkit-outer-spin-button {
+input[type="number"]::-webkit-outer-spin-button {
     -webkit-appearance: inner-spin-button !important;
     width: 25px;
     position: absolute;
@@ -284,7 +268,7 @@ input[type=number]::-webkit-outer-spin-button {
     height: 100%;
 }
 
-input[type=number]::-webkit-inner-spin-button {
+input[type="number"]::-webkit-inner-spin-button {
     -webkit-appearance: inner-spin-button !important;
     width: 25px;
     position: absolute;
@@ -292,7 +276,6 @@ input[type=number]::-webkit-inner-spin-button {
     right: 0;
     height: 100%;
 }
-
 
 .payment_label {
     .active {

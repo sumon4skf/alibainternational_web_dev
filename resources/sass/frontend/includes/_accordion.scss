@@ -41,8 +41,8 @@
 }
 
 .accordion_style1 .card-header a::after {
-    content: "\f068";
-    font-family: "Font Awesome 5 Free", serif;
+    content: "\f004";
+    font-family: "fontello", serif;
     font-weight: 900;
     font-size: 16px;
     position: absolute;
@@ -51,7 +51,7 @@
 }
 
 .accordion_style1 .card-header a[aria-expanded="false"]::after {
-    content: "\f067";
+    content: "\f006";
 }
 
 .accordion_style2 .card-header {
