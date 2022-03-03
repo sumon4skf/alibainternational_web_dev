@@ -18,104 +18,100 @@ use Spatie\Permission\Traits\HasRoles;
  */
 abstract class BaseUser extends Authenticatable implements Recordable
 {
-    use HasRoles,
-        Eventually,
-        Impersonate,
-        Notifiable,
-        RecordableTrait,
-        SendUserPasswordReset,
-        SoftDeletes,
-        Uuid;
+  use HasRoles,
+    Eventually,
+    Impersonate,
+    Notifiable,
+    RecordableTrait,
+    SendUserPasswordReset,
+    SoftDeletes,
+    Uuid;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
-    protected $fillable = [
-        'name',
-        'first_name',
-        'last_name',
-        'email',
-        'phone',
-        'otp_code',
-        'shipping_id',
-        'billing_id',
-        'avatar_type',
-        'avatar_location',
-        'password',
-        'password_changed_at',
-        'active',
-        'confirmation_code',
-        'confirmed',
-        'timezone',
-        'last_login_at',
-        'last_login_ip',
-        'to_be_logged_out',
-    ];
+  /**
+   * The attributes that are mass assignable.
+   *
+   * @var array
+   */
+  protected $fillable = [
+    'name',
+    'email',
+    'phone',
+    'otp_code',
+    'shipping_id',
+    'billing_id',
+    'avatar_type',
+    'avatar_location',
+    'password',
+    'password_changed_at',
+    'active',
+    'confirmation_code',
+    'confirmed',
+    'timezone',
+    'last_login_at',
+    'last_login_ip',
+    'to_be_logged_out',
+  ];
 
-    /**
-     * The dynamic attributes from mutators that should be returned with the user object.
-     * @var array
-     */
-    protected $appends = [
-        'full_name',
-    ];
+  /**
+   * The dynamic attributes from mutators that should be returned with the user object.
+   * @var array
+   */
+  protected $appends = [];
 
-    /**
-     * The attributes that should be cast to native types.
-     *
-     * @var array
-     */
-    protected $casts = [
-        'active' => 'boolean',
-        'confirmed' => 'boolean',
-        'to_be_logged_out' => 'boolean',
-    ];
+  /**
+   * The attributes that should be cast to native types.
+   *
+   * @var array
+   */
+  protected $casts = [
+    'active' => 'boolean',
+    'confirmed' => 'boolean',
+    'to_be_logged_out' => 'boolean',
+  ];
 
-    /**
-     * @var array
-     */
-    protected $dates = [
-        'last_login_at',
-        'password_changed_at',
-    ];
+  /**
+   * @var array
+   */
+  protected $dates = [
+    'last_login_at',
+    'password_changed_at',
+  ];
 
-    /**
-     * The attributes that should be hidden for arrays.
-     *
-     * @var array
-     */
-    protected $hidden = [
-        'password',
-        'remember_token',
-    ];
+  /**
+   * The attributes that should be hidden for arrays.
+   *
+   * @var array
+   */
+  protected $hidden = [
+    'password',
+    'remember_token',
+  ];
 
-    /**
-     * Return true or false if the user can impersonate an other user.
-     *
-     * @param void
-     * @return  bool
-     */
-    public function canImpersonate()
-    {
-        return $this->isAdmin();
-    }
+  /**
+   * Return true or false if the user can impersonate an other user.
+   *
+   * @param void
+   * @return  bool
+   */
+  public function canImpersonate()
+  {
+    return $this->isAdmin();
+  }
 
-    /**
-     * Return true or false if the user can be impersonate.
-     *
-     * @param void
-     * @return  bool
-     */
-    public function canBeImpersonated()
-    {
-        return $this->id !== 1;
-    }
+  /**
+   * Return true or false if the user can be impersonate.
+   *
+   * @param void
+   * @return  bool
+   */
+  public function canBeImpersonated()
+  {
+    return $this->id !== 1;
+  }
 
-    public function routeNotificationForNexmo($notification)
-    {
-        // return $this->phone_number;
-        return '8801734905649';
-    }
+  public function routeNotificationForNexmo($notification)
+  {
+    // return $this->phone_number;
+    return '8801734905649';
+  }
 }
