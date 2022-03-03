@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Content\Setting;
+use App\Models\Content\Taxonomy;
 use Intervention\Image\Facades\Image;
 
 if (!function_exists('app_name')) {
@@ -85,7 +86,15 @@ if (!function_exists('get_all_taxonomies')) {
    */
   function get_all_taxonomies()
   {
-    return Cache::get('taxonomies', collect([]));
+    $taxonomies = Cache::get('taxonomies');
+    if ($taxonomies) {
+      return $taxonomies;
+    }
+    $taxonomies = Taxonomy::with(['parent', 'children' => function ($query) {
+      $query->with('children');
+    }])->withCount('children')->get();
+    Cache::put('taxonomies', $taxonomies, now()->addDays(90));
+    return $taxonomies;
   }
 }
 
@@ -97,17 +106,17 @@ if (!function_exists('general_settings')) {
    */
   function general_settings($json = false)
   {
-    $setting = Cache::get('settings', null);
-    if (!$setting) {
+    $settings = Cache::get('settings', null);
+    if (!$settings) {
       $settings =  Setting::whereNotNull('active')->get();
       Cache::put('settings', $settings, now()->addDays(180));
     }
 
-    if ($json) {
-      return json_encode($setting->pluck('value', 'key')->toArray());
+    if ($json && $settings) {
+      return json_encode($settings->pluck('value', 'key')->toArray());
     }
 
-    return $setting;
+    return collect([]);
   }
 }
 
