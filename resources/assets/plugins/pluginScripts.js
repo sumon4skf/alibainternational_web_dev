@@ -388,8 +388,8 @@
         nav: $carousel.data("nav"),
         rewind: $carousel.data("rewind"),
         navText: [
-          '<i class="ion-ios-arrow-left"></i>',
-          '<i class="ion-ios-arrow-right"></i>'
+          '<i class="icon-left-open"></i>',
+          '<i class="icon-right-open"></i>'
         ],
         autoplay: $carousel.data("autoplay"),
         animateIn: $carousel.data("animate-in"),

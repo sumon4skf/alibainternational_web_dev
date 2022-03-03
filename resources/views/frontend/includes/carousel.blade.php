@@ -19,9 +19,9 @@
 
           </div>
           <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev"><i
-              class="ion-chevron-left"></i></a>
+              class="icon-left-open"></i></a>
           <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next"><i
-              class="ion-chevron-right"></i></a>
+              class="icon-right-open"></i></a>
         </div> <!-- carouselExampleControls -->
 
       </div> <!--  col-lg-9 -->

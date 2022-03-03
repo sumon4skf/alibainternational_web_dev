@@ -66,10 +66,10 @@ $vendor_id = getArrayKeyData($item, 'VendorId', '');
                     <div class="product_img_box">
                       <img id="product_img" src='{{$pictureUrl}}' data-zoom-image="{{$pictureUrl}}" />
                       <a href="#" class="product_img_zoom" title="Zoom">
-                        <span class="linearicons-zoom-in"></span>
+                        <i class="icon-zoom-in"></i>
                       </a>
                     </div>
-                    <div id="pr_item_gallery" class="product_gallery_item slick_slider" data-slides-to-show="4"
+                    <div id="pr_item_gallery" class="product_gallery_item slick_slider" data-slides-to-show="5"
                       data-slides-to-scroll="1" data-infinite="false">
                       @endif
                       @endif
@@ -114,8 +114,7 @@ $vendor_id = getArrayKeyData($item, 'VendorId', '');
 
                       <div class="pr_desc table-responsive">
 
-                        <table class="table table-bordered text-center" id="fromChinatoBd"
-                          style="table-layout: fixed;">
+                        <table class="table table-bordered text-center" id="fromChinatoBd" style="table-layout: fixed;">
                           <tbody>
                             <tr class="names" style="background-color: #ec8923;color:#fff;">
                               <td>Quantity</td>
@@ -132,7 +131,7 @@ $vendor_id = getArrayKeyData($item, 'VendorId', '');
                                 <button type="button" class="btn m-0 p-0 info_text_color" data-trigger="hover"
                                   data-container="body" data-toggle="popover" data-placement="top"
                                   data-content="{{get_setting('approx_weight_message')}}">
-                                  &nbsp; <i class="fas fa-info-circle"></i>
+                                  &nbsp; <i class="icon-info-circled"></i>
                                 </button>
                               </td>
                             </tr>
@@ -151,17 +150,20 @@ $vendor_id = getArrayKeyData($item, 'VendorId', '');
                             <div class="form-group">
                               <label for="shipping_rate" class="d-none"></label>
                               <select class="form-control" name="shippingMethod" id="shipping_rate">
-                                <option value="ship_by_air" data-charge="sadf">Shipping Method: By Air (15-25) Days</label></option>
-                                <option value="ship_by_sea" data-charge="200">Shipping Method: By Sea (45-90) Days</option>
+                                <option value="ship_by_air" data-charge="sadf">Shipping Method: By Air (15-25)
+                                  Days</label></option>
+                                <option value="ship_by_sea" data-charge="200">Shipping Method: By Sea (45-90) Days
+                                </option>
                               </select>
                             </div>
                           </li>
                           <li>
                             Shipping Charge: <a href="#">{{currency_icon()}}<span id="airShippingCharge">
-                              {{maxAirShippingCharge()}}
-                            </span> Per KG</a>
+                                {{maxAirShippingCharge()}}
+                              </span> Per KG</a>
                           </li>
-                          {{-- <li>Total Price: <a href="#">{{currency_icon()}} <span id="totalPrice">0.00</span></a></li> --}}
+                          {{-- <li>Total Price: <a href="#">{{currency_icon()}} <span id="totalPrice">0.00</span></a>
+                          </li> --}}
                           <li><span class="text-danger">{{get_setting('china_to_bd_bottom_message')}}</span></li>
                         </ul>
                       </div>
@@ -170,13 +172,12 @@ $vendor_id = getArrayKeyData($item, 'VendorId', '');
                     <div class="cart_extra">
                       <div class="cart_btn d-none d-md-inline-block">
                         <a class="add_wishlist d-none d-lg-inline-block btn @if($exit_wishList) disabled @endif"
-                          href="{{route('frontend.user.wishlist.store')}}"
-                          data-auth="{{ auth()->check() }}"
+                          href="{{route('frontend.user.wishlist.store')}}" data-auth="{{ auth()->check() }}"
                           data-id="{{$item['ItemId'] ?? $item['Id'] ?? ''}}">
-                          <i class="far fa-heart"></i> Save
+                          <i class="icon-heart"></i> Save
                         </a>
                         <button class="btn btn-addToCart d-none d-md-inline-block" type="button">
-                          <i class="icon-basket-loaded"></i> @lang('Add to cart')
+                          <i class="icon-cart"></i> @lang('Add to cart')
                         </button>
                         <a class="btn btn-product btnBuyNow" href="{{route('frontend.shoppingCart')}}">
                           @lang('Buy Now')
@@ -197,20 +198,18 @@ $vendor_id = getArrayKeyData($item, 'VendorId', '');
                         <a class="btn btn-primary"
                           href="https://www.facebook.com/share.php?u={{url()->current()}}&title={{strip_tags($Title)}}"
                           target="blank" title="share on facebook">
-                          <i class="fab fa-facebook-square"></i>
+                          <i class="icon-facebook"></i>
                         </a>
                         <a class="btn btn-primary" href="fb-messenger://share/?link={{url()->current()}}"
                           data-action="share/messenger/share" target="blank" title="share to messenger">
-                          <i class="fab fa-facebook-messenger"></i>
+                          <i class="icon-comment"></i>
                         </a>
                         <a class="btn btn-success" href="whatsapp://send?text={{url()->current()}}"
                           data-action="share/whatsapp/share" target="blank" title="share to whatsapp">
-                          <i class="fab fa-whatsapp"></i>
+                          <i class=" icon-whatsapp"></i>
                         </a>
                       </div>
                     </div>
-
-
 
                   </div>
                 </div>

@@ -667,7 +667,13 @@
 .product_gallery_item a {
     border: 1px solid #ddd;
     display: block;
-    padding: 5px;
+    padding: 0;
+    text-align: center;
+    border-radius: 4px;
+}
+
+.product_gallery_item img {
+    margin: 0 auto;
 }
 
 .product-meta li {
@@ -766,6 +772,8 @@
     margin-bottom: 10px;
     overflow: hidden;
     position: relative;
+    text-align: center;
+    border-radius: 4px;
 }
 
 .product_img_zoom {

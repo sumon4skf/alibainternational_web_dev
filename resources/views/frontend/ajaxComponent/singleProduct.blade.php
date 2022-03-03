@@ -7,17 +7,16 @@ $currency = currency_icon();
 @php
 $Id = getArrayKeyData($item, 'Id', '#');
 $Title = getArrayKeyData($item, 'Title');
-$Pictures = getArrayKeyData($item, 'Pictures', []);
 $FeaturedValues = getArrayKeyData($item, 'FeaturedValues', []);
-$thumb = getArrayKeyData($item, 'MainPictureUrl', null);
 $Price = getArrayKeyData($item, 'Price', []);
 $OriginalPrice = getArrayKeyData($Price, 'OriginalPrice', 0);
+$Pictures = getArrayKeyData($item, 'Pictures', []);
+$thumb = getArrayKeyData($item, 'MainPictureUrl', null);
 if(!empty($Pictures)){
-  $pic = collect($Pictures)->where('IsMain', true)->first();
-  if(array_key_exists('Medium', $pic)){
-    $thumb = $pic['Medium']['Url'] ?? $thumb;
-  }
-}  
+$Pictures = $Pictures[0] ?? [];
+$Small = getArrayKeyData($Pictures, 'Small', null);
+$thumb = getArrayKeyData($Small, 'Url', $thumb);
+}
 @endphp
 
 <div class="px-2 mb-2 item">
@@ -32,7 +31,8 @@ if(!empty($Pictures)){
         @endif
         <div class="product_price">
           <span class="price">{{$currency}} {{convertedPrice($OriginalPrice)}}</span>
-          <small class="float-right py-1 text-muted">SOLD: {{GetFeaturedValues($FeaturedValues, 'TotalSales', 0)}}</small>
+          <small class="float-right py-1 text-muted">SOLD: {{GetFeaturedValues($FeaturedValues, 'TotalSales',
+            0)}}</small>
         </div>
       </div>
     </div>

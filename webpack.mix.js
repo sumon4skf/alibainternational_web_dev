@@ -73,22 +73,6 @@ mix.setPublicPath("public")
 if (mix.inProduction()) {
   mix.setPublicPath("public")
     .setResourceRoot("../")
-    .combine(
-      [
-        "resources/assets/css/icons/fontAwesome/css/all.css",
-        "resources/assets/css/icons/ionicons.min.css",
-        "resources/assets/css/icons/themify-icons.css",
-        "resources/assets/css/icons/linearicons.css",
-        "resources/assets/css/icons/flaticon.css",
-        "resources/assets/css/icons/simple-line-icons.css"
-      ],
-      "public/css/icons.css"
-    )
-    .copyDirectory("resources/assets/css/fonts", "public/fonts/")
-    .copyDirectory(
-      "resources/assets/css/icons/fontAwesome/webfonts",
-      "public/webfonts/"
-    )
     .version();
 } else {
   // Uses inline source-maps on development

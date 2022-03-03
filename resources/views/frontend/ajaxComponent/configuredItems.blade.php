@@ -126,11 +126,11 @@ if (count($ConfiguredItems)) {
 function configure_qty_input($MasterQuantity, $BatchLotQuantity, $item_id, $proceed){
   $qty_box = '<div class="input-group input-group-sm">';
   $qty_box .= '<div class="input-group-prepend">';
-  $qty_box .= '<button type="button" class="btn btn-quantity minus"><i class="fas fa-minus"></i></button>';
+  $qty_box .= '<button type="button" class="btn btn-quantity minus"><i class="fas icon-minus"></i></button>';
   $qty_box .= '</div>';
   $qty_box .= '<input type="text" name="quantity" class="qty form-control text-center" step="' . $BatchLotQuantity . '"  title="Qty" value="0" id="' . $item_id . '"  max="' . $MasterQuantity . '" size="15">';
   $qty_box .= '<div class="input-group-append">';
-  $qty_box .= '<button type="button" class="btn btn-quantity plus"><i class="fas fa-plus"></i></button>';
+  $qty_box .= '<button type="button" class="btn btn-quantity plus"><i class="fas icon-plus"></i></button>';
   $qty_box .= '</div>';
   $qty_box .= '</div>';
   $qty_box .= '<small>' . $MasterQuantity . '</small><br>';

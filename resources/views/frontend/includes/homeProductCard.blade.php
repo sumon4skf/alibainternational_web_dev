@@ -7,8 +7,7 @@
         $Pictures = $Pictures ? collect($Pictures)->where('IsMain', true)->first() : null;
         $thumb = isset($Pictures->Medium) ? $Pictures->Medium->Url : $Product->MainPictureUrl;
         @endphp
-        <img class="b2bLoading product-thumbnail" data-src="{{asset($thumb)}}"
-          src="{{asset($productLoader)}}">
+        <img class="b2bLoading product-thumbnail" data-src="{{asset($thumb)}}" src="{{asset($productLoader)}}">
       </div>
     </a>
     <div class="product_info">
@@ -23,7 +22,8 @@
         $price = $price ? $price->OriginalPrice : 0;
         @endphp
         <span class="price">{{ currency_icon() }} {{convertedPrice($price)}}</span>
-        <small class="float-right py-1 text-muted">SOLD: {{GetFeaturedValues($Product->FeaturedValues, 'TotalSales', 0)}}</small>
+        <small class="float-right py-1 text-muted">SOLD: {{GetFeaturedValues($Product->FeaturedValues, 'TotalSales',
+          0)}}</small>
       </div>
     </div>
   </div>
