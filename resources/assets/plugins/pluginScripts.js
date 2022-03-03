@@ -5,12 +5,7 @@
   "use strict";
 
   /*======= LOADING JS =============*/
-  setTimeout(function () {
-    $(".preloader")
-      .delay(400)
-      .fadeOut(400)
-      .addClass("loaded");
-  }, 500);
+  $(".preloader").fadeOut(300).addClass("loaded");
 
 
   if ($("img.b2bLoading").length) {
