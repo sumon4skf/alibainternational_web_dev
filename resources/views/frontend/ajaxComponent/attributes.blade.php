@@ -1,5 +1,5 @@
 @php
-$Attributes = isset($Attributes) ? collect($Attributes)->where('IsConfigurator', true)->filter(function ($colour){
+$Attributes = isset($Attributes) ? collect($Attributes)->filter(function ($colour){
 return false !== stristr($colour['PropertyName'], 'color') || false !== stristr($colour['PropertyName'], 'colour') ||
 array_key_exists('ImageUrl', $colour);
 //return array_key_exists('ImageUrl', $colour);
@@ -8,14 +8,18 @@ array_key_exists('ImageUrl', $colour);
 @endphp
 
 
-@foreach($Attributes as $Attribute)
+@foreach($Attributes as $key => $Attribute)
 @php
-$PropertyName = $Attribute['PropertyName'];
-$PropertyValue = $Attribute['Value'];
+$PropertyName = getArrayKeyData($Attribute, 'PropertyName');
+$PropertyValue = getArrayKeyData($Attribute, 'Value');
 $filterClass = md5($PropertyName.$PropertyValue);
+$MiniImageUrl = getArrayKeyData($Attribute, 'MiniImageUrl');
+$ImageUrl = getArrayKeyData($Attribute, 'ImageUrl');
+$image_path = $MiniImageUrl ? $MiniImageUrl : $ImageUrl;
+$hasImage = ($MiniImageUrl || $ImageUrl) ? 'hasImage' : '';
 @endphp
 
-@if($loop->first)
+@if(!$key)
 @php
 $newPropertyName = $PropertyName;
 @endphp
@@ -25,7 +29,6 @@ $newPropertyName = $PropertyName;
   </p>
   <p class="product_size_switch">
     @endif
-
     @if($newPropertyName !== $PropertyName)
   </p>
 </div>
@@ -36,13 +39,10 @@ $newPropertyName = $PropertyName;
   <p class="product_size_switch">
     @endif
 
-    <span class="@if($loop->first) active @endif" title="{{$PropertyValue}}" data-filter="{{$filterClass}}"
-      data-color-name="{{$PropertyValue}}"
-      data-fullimageurl="@isset($Attribute['ImageUrl']) {{$Attribute['ImageUrl']}} @endisset">
-      @if (array_key_exists('MiniImageUrl', $Attribute))
-      <img src="{{$Attribute['MiniImageUrl']}}" style="height: 44px" alt="{{$PropertyValue}}">
-      @elseif(array_key_exists('ImageUrl',$Attribute))
-      <img src="{{$Attribute['ImageUrl']}}" style="height: 44px" alt="{{$PropertyValue}}">
+    <span class="@if($loop->first) active @endif {{$hasImage}}" title="{{$PropertyValue}}"
+      data-filter="{{$filterClass}}" data-color-name="{{$PropertyValue}}" data-fullimageurl="{{$ImageUrl}}">
+      @if ($hasImage)
+      <img src="{{$image_path}}" style="height: 44px;width: 44px" alt="{{$PropertyValue}}">
       @else
       {{$PropertyValue}}
       @endif

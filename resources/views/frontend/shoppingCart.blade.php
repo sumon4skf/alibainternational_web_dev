@@ -19,7 +19,6 @@
 </div>
 
 
-
 <div class="main_content" data-page="shopCart">
 
   <!-- START SECTION SHOP -->
@@ -30,7 +29,7 @@
           <div class="card">
             <div class="card-body py-4">
               <div class="table-responsive ">
-                <table class="table" id="shoppingCartTable">
+                <table class="table table-bordered" id="shoppingCartTable">
                   <thead>
                     <tr>
                       <th class="text-center p-0" style="width: 10%;">
@@ -122,7 +121,8 @@
                   </tbody>
                 </table>
               </div>
-              <a href="{{route('frontend.payment')}}" class="btn btn-block proceedButton btn-default d-none d-lg-block">Proceed</a>
+              <a href="{{route('frontend.payment')}}"
+                class="btn btn-block proceedButton btn-default d-none d-lg-block">Proceed</a>
 
             </div> <!-- card-body -->
           </div> <!-- card -->

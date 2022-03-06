@@ -334,19 +334,15 @@ function product_change_effect(
   let NextLotQuantity = proceed.NextLotQuantity;
   let QuantityRanges = proceed?.QuantityRanges;
   QuantityRanges = QuantityRanges ? QuantityRanges : [];
-  let ActualWeight = calculateUnitActualWeight(proceed.ActualWeightInfo);
+  let ActualWeight = proceed?.PhysicalParameters;
+  ActualWeight = ActualWeight ? Number(ActualWeight).toFixed(3) : '0.000';
   let Price = proceed.Price;
   let totalQuantity = calculateTotalQuantity();
-
   let cart = productCart();
   const shipped_by = $("#shipping_rate").val();
 
   let newQty = Number(qty) * NextLotQuantity;
-  let ActualPrice = generateConfigCurrentPrice(
-    ConfiguredItem,
-    Price,
-    QuantityRanges
-  );
+  let ActualPrice = generateConfigCurrentPrice(ConfiguredItem, Price, QuantityRanges);
 
   let newItemData = {
     itemCode: itemCode,
@@ -364,7 +360,7 @@ function product_change_effect(
     cart = cart.map(cartItem => {
       if (cartItem.Id === item_id) {
         let itemData = cartItem.itemData;
-        if (!_.isEmpty(itemData) && _.isArray(itemData)) {
+        if (itemData?.length > 0) {
           itemData = itemData.map(findData => {
             findData.subTotal = Number(findData.quantity) * Number(findData.price);
             if (findData.itemCode === itemCode) {
@@ -475,7 +471,6 @@ $(document).on("change paste keyup select", "input[name=quantity]", function () 
     .find("span.active")
     .find("img")
     .attr("src");
-
   if (qty % stepData !== 0) {
     let stepQty = stepData > 0 ? Math.ceil(qty / stepData) : 1;
     qty = stepQty * stepData;
@@ -483,20 +478,16 @@ $(document).on("change paste keyup select", "input[name=quantity]", function () 
 
   let ConfiguredItem = ConfiguredItems.find(find => find.Id === configureId);
   let configAttributes = [];
-  if (!isEmpty(ConfiguredItem) && isObject(ConfiguredItem)) {
-    let Configurators = ConfiguredItem.Configurators;
-    if (isArray(Configurators)) {
-      Configurators.map(Configurator => {
-        let findAttr = Attributes.find(
-          findAttr =>
-            findAttr.Pid === Configurator.Pid &&
-            findAttr.Vid === Configurator.Vid
-        );
-        if (!isEmpty(findAttr)) {
-          configAttributes.push(findAttr);
-        }
-      });
-    }
+  if (ConfiguredItem) {
+    let Configurators = ConfiguredItem?.Configurators;
+    Configurators?.map(Configurator => {
+      let findAttr = Attributes.find(find =>
+        find.Pid === Configurator.Pid && find.Vid === Configurator.Vid
+      );
+      if (findAttr) {
+        configAttributes.push(findAttr);
+      }
+    });
   }
 
   $(this).val(qty);

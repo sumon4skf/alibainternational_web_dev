@@ -372,38 +372,6 @@
     $(".parallax_bg").parallaxBackground();
   });
 
-  /*======  SLIDER JS ==========*/
-  function carousel_slider() {
-    $(".carousel_slider").each(function () {
-      var $carousel = $(this);
-      $carousel.owlCarousel({
-        dots: $carousel.data("dots"),
-        loop: $carousel.data("loop"),
-        items: $carousel.data("items"),
-        margin: $carousel.data("margin"),
-        mouseDrag: $carousel.data("mouse-drag"),
-        touchDrag: $carousel.data("touch-drag"),
-        autoHeight: $carousel.data("autoheight"),
-        center: $carousel.data("center"),
-        nav: $carousel.data("nav"),
-        rewind: $carousel.data("rewind"),
-        navText: [
-          '<i class="icon-left-open"></i>',
-          '<i class="icon-right-open"></i>'
-        ],
-        autoplay: $carousel.data("autoplay"),
-        animateIn: $carousel.data("animate-in"),
-        animateOut: $carousel.data("animate-out"),
-        autoplayTimeout: $carousel.data("autoplay-timeout"),
-        smartSpeed: $carousel.data("smart-speed"),
-        responsive: $carousel.data("responsive")
-      });
-    });
-  }
-
-  $(document).on("ready", function () {
-    carousel_slider();
-  });
 
   /*========== Select dropdowns ==================*/
 

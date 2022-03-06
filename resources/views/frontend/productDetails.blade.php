@@ -1,7 +1,7 @@
 @php
 $productLoader = get_setting('product_image_loader');
-$Title = array_key_exists('Title', $item) ? $item['Title'] : '';
-$MainPictureUrl = array_key_exists('MainPictureUrl', $item) ? $item['MainPictureUrl'] : '';
+$Title = $product->Title;
+$MainPictureUrl = $product->MainPictureUrl;
 @endphp
 
 @extends('frontend.layouts.app')
@@ -14,15 +14,12 @@ $MainPictureUrl = array_key_exists('MainPictureUrl', $item) ? $item['MainPicture
 
 
 @php
-$item_id = getArrayKeyData($item, 'ItemId', null);
-$item_id = $item_id ? $item_id : getArrayKeyData($item, 'Id', '');
-$vendor_id = getArrayKeyData($item, 'VendorId', '');
+$item_id = $product->ItemId;
+$VendorId = $product->VendorId;
 @endphp
 
 
 @section('content')
-
-
 
 <div class="breadcrumb_section bg_gray page-title-mini py-3">
   <div class="container">
@@ -173,7 +170,7 @@ $vendor_id = getArrayKeyData($item, 'VendorId', '');
                       <div class="cart_btn d-none d-md-inline-block">
                         <a class="add_wishlist d-none d-lg-inline-block btn @if($exit_wishList) disabled @endif"
                           href="{{route('frontend.user.wishlist.store')}}" data-auth="{{ auth()->check() }}"
-                          data-id="{{$item['ItemId'] ?? $item['Id'] ?? ''}}">
+                          data-id="{{$item_id}}">
                           <i class="icon-heart"></i> Save
                         </a>
                         <button class="btn btn-addToCart d-none d-md-inline-block" type="button">
@@ -254,7 +251,7 @@ $vendor_id = getArrayKeyData($item, 'VendorId', '');
                   </div>
                   <div class="tab-pane fade" id="Seller" role="tabpanel" aria-labelledby="Seller-tab">
                     <p class="text-center">
-                      <a href="#" class="btn btn-fill-out" data-vendor="{{$vendor_id}}" id="loadSellerInformation">Show
+                      <a href="#" class="btn btn-fill-out" data-vendor="{{$VendorId}}" id="loadSellerInformation">Show
                         Seller Information</a>
                     </p>
                   </div>
@@ -294,7 +291,6 @@ $vendor_id = getArrayKeyData($item, 'VendorId', '');
   </div> <!-- END SECTION SHOP -->
 
 </div> <!-- END MAIN CONTENT -->
-
 
 
 <span id="productBox" class="d-none"></span>

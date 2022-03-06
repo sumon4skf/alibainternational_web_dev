@@ -26,17 +26,18 @@ function loadProductWithAttributes(
   let htmlData = "";
   // console.log('singleItem', singleItem);
   attributes.map((attribute, key) => {
-    let $PropertyName = attribute.PropertyName;
-    let PropertyValue = attribute.Value;
+    let $PropertyName = attribute?.PropertyName;
+    let PropertyValue = attribute?.Value;
+    let Image = attribute?.MiniImageUrl ? attribute?.MiniImageUrl : attribute?.ImageUrl;
+    let ItemImage = Image ? Image : singleItem?.image;
+
     let uniqueProperty = product.Id + $PropertyName + PropertyValue + key;
     uniqueProperty = slugify(uniqueProperty);
+    let ranges = product?.QuantityRanges && encodeURIComponent(JSON.stringify(product.QuantityRanges));
     if (key === 0) {
-      htmlData += `<tr data-quantity-ranges="${encodeURIComponent(
-        JSON.stringify(product.QuantityRanges)
-      )}">
+      htmlData += `<tr data-quantity-ranges="${ranges}">
                             <td rowspan="${attrLength}" class="align-middle">
-                                <a href="/product/${product.Id}"> <img src="${singleItem.image
-        }" style="width: 110px"></a>
+                                <a href="/product/${product.Id}"> <img src="${ItemImage}" style="width: 110px"></a>
                             </td>
                             <td class="text-capitalize text-left" style="min-width:100px">${$PropertyName}</td>
                             <td class="text-break text-right" style="min-width:140px">${PropertyValue}</td>
@@ -207,7 +208,7 @@ function loaded_checkout_cart() {
                              <div class="input-group input-group input-group-sm">
                                <div class="input-group-prepend">
                                  <button type="button" class="btn btn-default minus">
-                                   <i class="fas fa-minus"></i>
+                                   <i class="icon-minus"></i>
                                  </button>
                                </div>
                                <input type="text" name="inputQty" class="form-control p-2 text-center qty" min="0" max="${maxQuantity}" size="5" step="1"
@@ -215,7 +216,7 @@ function loaded_checkout_cart() {
           }">
                                <div class="input-group-append">
                                  <button type="button" class="btn btn-default plus">
-                                   <i class="fas fa-plus"></i>
+                                   <i class="icon-plus"></i>
                                  </button>
                                </div>
                              </div>
@@ -235,11 +236,7 @@ function loaded_checkout_cart() {
                 <td class="text-right">${currency} <span class="totalItemPrice">${formattingPrice(
         totalPrice
       )}</span></td></tr>`;
-      htmlData += `<tr>
-                <td class="text-right" colspan="3">China Local Shipping</td>
-                <td class="text-right">${currency} ${formattingPrice(
-        localDelivery
-      )}</td></tr>`;
+      htmlData += `<tr><td class="text-right" colspan="3">China Local Shipping</td><td class="text-right">${currency + " " + formattingPrice(localDelivery)}</td></tr>`;
     });
     $(document)
       .find("#shoppingCartTable")

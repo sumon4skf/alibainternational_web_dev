@@ -198,19 +198,8 @@ $recent = null;
           </div>
           <div class="row">
             <div class="col-12">
-              <div class="product_slider carousel_slider owl-carousel owl-theme dot_style1 nav_style5" data-loop="true"
-                data-dots="true" data-nav="true" data-margin="6"
-                data-responsive='{"0":{"items": "2"}, "481":{"items": "2"}, "768":{"items": "3"}, "991":{"items": "5"}}'>
-
-                @foreach ($recentOrders as $recentOrder)
-                @php
-                $orderProduct = isset($recentOrder->product) ? $recentOrder->product : null;
-                @endphp
-                @if($orderProduct)
-                @include('frontend.includes.homeProductCard', ['Product' => $orderProduct, 'productLoader' =>
-                $productLoader])
-                @endif
-                @endforeach
+              <div id="just_ordered" class="product_slider carousel_slider dot_style1 nav_style5">
+                {{-- section content append by ajax --}}
               </div>
             </div>
           </div> <!-- row -->
@@ -292,7 +281,6 @@ $recent = null;
 
   <div class="section pt-3">
     <div class="container">
-
       <div class="card">
         <div class="card-body">
           <div class="row justify-content-center">
@@ -304,12 +292,32 @@ $recent = null;
           </div>
           <div class="row">
             <div class="col-12">
-              <div class="product_slider carousel_slider owl-carousel owl-theme dot_style1 nav_style5" data-loop="true"
-                data-dots="true" data-nav="true" data-margin="6"
-                data-responsive='{"0":{"items": "2"}, "481":{"items": "2"}, "768":{"items": "3"}, "991":{"items": "5"}}'>
-                @foreach ($recentProducts as $recent)
-                @include('frontend.includes.homeProductCard', ['Product' => $recent, 'productLoader' => $productLoader])
-                @endforeach
+              <div id="new_arrived_section" class="product_slider carousel_slider dot_style1 nav_style5">
+                {{-- section content append by ajax --}}
+              </div>
+            </div>
+          </div> <!-- row -->
+        </div>
+      </div>
+    </div>
+  </div> <!-- New arrive -->
+
+  <div class="section pt-3">
+    <div class="container">
+      <div class="card">
+        <div class="card-body">
+          <div class="row justify-content-center">
+            <div class="col-12">
+              <div class="border-bottom heading_s4 pb-2">
+                <h2>Your Recently Viewed Products</h2>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-12">
+              <div id="recent_view_section"
+                class="product_slider carousel_slider dot_style1 nav_style5">
+                {{-- section content append by ajax --}}
               </div>
             </div>
           </div> <!-- row -->

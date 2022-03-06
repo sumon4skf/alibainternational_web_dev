@@ -1,11 +1,7 @@
 @php
 $currency = get_setting('currency_icon');
-
-$price = getArrayKeyData($item, 'Price', []);
-$QuantityRanges = getArrayKeyData($item, 'QuantityRanges', []);
-
-$OriginalPrice = getArrayKeyData($price, 'OriginalPrice', 0);
-
+$OriginalPrice = $product->Price;
+$QuantityRanges = $product->QuantityRanges ? json_decode($product->QuantityRanges, true) : [];
 @endphp
 
 
@@ -21,7 +17,7 @@ $OriginalPrice = getArrayKeyData($price, 'OriginalPrice', 0);
   @foreach ($QuantityRanges as $range)
   @php
   $iteration = $loop->iteration;
-  $price = convertedPrice($range['Price']['OriginalPrice']);
+  $price = convertedPrice($range['Price']);
   $rangeQty = $range['MinQuantity'];
   $nextRange = collect($QuantityRanges)->skip($iteration)->take(1)->first();
   $minQuantity = $iteration == 1 ? 'minQuantity' : '';
@@ -39,6 +35,6 @@ $OriginalPrice = getArrayKeyData($price, 'OriginalPrice', 0);
     <tr>{!! $body !!}</tr>
   </tbody>
 </table>
-@elseif($price)
+@elseif($OriginalPrice)
 <span class="price">{{$currency.' '.convertedPrice($OriginalPrice)}}</span>
 @endif

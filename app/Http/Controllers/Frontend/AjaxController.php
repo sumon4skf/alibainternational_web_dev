@@ -20,6 +20,7 @@ use App\Models\Content\OrderItemVariation;
 use App\Models\Content\Frontend\CustomerCart;
 use App\Models\Content\Frontend\EmailSubscriber;
 use App\Models\Content\Invoice;
+use App\Models\Content\RecentProducts;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Storage;
 use Str;
@@ -111,31 +112,32 @@ class AjaxController extends Controller
   public function getItemPrice()
   {
     $item_id = request('item_id');
-    $item = $this->getFullInfo($item_id);
-    $Attributes = getArrayKeyData($item, 'Attributes', []);
-    $response['Attributes'] = $Attributes;
-    $response['Id'] = getArrayKeyData($item, 'Id', null);
-    $response['Title'] = getArrayKeyData($item, 'Title', null);
-    $response['QuantityRanges'] = getArrayKeyData($item, 'QuantityRanges', []);
-    $response['ConfiguredItems'] = getArrayKeyData($item, 'ConfiguredItems', []);
-    $response['MainPictureUrl'] = getArrayKeyData($item, 'MainPictureUrl', 0);
-    $response['MasterQuantity'] = getArrayKeyData($item, 'MasterQuantity', 0);
-    $response['FirstLotQuantity'] = getArrayKeyData($item, 'FirstLotQuantity', 1);
-    $response['NextLotQuantity'] = getArrayKeyData($item, 'NextLotQuantity', 1);
-    $response['BatchLotQuantity'] = getArrayKeyData($item, 'BatchLotQuantity', 1);
-    $response['ActualWeightInfo'] = getArrayKeyData($item, 'ActualWeightInfo', 0);
-    $response['Price'] = getArrayKeyData($item, 'Price', 0);
+    $product = RecentProducts::where('ItemId', $item_id)->first();
 
-    $additional['VendorScore'] = getArrayKeyData($item, 'VendorScore', null);
-    $additional['FeaturedValues'] = getArrayKeyData($item, 'FeaturedValues', null);
+    $Attributes = json_decode($product->Attributes, true);
+    $response['Id'] = $product->ItemId;
+    $response['Title'] = $product->Title;
+    $response['Attributes'] = $Attributes;
+    $response['QuantityRanges'] = json_decode($product->QuantityRanges, true);
+    $response['ConfiguredItems'] = json_decode($product->ConfiguredItems, true);
+    $response['MainPictureUrl'] = $product->MainPictureUrl;
+    $response['MasterQuantity'] = $product->MasterQuantity;
+    $response['FirstLotQuantity'] = $product->FirstLotQuantity;
+    $response['NextLotQuantity'] = $product->NextLotQuantity;
+    $response['BatchLotQuantity'] = $product->BatchLotQuantity;
+    $response['PhysicalParameters'] = $product->PhysicalParameters;
+    $response['Price'] = $product->Price;
+
+    $additional['VendorScore'] = $product->VendorScore;
+    $additional['FeaturedValues'] = json_decode($product->FeaturedValues, true);
 
     $data = [
       'additional' => json_encode($additional),
       'product' => json_encode($response),
-      'price' => view('frontend.ajaxComponent.priceRange', compact('item'))->render(),
+      'price' => view('frontend.ajaxComponent.priceRange', compact('product'))->render(),
       'attributes' => view('frontend.ajaxComponent.attributes', compact('Attributes'))->render(),
-      'config' => view('frontend.ajaxComponent.configuredItems', compact('item'))->render(),
-      'additionalInfo' => view('frontend.ajaxComponent.additionalInfo', compact('item'))->render(),
+      'config' => view('frontend.ajaxComponent.configuredItems', compact('product'))->render(),
+      // 'additionalInfo' => view('frontend.ajaxComponent.additionalInfo', compact('product'))->render(),
     ];
 
     return response($data);

@@ -32,10 +32,12 @@
 
   <link rel="stylesheet" href="{{ mix('css/lib.css') }}">
   <link rel="stylesheet" href="{{ mix('css/plugins.css') }}">
+  <link rel="stylesheet" href="{{asset('assets/plugins/tiny-slider-master/dist/tiny-slider.css')}}">
 
   @stack('middle-styles')
   <link rel="stylesheet" href="{{ mix('css/app.css') }}">
   @stack('after-styles')
+
 
   @include('includes.partials.ga')
 

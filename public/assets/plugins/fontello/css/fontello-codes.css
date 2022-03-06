@@ -1,6 +1,7 @@
 @charset "UTF-8";
 
-.icon-star:before { content: '\2661'; } /* '♡' */
+.icon-heart-1:before { content: '\2605'; } /* '★' */
+.icon-shopping-bag:before { content: '\2661'; } /* '♡' */
 .icon-heart-empty:before { content: '\e800'; } /* '' */
 .icon-ok:before { content: '\e801'; } /* '' */
 .icon-search:before { content: '\e802'; } /* '' */
@@ -42,6 +43,8 @@
 .icon-search-1:before { content: '\e826'; } /* '' */
 .icon-plus:before { content: '\e827'; } /* '' */
 .icon-minus:before { content: '\e828'; } /* '' */
+.icon-star:before { content: '\e829'; } /* '' */
+.icon-pencil:before { content: '\e82a'; } /* '' */
 .icon-spin4:before { content: '\e834'; } /* '' */
 .icon-spin6:before { content: '\e839'; } /* '' */
 .icon-down-open-1:before { content: '\f004'; } /* '' */
@@ -71,6 +74,5 @@
 .icon-bell-off-empty:before { content: '\f1f7'; } /* '' */
 .icon-copyright:before { content: '\f1f9'; } /* '' */
 .icon-whatsapp:before { content: '\f232'; } /* '' */
-.icon-shopping-bag:before { content: '\f290'; } /* '' */
 .icon-facebook-rect:before { content: '\f301'; } /* '' */
 .icon-star-empty:before { content: '🔍'; } /* '\1f50d' */

@@ -192,7 +192,7 @@ function addressCard(item, defaultId, shipping_id) {
                           }" class="btn btn-light px-3 text-danger deleteAddressButton" ${
         shipping_id === item.id ? `disabled="true"` : ""
     }>
-                              <i class="fa fa-trash-alt"></i>
+                              <i class="icon-trash-empty"></i>
                           </button>
                       </div>
                       <div class="btn-group btn-group-sm position-absolute" role="group"

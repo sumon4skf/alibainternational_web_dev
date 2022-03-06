@@ -1,7 +1,7 @@
 import { isEmpty, isArray, isObject } from "lodash";
 
 export const currentProductDetails = () => {
-  let product = $("#productBox").html();
+  let product = $("#productBox").text();
   if (product) {
     return JSON.parse(product);
   } else {
@@ -101,9 +101,7 @@ export const remove_space = stringData => {
 };
 
 export const calculateTotalQuantity = () => {
-  let itemCalculationTable = $("#itemCalculationTable").find(
-    "input[name=quantity]"
-  );
+  let itemCalculationTable = $("#itemCalculationTable").find("input[name=quantity]");
   let totalQty = 0;
   itemCalculationTable.each(function (index) {
     totalQty += Number($(this).val());
@@ -120,12 +118,7 @@ export const calculateCheckoutTotalQuantity = productId => {
   return totalQty;
 };
 
-export const calculateUnitActualWeight = ActualWeight => {
-  if (!isEmpty(ActualWeight) && isObject(ActualWeight)) {
-    return Number(ActualWeight.Weight).toFixed(3);
-  }
-  return "0.00";
-};
+
 
 export const calculateProductItemTotal = itemData => {
   let totalQuantity = 0;
@@ -163,17 +156,17 @@ export const QuantityRangesPrice = (ranges, currentTotalQty = 0) => {
       let nextQtyRange = ranges[i + 1];
       let MinQuantity = QtyRange.MinQuantity;
       if (quantity < MinQuantity) {
-        unitPrice = QtyRange.Price.OriginalPrice;
+        unitPrice = QtyRange.Price;
         break;
       } else {
         if (nextQtyRange) {
           nextQtyRange = nextQtyRange.MinQuantity;
           if (MinQuantity <= quantity && quantity < nextQtyRange) {
-            unitPrice = QtyRange.Price.OriginalPrice;
+            unitPrice = QtyRange.Price;
             break;
           }
         } else {
-          unitPrice = QtyRange.Price.OriginalPrice;
+          unitPrice = QtyRange.Price;
         }
       }
     }
@@ -195,14 +188,9 @@ export const generateConfigCurrentPrice = (
   ProductQuantityRanges,
   currentTotalQty = 0
 ) => {
-  if (!isEmpty(ProductQuantityRanges) && isObject(ProductQuantityRanges)) {
-    let actualPrice = QuantityRangesPrice(
-      ProductQuantityRanges,
-      currentTotalQty
-    );
-    if (actualPrice) {
-      return actualPrice;
-    }
+  let actualPrice = QuantityRangesPrice(ProductQuantityRanges, currentTotalQty);
+  if (actualPrice) {
+    return actualPrice;
   }
 
   let ConfigPrice = isObject(ConfiguredItem) ? ConfiguredItem.Price : {};

@@ -33,7 +33,7 @@
         <ul class="navbar-nav attr-nav align-items-center">
           <li>
             <a href="{{route('frontend.user.wishlist.index')}}" class="nav-link">
-              <i class="icon-heart"></i>
+              <i class="icon-heart-empty"></i>
               <span class="wishlist_count wishlistCount">0</span>
             </a>
           </li>

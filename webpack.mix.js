@@ -18,9 +18,7 @@ mix.setPublicPath("public")
   .combine(
     [
       "resources/assets/plugins/animate/animate.min.css",
-      "resources/assets/plugins/magnific/css/magnific-popup.css",
-      "resources/assets/plugins/owlCarousel/css/owl.carousel.min.css",
-      "resources/assets/plugins/owlCarousel/css/owl.theme.default.min.css"
+      "resources/assets/plugins/magnific/css/magnific-popup.css"
     ],
     "public/css/plugins.css"
   )
@@ -49,7 +47,6 @@ mix.setPublicPath("public")
       "resources/assets/plugins/parallax/js/parallax.js",
       "resources/assets/plugins/jqueryDd/js/jquery.dd.min.js",
       "resources/assets/plugins/magnific/js/magnific-popup.min.js",
-      "resources/assets/plugins/owlCarousel/js/owl.carousel.min.js",
       "resources/assets/plugins/pluginScripts.js"
     ],
     "public/js/plugins.js"

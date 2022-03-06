@@ -1,24 +1,28 @@
 <?php
 $currency = get_setting('currency_icon');
-$item = isset($item) ? $item : [];
 
-$ConfiguredItems = array_key_exists('ConfiguredItems', $item) ? collect($item['ConfiguredItems']) : [];
-$Attributes = array_key_exists('Attributes', $item) ? collect($item['Attributes']) : [];
-$QuantityRanges = array_key_exists('QuantityRanges', $item) ? collect($item['QuantityRanges']) : [];
-$itemPrice = array_key_exists('Price', $item) ? collect($item['Price']) : [];
-$ActualWeightInfo = array_key_exists('ActualWeightInfo', $item) ? collect($item['ActualWeightInfo']) : [];
-$BatchLotQuantity = array_key_exists('BatchLotQuantity', $item) ? $item['BatchLotQuantity'] : 1;
+$ItemId = $product->ItemId;
+$ConfiguredItems = $product->ConfiguredItems;
+$Attributes = $product->Attributes;
+$QuantityRanges = $product->QuantityRanges;
+$price = $product->Price;
+$ActualWeightInfo = $product->PhysicalParameters;
+$MasterQuantity = $product->MasterQuantity;
+$NextLotQuantity = $product->NextLotQuantity;
+$BatchLotQuantity = $product->BatchLotQuantity;
+$ConfiguredItems = $ConfiguredItems ? collect(json_decode($ConfiguredItems, true)) : collect([]);
+$Attributes = $Attributes ? collect(json_decode($Attributes, true)) : collect([]);
+$QuantityRanges = $QuantityRanges ? collect(json_decode($QuantityRanges, true)) : collect([]);
 
-$price = 0;
 
 if (count($QuantityRanges)) {
-    $calculate = collect($QuantityRanges)->sortBy('MinQuantity')->first();
-    $price = $calculate['Price']['OriginalPrice'];
-} else {
-    $price = isset($itemPrice['OriginalPrice']) ? $itemPrice['OriginalPrice'] : 0;
+    $calculate = $QuantityRanges->sortBy('MinQuantity')->first();
+    $price = $calculate['Price'];
 }
 
 $price = convertedPrice($price);
+
+
 $itemBody = '';
 $attributeHead = '';
 
@@ -70,13 +74,13 @@ if (count($ConfiguredItems)) {
         }
 
 
-        $price = convertedPrice($configItem['Price']['OriginalPrice']);
+        $price = convertedPrice($configItem['Price']);
         $configQtyRange = isset($configItem['QuantityRanges']) ? collect($configItem['QuantityRanges']) : collect([]);
 
         if (count($configQtyRange)) {
             $firstQty = $configQtyRange->sortBy('MinQuantity')->first();
             if ($firstQty) {
-                $price = convertedPrice($firstQty['Price']['OriginalPrice']);
+                $price = convertedPrice($firstQty['Price']);
             }
         }
 
@@ -106,7 +110,7 @@ if (count($ConfiguredItems)) {
     }
 } else {
     $proceed = [
-        'code' => $item['Id'],
+        'code' => $ItemId,
         'price' => round($price),
         'QuantityRanges' => $QuantityRanges,
         'Attributes' => [],
@@ -115,7 +119,7 @@ if (count($ConfiguredItems)) {
     $itemBody .= '<td class="align-middle"><span class="priceRate">' . round($price) . '</span></td>';
     $itemBody .= '<td class="align-middle px-0">';   
 
-    $itemBody .= configure_qty_input($item['MasterQuantity'], $BatchLotQuantity, $item['Id'], $proceed);
+    $itemBody .= configure_qty_input($MasterQuantity, $BatchLotQuantity, $ItemId, $proceed);
 
     $itemBody .= '</td>';
     $itemBody .= '</tr>';

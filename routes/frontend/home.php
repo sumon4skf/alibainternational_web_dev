@@ -14,6 +14,7 @@ use App\Http\Controllers\Frontend\Auth\OtpLoginController;
 
 use App\Http\Controllers\PaymentNagadController;
 use App\Http\Controllers\BkashPaymentController;
+use App\Http\Controllers\Frontend\Content\HomeSectionController;
 use App\Http\Controllers\SManagerPaymentController;
 use Illuminate\Support\Facades\Route;
 
@@ -60,7 +61,6 @@ Route::group(['as' => 'ajax.', 'prefix' => 'ajax'], function () {
   Route::post('m8sBOYY33Vp9JTD8h2ksp58snyvRHHXPF0h', [AjaxController::class, 'couponCodeValidate']);
 
   Route::group(['middleware' => 'auth', 'as' => 'customer.'], function () {
-
     // edit address
     Route::get('address/edit/{address}', [AddressController::class, 'edit'])->name('address.edit');
     Route::patch('address/update/{address}', [AddressController::class, 'update'])->name('address.update');
@@ -75,6 +75,9 @@ Route::group(['as' => 'ajax.', 'prefix' => 'ajax'], function () {
     Route::post('s-manager-payment', [SManagerPaymentController::class, 'initial_payment'])->name('smanager.initial');
     Route::post('invoice-cash-payment', [AjaxController::class, 'invoiceCashPayment']);
   });
+
+  // section data 
+  Route::post('section/data', [HomeSectionController::class, 'sectionProductLoading']);
 });
 
 

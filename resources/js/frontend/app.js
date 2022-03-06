@@ -6,6 +6,7 @@
 
 import '../plugins';
 
+import './homeLoadingData'; // any common development
 import './loginHandle'; // any common development
 import './extendFeature'; // any common development
 import './productDetails';

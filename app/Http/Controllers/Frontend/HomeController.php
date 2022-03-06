@@ -3,14 +3,17 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Http\Traits\OtcApiHandling;
 use App\Models\Content\Frontend\CustomerCart;
 use App\Models\Content\Frontend\Wishlist;
 use App\Models\Content\OrderItem;
 use App\Models\Content\Post;
 use App\Models\Content\Product;
+use App\Models\Content\RecentProducts;
 use App\Models\Content\SearchLog;
 use App\Models\Content\Taxonomy;
 use Auth;
+use Carbon\Carbon;
 use Illuminate\Http\File;
 use Illuminate\Support\Facades\Crypt;
 use GuzzleHttp\Client;
@@ -24,6 +27,7 @@ use Illuminate\Pagination\LengthAwarePaginator as Paginator;
  */
 class HomeController extends Controller
 {
+  use OtcApiHandling;
   /**
    * @return \Illuminate\View\View
    */
@@ -45,12 +49,11 @@ class HomeController extends Controller
       ->whereNotNull('active')
       ->sortBy('id');
     $banners = Post::where('post_type', 'banner')->where('post_status', 'publish')->limit(5)->latest()->get();
-    $recentProducts = Product::latest()->paginate(30);
-    $recentOrders = OrderItem::with('product')->select('product_id')->groupBy('product_id')->latest()->paginate(30);
+
     $wishlistProducts = Wishlist::withTrashed()->with('product')->select('ItemId')->groupBy('ItemId')->latest()->paginate(30);
     $someoneBuying = CustomerCart::withTrashed()->with('product')->select('ItemId')->groupBy('ItemId')->latest()->paginate(30);
 
-    return view('frontend.index', compact('announcement', 'top_cats', 'banners', 'recentProducts', 'recentOrders', 'wishlistProducts', 'someoneBuying'));
+    return view('frontend.index', compact('announcement', 'top_cats', 'banners', 'wishlistProducts', 'someoneBuying'));
   }
 
   public function category($slug)
@@ -167,47 +170,46 @@ class HomeController extends Controller
 
   public function productDetails($item_id)
   {
-    $item = Product::where('ItemId', $item_id)->first();
-    $Pictures = [];
-    $error = false;
-    if (is_null($item)) {
-      $item = GetItemFullInfo($item_id);
-      if (empty($item)) {
-        $error = true;
-        abort(404);
-      } else {
-        $Pictures = getArrayKeyData($item, 'Pictures', null);
+    $product = RecentProducts::where('ItemId', $item_id)->first();
+    if ($product) {
+      $created = Carbon::parse($product->created_at)->addDays(5);
+      $current = now();
+      if ($current > $created) {
+        $product = null;
       }
-    } else {
-      $item = $item->toArray();
-      if (!array_key_exists('ItemId', $item)) {
-        $error = true;
-      }
-      $Pictures = json_decode($item['Pictures'], true);
     }
 
-    $wishList = auth()->user()->wishlist ?? collect([]);
-    $item_id = getArrayKeyData($item, 'Id', null);
-    $item_id = $item_id ? $item_id : getArrayKeyData($item, 'ItemId', null);
-    $CategoryId =  getArrayKeyData($item, 'CategoryId', '');
+    if (!$product) {
+      $item = GetItemFullInfo($item_id);
+      $product = $this->updateOrInsertRecentProducts($item);
+    }
 
-    $exit_wishList = $wishList->contains('ItemId', $item_id);
+    if (!$product) {
+      abort(404);
+    }
+
+    $Pictures = json_decode($product->Pictures, true);
+
+    $wishList = auth()->check() ? auth()->user()->wishlist : null;
+    $exit_wishList = null;
+    if ($wishList) {
+      $exit_wishList = $wishList->contains('ItemId', $product->ItemId);
+    }
 
     $page = Post::where('post_slug', 'shipping-and-delivery')
       ->where('post_status', 'publish')
       ->where('post_type', 'page')
       ->first();
-    $relatedProducts = Product::where('CategoryId', $CategoryId)
-      ->whereNotIn('ItemId', [$item_id])
-      ->latest()->offset(0)->limit(15)->get();
+    $relatedProducts = RecentProducts::where('CategoryId', $product->CategoryId)
+      ->whereNotIn('ItemId', [$product->ItemId])
+      ->latest()->limit(15)->get();
 
     if (!count($relatedProducts)) {
-      $relatedProducts = Product::whereNotIn('ItemId', [$item_id])
-        ->latest()->offset(0)->limit(15)->get();
+      $relatedProducts = RecentProducts::whereNotIn('ItemId', [$product->ItemId])
+        ->latest()->limit(15)->get();
     }
 
-
-    return view('frontend.productDetails', compact('item', 'exit_wishList', 'relatedProducts', 'page', 'Pictures'));
+    return view('frontend.productDetails', compact('product', 'exit_wishList', 'relatedProducts', 'page', 'Pictures'));
   }
 
   public function shopNow()
