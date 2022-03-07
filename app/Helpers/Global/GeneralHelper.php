@@ -46,11 +46,21 @@ if (!function_exists('get_all_taxonomies')) {
     if ($taxonomies) {
       return $taxonomies;
     }
-    $taxonomies = Taxonomy::with(['parent', 'children' => function ($query) {
-      $query->with('children');
-    }])->withCount('children')->get();
+    $taxonomies = Taxonomy::whereNotNull('active')->withCount('children')->get()->toArray();
     Cache::put('taxonomies', $taxonomies, now()->addDays(90));
     return $taxonomies;
+  }
+}
+
+if (!function_exists('filter_taxonomies')) {
+  function filter_taxonomies(array $taxonomies, $key, $value = null, $condition = 'equal')
+  {
+    return array_filter($taxonomies, function ($taxonomy) use ($key, $value, $condition) {
+      if ($condition == 'equal') {
+        return array_key_exists($key, $taxonomy) ? ($taxonomy[$key] == $value) : false;
+      }
+      return array_key_exists($key, $taxonomy) ? ($taxonomy[$key] != $value) : false;
+    });
   }
 }
 

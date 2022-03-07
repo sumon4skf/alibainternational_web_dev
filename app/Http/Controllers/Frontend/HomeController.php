@@ -8,6 +8,7 @@ use App\Models\Content\Post;
 use App\Models\Content\Product;
 use App\Models\Content\RecentProducts;
 use App\Models\Content\SearchLog;
+use App\Models\Content\Taxonomy;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Pagination\LengthAwarePaginator as Paginator;
@@ -48,11 +49,7 @@ class HomeController extends Controller
     if ($page) {
       return view('frontend.pages.page', compact('page'));
     }
-    $taxonomies = get_all_taxonomies();
-    $category = $taxonomies->where('slug', trim($slug))->first();
-    if (!$category) {
-      abort(404);
-    }
+    $category = Taxonomy::where('slug', trim($slug))->firstOrFail();
     if (!$category->children_count) {
       $subcategory = null;
       $search = $category->keyword ? $category->keyword : $category->name;
@@ -67,9 +64,8 @@ class HomeController extends Controller
 
   public function categoryProductList($cat_slug, $subcat_slug)
   {
-    $taxonomies = get_all_taxonomies();
-    $category = $taxonomies->where('slug', $cat_slug)->first();
-    $subcategory = $taxonomies->where('slug', $subcat_slug)->first();
+    $category = Taxonomy::where('slug', $cat_slug)->first();
+    $subcategory = Taxonomy::where('slug', $subcat_slug)->first();
 
     if (!$category && !$subcategory) {
       abort(404);
@@ -84,18 +80,9 @@ class HomeController extends Controller
 
   public function subSubCategoryProductList($cat_slug, $subcat_slug, $subSubcat_slug)
   {
-    $taxonomies = get_all_taxonomies();
-
-    $category = $taxonomies->where('slug', $cat_slug)->first();
-    if (!$category) {
-      abort(404);
-    }
-    $subcategory = $taxonomies->where('ParentId', $category->otc_id)->where('slug', $subcat_slug)->first();
-    $subSubcategory = $taxonomies->where('slug', $subSubcat_slug)->first();
-
-    if (!$subcategory && !$subSubcategory) {
-      abort(404);
-    }
+    $category = Taxonomy::where('slug', $cat_slug)->firstOrFail();
+    $subcategory = Taxonomy::where('ParentId', $category->otc_id)->where('slug', $subcat_slug)->firstOrFail();
+    $subSubcategory = Taxonomy::where('slug', $subSubcat_slug)->firstOrFail();
 
     $search = $subSubcategory->keyword ? $subSubcategory->keyword : $subSubcategory->name;
     $items = $this->getBulkProductItems($search, 'text');

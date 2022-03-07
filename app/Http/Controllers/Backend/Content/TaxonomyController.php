@@ -21,11 +21,9 @@ class TaxonomyController extends Controller
 
   public function __construct(Taxonomy $taxonomy)
   {
-    $taxonomies = $taxonomy->with(['parent', 'children' => function ($query) {
-      $query->with('children');
-    }])->withCount('children')->get();
+    $taxonomies = $taxonomy->whereNotNull('active')->withCount('children')->get()->toArray();
     Cache::put('taxonomies', $taxonomies, now()->addDays(90));
-    $this->mainCategories = $taxonomies->whereNull("ParentId");
+    $this->mainCategories = filter_taxonomies($taxonomies, 'ParentId', null);
   }
 
 
@@ -36,9 +34,7 @@ class TaxonomyController extends Controller
    */
   public function index()
   {
-    // $this->refresh_root_taxonomy();
     $mainCategories = $this->mainCategories;
-    // dd($mainCategories);
     return view('backend.content.taxonomy.index', compact('mainCategories'));
   }
 

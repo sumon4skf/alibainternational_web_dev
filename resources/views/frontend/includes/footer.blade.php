@@ -1,8 +1,6 @@
 @php
-$all_taxonomies = get_all_taxonomies();
-$top_cats = $all_taxonomies->whereNotNull('is_top')
-->whereNotNull('active')
-->sortBy('id');
+$taxonomies = get_all_taxonomies();
+$top_cats = filter_taxonomies($taxonomies, 'is_top', null, 'notequal');
 @endphp
 <!-- START FOOTER -->
 <footer class="bg_footer border-top mt-4">
@@ -114,8 +112,12 @@ $top_cats = $all_taxonomies->whereNotNull('is_top')
           <p class="m-2"><b>Top Categories:</b></p>
           <ul class="footer-nav">
             @foreach ($top_cats as $top_cat)
+            @php
+            $top_cat_name = $top_cat['name'] ?? '/';
+            $top_cat_url = $top_cat['slug'] ?? '/';
+            @endphp
             <li>
-              <a href="{{url($top_cat->slug)}}">{{$top_cat->name}}</a>
+              <a href="{{url($top_cat_url)}}">{{$top_cat_name}}</a>
               <span class="itemBar">|</span>
             </li>
             @endforeach

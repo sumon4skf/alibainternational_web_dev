@@ -11,12 +11,12 @@
     <div class="card-body">
       <form get="?" class="form-inline">
         <label class="sr-only" for="category">Category</label>
-        <select name="category" data-active="{{request("category")}}" class="form-control mb-2 mr-sm-2" id="category">
+        <select name="category" data-active="{{request(" category")}}" class="form-control mb-2 mr-sm-2" id="category">
           <option value="">- Select --</option>
         </select>
 
         <label class="sr-only" for="subCategory">Sub Category1</label>
-        <select name="subCategory" data-active="{{request("subCategory")}}" class="form-control mb-2 mr-sm-2"
+        <select name="subCategory" data-active="{{request(" subCategory")}}" class="form-control mb-2 mr-sm-2"
           id="subCategory">
           <option value="">- Select --</option>
         </select>

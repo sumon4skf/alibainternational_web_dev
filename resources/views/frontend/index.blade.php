@@ -16,12 +16,8 @@ $productLoader = get_setting('product_image_loader');
 // initialize the variable
 $cusBuyingProduct= null;
 $recent = null;
-
 $all_taxonomies = get_all_taxonomies();
-$top_cats = $all_taxonomies->whereNotNull('is_top')
-->whereNotNull('active')
-->sortBy('id');
-
+$top_cats = filter_taxonomies($all_taxonomies, 'is_top', null, 'notequal');
 @endphp
 
 @section('content')
@@ -61,7 +57,6 @@ $top_cats = $all_taxonomies->whereNotNull('is_top')
 
 <div class="main_content">
 
-
   @include('frontend.includes.OurPriorities')
 
   <div class="section pt-3">
@@ -79,40 +74,24 @@ $top_cats = $all_taxonomies->whereNotNull('is_top')
               <div class="category_items">
                 <ul>
                   @forelse ($top_cats as $category)
+                  @php
+                  $cat_name = ($category['name'] ?? '/');
+                  $full_url = url(($category['slug'] ?? '/'));
+                  $cat_images = asset(($category['picture'] ?? 'images/frontend/ladies-bag.png'));
+                  @endphp
                   <li>
-                    <a class="" href="{{url($category->slug)}}">
+                    <a class="" href="{{$full_url}}">
                       <span class="t-imgage">
-                        @php
-                        $cat_images = $category->picture ? asset($category->picture) :
-                        asset('images/frontend/ladies-bag.png')
-                        @endphp
                         <img width="129" height="129" src="{{$catLoader}}"
-                          class="attachment-thumbnail size-thumbnail lazyloaded" alt=""
-                          sizes="(max-width: 129px) 100vw, 129px" srcset="{{asset($cat_images)}}"
-                          data-ll-status="loaded">
+                          class="attachment-thumbnail size-thumbnail lazyloaded" alt="{{$cat_name}}"
+                          sizes="(max-width: 129px) 100vw, 129px" srcset="{{$cat_images}}" data-ll-status="loaded">
                         <noscript>
                           <img width="129" height="129" src="{{$catLoader}}" class="attachment-thumbnail size-thumbnail"
-                            alt="" srcset="{{asset($cat_images)}}"
-                            sizes="(max-width: 129px) 100vw, 129px" /></noscript></span>
-                      <h2>{{$category->name}}</h2>
+                            alt="{{$cat_name}}" srcset="{{$cat_images}}" sizes="(max-width: 129px) 100vw, 129px" /></noscript></span>
+                      <h2>{{$cat_name}}</h2>
                     </a>
                   </li>
                   @empty
-                  <li>
-                    <a class="" target="_blank" rel="nofollow" href="#"><span class="t-imgage"><img width="129"
-                          height="129"
-                          src="https://demo2.drfuri.com/martfury12/wp-content/uploads/sites/53/2018/01/t2.jpg"
-                          class="attachment-thumbnail size-thumbnail lazyloaded" alt=""
-                          sizes="(max-width: 129px) 100vw, 129px"
-                          srcset="https://demo2.drfuri.com/martfury12/wp-content/uploads/sites/53/2018/01/t2.jpg 129w, https://demo2.drfuri.com/martfury12/wp-content/uploads/sites/53/2018/01/t2-70x70.jpg 70w"
-                          data-ll-status="loaded"><noscript><img width="129" height="129"
-                            src="https://demo2.drfuri.com/martfury12/wp-content/uploads/sites/53/2018/01/t2.jpg"
-                            class="attachment-thumbnail size-thumbnail" alt=""
-                            srcset="https://demo2.drfuri.com/martfury12/wp-content/uploads/sites/53/2018/01/t2.jpg 129w, https://demo2.drfuri.com/martfury12/wp-content/uploads/sites/53/2018/01/t2-70x70.jpg 70w"
-                            sizes="(max-width: 129px) 100vw, 129px" /></noscript></span>
-                      <h2>#camera</h2>
-                    </a>
-                  </li>
                   @endforelse
 
                 </ul>

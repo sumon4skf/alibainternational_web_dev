@@ -26,6 +26,7 @@ class Taxonomy extends Model
     'IsVirtual',
     'IsInternal',
     'ExternalId',
+    'description',
     'MetaData',
     'user_id',
     'created_at',
