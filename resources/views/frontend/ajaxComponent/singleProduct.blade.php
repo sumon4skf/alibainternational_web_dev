@@ -14,7 +14,7 @@ $Pictures = getArrayKeyData($item, 'Pictures', []);
 $thumb = getArrayKeyData($item, 'MainPictureUrl', null);
 if(!empty($Pictures)){
 $Pictures = $Pictures[0] ?? [];
-$Small = getArrayKeyData($Pictures, 'Small', null);
+$Small = getArrayKeyData($Pictures, 'Medium', null);
 $thumb = getArrayKeyData($Small, 'Url', $thumb);
 }
 @endphp

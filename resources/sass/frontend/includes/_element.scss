@@ -42,21 +42,20 @@ select option {
     .page-item {
         a,
         span.page-link {
-            color: #e62e2d;
-            height: 35px;
-            width: 35px;
+            color: $themeColor;
             text-align: center;
-            line-height: 35px;
-            padding: 0;
+            line-height: 1.5;
+            padding: 6px 6px;
             z-index: 1;
+            min-width: 35px;
         }
 
         &.active {
             .page-link {
                 z-index: 3;
                 color: #fff;
-                background-color: #e62e2d;
-                border-color: #e62e2d;
+                background-color: $themeColor;
+                border-color: $themeColor;
             }
         }
     }

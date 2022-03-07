@@ -1,7 +1,3 @@
-<?php
-
-$Attributes = array_key_exists('Attributes', $item) ? $item['Attributes'] : [];
-?>
 
 <table class="table table-bordered">
   @forelse($Attributes as $attribute)

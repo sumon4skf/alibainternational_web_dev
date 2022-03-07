@@ -16,6 +16,12 @@ $productLoader = get_setting('product_image_loader');
 // initialize the variable
 $cusBuyingProduct= null;
 $recent = null;
+
+$all_taxonomies = get_all_taxonomies();
+$top_cats = $all_taxonomies->whereNotNull('is_top')
+->whereNotNull('active')
+->sortBy('id');
+
 @endphp
 
 @section('content')
@@ -210,7 +216,6 @@ $recent = null;
 
   <div class="section pt-3">
     <div class="container">
-
       <div class="card">
         <div class="card-body">
           <div class="row justify-content-center">
@@ -222,19 +227,8 @@ $recent = null;
           </div>
           <div class="row">
             <div class="col-12">
-              <div class="product_slider carousel_slider owl-carousel owl-theme dot_style1 nav_style5" data-loop="true"
-                data-dots="true" data-nav="true" data-margin="6"
-                data-responsive='{"0":{"items": "2"}, "481":{"items": "2"}, "768":{"items": "3"}, "991":{"items": "5"}}'>
-                @foreach ($wishlistProducts as $wishlistProduct)
-                @php
-                $wishProduct = isset($wishlistProduct->product) ? $wishlistProduct->product : null;
-                @endphp
-                @if($wishProduct)
-                @include('frontend.includes.homeProductCard', ['Product' => $wishProduct, 'productLoader' =>
-                $productLoader])
-                @endif
-                @endforeach
-
+              <div id="someone_loved" class="product_slider carousel_slider dot_style1 nav_style5">
+                {{-- section content append by ajax --}}
               </div>
             </div>
           </div> <!-- row -->
@@ -257,19 +251,8 @@ $recent = null;
           </div>
           <div class="row">
             <div class="col-12">
-              <div class="product_slider carousel_slider owl-carousel owl-theme dot_style1 nav_style5" data-loop="true"
-                data-dots="true" data-nav="true" data-margin="6"
-                data-responsive='{"0":{"items": "2"}, "481":{"items": "2"}, "768":{"items": "3"}, "991":{"items": "5"}}'>
-                @foreach ($someoneBuying as $cusBuyingProduct)
-                @php
-                $buyingProduct = isset($cusBuyingProduct->product) ? $cusBuyingProduct->product : null;
-                @endphp
-                @if($buyingProduct)
-                @include('frontend.includes.homeProductCard', ['Product' => $buyingProduct, 'productLoader' =>
-                $productLoader])
-                @endif
-                @endforeach
-
+              <div id="someone_buying" class="product_slider carousel_slider dot_style1 nav_style5">
+                {{-- section content append by ajax --}}
               </div>
             </div>
           </div> <!-- row -->
@@ -315,8 +298,7 @@ $recent = null;
           </div>
           <div class="row">
             <div class="col-12">
-              <div id="recent_view_section"
-                class="product_slider carousel_slider dot_style1 nav_style5">
+              <div id="recent_view_section" class="product_slider carousel_slider dot_style1 nav_style5">
                 {{-- section content append by ajax --}}
               </div>
             </div>

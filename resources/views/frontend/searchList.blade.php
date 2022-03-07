@@ -15,11 +15,11 @@ $productLoader = get_setting('product_image_loader');
           <li class="breadcrumb-item"><a href="{{route('frontend.index')}}">Home</a></li>
           <li class="breadcrumb-item active">Search</li>
           @if ($searchLog)
-            @if ($searchLog->search_type == 'picture')
-            <li class="breadcrumb-item active">
-              <img src="{{asset($searchLog->query_data)}}" style="width:90px" alt="{{request('s')}}">
-            </li>
-            @endif
+          @if ($searchLog->search_type == 'picture')
+          <li class="breadcrumb-item active">
+            <img src="{{asset($searchLog->query_data)}}" style="width:90px" alt="{{request('s')}}">
+          </li>
+          @endif
           @else
           <li class="breadcrumb-item active">{{request('s')}}</li>
           @endif
@@ -33,29 +33,17 @@ $productLoader = get_setting('product_image_loader');
 <div class="main_content">
   <div class="section pt-4">
     <div class="container">
-      <div class="row">
-        <div class="col-12">
+      <div class="card">
+        <div class="card-body">
           <div class="justify-content-center row row-cols-lg-5 row-cols-md-4 row-cols-sm-3 row-cols-2">
-
             @include('frontend.ajaxComponent.singleProduct', ['Product' => $items, 'productLoader' => $productLoader])
 
-
             {{ $items->links() }}
-            
+
           </div> <!-- row -->
-          <div class="row">
-            <div class="col-12">
-              <ul class="pagination mt-3 justify-content-center pagination_style1">
-                <li class="page-item loadMoreBlock">
-                  {{--loadmore btn append here--}}
-                </li>
-              </ul> <!-- pagination -->
-            </div> <!-- col-12 -->
-          </div>
-
-
         </div>
       </div>
+
     </div>
   </div> <!-- END SECTION SHOP -->
 

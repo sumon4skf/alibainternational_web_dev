@@ -4,22 +4,12 @@ namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
 use App\Http\Traits\OtcApiHandling;
-use App\Models\Content\Frontend\CustomerCart;
-use App\Models\Content\Frontend\Wishlist;
-use App\Models\Content\OrderItem;
 use App\Models\Content\Post;
 use App\Models\Content\Product;
 use App\Models\Content\RecentProducts;
 use App\Models\Content\SearchLog;
-use App\Models\Content\Taxonomy;
-use Auth;
 use Carbon\Carbon;
-use Illuminate\Http\File;
-use Illuminate\Support\Facades\Crypt;
-use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Cookie;
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\Validator;
 use Illuminate\Pagination\LengthAwarePaginator as Paginator;
 
 /**
@@ -43,17 +33,10 @@ class HomeController extends Controller
     } else {
       $announcement = null;
     }
-    // $this->apiTestingDeveloping();
-    $all_taxonomies = get_all_taxonomies();
-    $top_cats = $all_taxonomies->whereNotNull('is_top')
-      ->whereNotNull('active')
-      ->sortBy('id');
+
     $banners = Post::where('post_type', 'banner')->where('post_status', 'publish')->limit(5)->latest()->get();
 
-    $wishlistProducts = Wishlist::withTrashed()->with('product')->select('ItemId')->groupBy('ItemId')->latest()->paginate(30);
-    $someoneBuying = CustomerCart::withTrashed()->with('product')->select('ItemId')->groupBy('ItemId')->latest()->paginate(30);
-
-    return view('frontend.index', compact('announcement', 'top_cats', 'banners', 'wishlistProducts', 'someoneBuying'));
+    return view('frontend.index', compact('announcement',  'banners'));
   }
 
   public function category($slug)
@@ -200,16 +183,8 @@ class HomeController extends Controller
       ->where('post_status', 'publish')
       ->where('post_type', 'page')
       ->first();
-    $relatedProducts = RecentProducts::where('CategoryId', $product->CategoryId)
-      ->whereNotIn('ItemId', [$product->ItemId])
-      ->latest()->limit(15)->get();
 
-    if (!count($relatedProducts)) {
-      $relatedProducts = RecentProducts::whereNotIn('ItemId', [$product->ItemId])
-        ->latest()->limit(15)->get();
-    }
-
-    return view('frontend.productDetails', compact('product', 'exit_wishList', 'relatedProducts', 'page', 'Pictures'));
+    return view('frontend.productDetails', compact('product', 'exit_wishList', 'page', 'Pictures'));
   }
 
   public function shopNow()
@@ -265,6 +240,7 @@ class HomeController extends Controller
     return new Paginator($Contents, $TotalCount, $limit, $page, [
       'path'  => request()->url(),
       'query' => request()->query(),
+      'onEachSide' => 1,
     ]);
   }
 }

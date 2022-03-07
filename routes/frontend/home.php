@@ -78,6 +78,7 @@ Route::group(['as' => 'ajax.', 'prefix' => 'ajax'], function () {
 
   // section data 
   Route::post('section/data', [HomeSectionController::class, 'sectionProductLoading']);
+  Route::post('section/related', [HomeSectionController::class, 'relatedProductLoading']);
 });
 
 

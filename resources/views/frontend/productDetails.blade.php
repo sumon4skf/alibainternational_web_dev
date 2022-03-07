@@ -273,12 +273,9 @@ $VendorId = $product->VendorId;
               <div class="border-bottom heading_s4 pb-2">
                 <h2>Related Products</h2>
               </div>
-              <div class="product_slider carousel_slider owl-carousel owl-theme dot_style1 nav_style5" data-loop="true"
-                data-dots="true" data-nav="true" data-margin="6"
-                data-responsive='{"0":{"items": "2"}, "481":{"items": "2"}, "768":{"items": "3"}, "991":{"items": "5"}}'>
-                @foreach ($relatedProducts as $recent)
-                @include('frontend.includes.homeProductCard', ['Product' => $recent, 'productLoader' => $productLoader])
-                @endforeach
+              <div id="related_products" data-product-id="{{$product->ItemId}}" data-category-id="{{$product->CategoryId}}"
+                class="product_slider carousel_slider dot_style1 nav_style5">
+                {{-- section content append by ajax --}}
               </div>
             </div>
           </div> <!-- card -->

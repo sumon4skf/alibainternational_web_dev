@@ -137,7 +137,7 @@ class AjaxController extends Controller
       'price' => view('frontend.ajaxComponent.priceRange', compact('product'))->render(),
       'attributes' => view('frontend.ajaxComponent.attributes', compact('Attributes'))->render(),
       'config' => view('frontend.ajaxComponent.configuredItems', compact('product'))->render(),
-      // 'additionalInfo' => view('frontend.ajaxComponent.additionalInfo', compact('product'))->render(),
+      'additionalInfo' => view('frontend.ajaxComponent.additionalInfo', compact('Attributes'))->render(),
     ];
 
     return response($data);

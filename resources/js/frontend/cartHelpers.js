@@ -193,13 +193,13 @@ export const generateConfigCurrentPrice = (
     return actualPrice;
   }
 
-  let ConfigPrice = isObject(ConfiguredItem) ? ConfiguredItem.Price : {};
-  if (!isEmpty(ConfigPrice) && isObject(ConfigPrice)) {
-    return convertedPrice(ConfigPrice.OriginalPrice);
+  let ConfigPrice = ConfiguredItem?.Price;
+  if (ConfigPrice) {
+    return convertedPrice(ConfigPrice);
   }
 
-  if (!isEmpty(ProductPrice) && isObject(ProductPrice)) {
-    return convertedPrice(ProductPrice.OriginalPrice);
+  if (ProductPrice) {
+    return convertedPrice(OriginalPrice);
   }
 
   return 0;

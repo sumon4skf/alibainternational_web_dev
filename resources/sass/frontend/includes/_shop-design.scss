@@ -637,7 +637,7 @@
     padding: 4px 6px;
     width: auto;
     border-radius: 4px;
-    margin-bottom: 0;
+    margin-bottom: 6px;
     background: #eee;
 
     &.hasImage {
@@ -1334,11 +1334,11 @@ label.label_info {
 .loading {
     background: url("./img/loading.gif") center center no-repeat;
     font-size: 0 !important;
-    background-color: #000 !important;
+    background-color: rgba(213, 213, 213, 0.66) !important;
     border: 0;
-    height: 51px;
-    width: 50px;
+    width: 100%;
     padding: 0;
+    background-size: 30%;
 }
 
 .loading::after,

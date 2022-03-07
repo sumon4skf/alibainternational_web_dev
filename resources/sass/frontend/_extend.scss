@@ -237,3 +237,29 @@ li.dropdown-mega-menu {
 .btn-primary {
     color: #ffffff;
 }
+
+.footer-nav {
+    list-style: none;
+    li {
+        display: inline-block;
+        margin-bottom: 6px;
+        a {
+            font-size: 14px;
+            color: #687188;
+            padding: 5px 8px;
+            &:hover {
+                color: #1a1a1a;
+            }
+        }
+        .itemBar {
+            margin: 0 5px;
+            color: #1a1a1a;
+            font-weight: 600;
+        }
+        &:last-child {
+            .itemBar {
+                display: none;
+            }
+        }
+    }
+}

@@ -42,7 +42,6 @@ function loadPrices(reload = 0) {
       let attributes = responseData.attributes;
       let config = responseData.config;
       let additionalInfo = responseData.additionalInfo;
-
       let additional = JSON.parse(responseData.additional);
 
       if (product) {
@@ -340,7 +339,6 @@ function product_change_effect(
   let totalQuantity = calculateTotalQuantity();
   let cart = productCart();
   const shipped_by = $("#shipping_rate").val();
-
   let newQty = Number(qty) * NextLotQuantity;
   let ActualPrice = generateConfigCurrentPrice(ConfiguredItem, Price, QuantityRanges);
 
@@ -378,11 +376,9 @@ function product_change_effect(
             return findData;
           });
 
-          let findItem = itemData.find(
-            findData => findData.itemCode === itemCode
-          );
+          let findItem = itemData.find(findData => findData.itemCode === itemCode);
 
-          if (_.isEmpty(findItem)) {
+          if (findItem) {
             itemData = [...itemData, newItemData];
           }
 
