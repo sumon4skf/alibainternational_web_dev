@@ -161,28 +161,6 @@ class AjaxController extends Controller
     return view('frontend.ajaxComponent.sellerInformation', compact('sellerInformation'));
   }
 
-  public function getFullInfo($item_id)
-  {
-    $fullInfo = get_browsing_data('fullInfo', true);
-    $newItem = true;
-    if (is_array($fullInfo)) {
-      $item = array_key_exists($item_id, $fullInfo) ? $fullInfo[$item_id] : [];
-      if (!empty($item)) {
-        return $item;
-      }
-    }
-
-    if ($newItem) {
-      $itemData = GetItemFullInfo($item_id);
-      if (!empty($itemData)) {
-        $fullInfo[$item_id] = $itemData;
-        store_browsing_data('fullInfo', $fullInfo);
-        $this->updateOrInsertToProduct($itemData);
-      }
-    }
-    return $itemData;
-  }
-
   public function orderConfirm()
   {
     $transaction_id = trim(request('order_id'));
@@ -230,7 +208,6 @@ class AjaxController extends Controller
 
   public function orderStore($transaction_id, $pay_method, $summary, $address)
   {
-
     $status = $pay_method == 'cash_payment' ? 'cash-payment' : 'Waiting for Payment';
 
     //order_number
@@ -280,9 +257,9 @@ class AjaxController extends Controller
     $order_id = $order->id;
     $Id = getArrayKeyData($product, 'Id', null);
     $ActualWeight = getArrayKeyData($product, 'ActualWeight', 0);
-    $findProduct = Product::where('ItemId', $Id)->first();
+    $findProduct = RecentProducts::where('ItemId', $Id)->first();
 
-    $product_id = $findProduct ? $findProduct->id : null;
+    $product_id = $findProduct ? $findProduct->id : '1234';
     $auth_id = auth()->id();
     $OrderItemData['order_id'] = $order_id;
     $OrderItemData['product_id'] = $product_id;
@@ -335,46 +312,6 @@ class AjaxController extends Controller
     ]);
   }
 
-  public function updateOrInsertToProduct($product)
-  {
-    $product_id = $product['Id'];
-    $CategoryId = $product['CategoryId'] ?? '';
-    $user_id = auth()->check() ? auth()->id() : null;
-    $timestamp = now();
-    $data = [
-      'active' => $timestamp,
-      'ItemId' => $product_id,
-      'ProviderType' => $product['ProviderType'] ?? '',
-      'Title' => $product['Title'] ?? '',
-      'CategoryId' => $CategoryId,
-      'ExternalCategoryId' => $product['ExternalCategoryId'] ?? '',
-      'VendorId' => $product['VendorId'] ?? '',
-      'VendorName' => $product['VendorName'] ?? '',
-      'VendorScore' => $product['VendorScore'] ?? '',
-      'BrandId' => $product['BrandId'] ?? '',
-      'BrandName' => $product['BrandName'] ?? '',
-      'TaobaoItemUrl' => $product['TaobaoItemUrl'] ?? '',
-      'ExternalItemUrl' => $product['ExternalItemUrl'] ?? '',
-      'MainPictureUrl' => $product['MainPictureUrl'] ?? '',
-      'Price' => json_encode($product['Price'] ?? []),
-      'Pictures' => json_encode($product['Pictures'] ?? []),
-      'FeaturedValues' => json_encode($product['FeaturedValues'] ?? []),
-      'MasterQuantity' => $product['MasterQuantity'] ?? '',
-      'user_id' => $user_id,
-      'created_at' => $timestamp,
-      'updated_at' => $timestamp,
-    ];
-
-
-    $product = Product::updateOrInsert(['ItemId' => $product_id], $data);
-
-    // $product = Product::where('ItemId', $product_id)->first();
-    // if ($product) {
-    //   $product->update($data);
-    //   return $product;
-    // }
-    return Product::where('ItemId', $product_id)->first();
-  }
 
   public function subscribeEmail()
   {
