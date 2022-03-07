@@ -1,6 +1,5 @@
 @php
-$taxonomies = get_all_taxonomies();
-$top_cats = filter_taxonomies($taxonomies, 'is_top', null, 'notequal');
+$top_cats = get_top_taxonomies();
 @endphp
 <!-- START FOOTER -->
 <footer class="bg_footer border-top mt-4">

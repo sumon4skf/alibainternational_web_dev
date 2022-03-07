@@ -34,6 +34,25 @@ if (!function_exists('weight_floating')) {
 }
 
 
+if (!function_exists('get_top_taxonomies')) {
+  /**
+   * Helper to grab the application name.
+   *
+   * @return mixed
+   */
+  function get_top_taxonomies()
+  {
+    $taxonomies = Cache::get('top_taxonomies');
+    if ($taxonomies) {
+      return $taxonomies;
+    }
+    $taxonomies = Taxonomy::whereNotNull('active')->whereNull('ParentId')->withCount('children')->get()->toArray();
+    Cache::put('top_taxonomies', $taxonomies, now()->addDays(90));
+    return $taxonomies;
+  }
+}
+
+
 if (!function_exists('get_all_taxonomies')) {
   /**
    * Helper to grab the application name.

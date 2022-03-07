@@ -16,8 +16,7 @@ $productLoader = get_setting('product_image_loader');
 // initialize the variable
 $cusBuyingProduct= null;
 $recent = null;
-$all_taxonomies = get_all_taxonomies();
-$top_cats = filter_taxonomies($all_taxonomies, 'is_top', null, 'notequal');
+$top_cats = get_top_taxonomies();
 @endphp
 
 @section('content')

@@ -15,18 +15,6 @@ use Illuminate\Support\Str;
 
 class TaxonomyController extends Controller
 {
-
-  public $mainCategories = [];
-
-
-  public function __construct(Taxonomy $taxonomy)
-  {
-    $taxonomies = $taxonomy->whereNotNull('active')->withCount('children')->get()->toArray();
-    Cache::put('taxonomies', $taxonomies, now()->addDays(90));
-    $this->mainCategories = filter_taxonomies($taxonomies, 'ParentId', null);
-  }
-
-
   /**
    * Display a listing of the resource.
    *
@@ -34,7 +22,7 @@ class TaxonomyController extends Controller
    */
   public function index()
   {
-    $mainCategories = $this->mainCategories;
+    $mainCategories = get_top_taxonomies();
     return view('backend.content.taxonomy.index', compact('mainCategories'));
   }
 
@@ -64,6 +52,8 @@ class TaxonomyController extends Controller
       Taxonomy::create($data);
     });
 
+    Cache::forget('taxonomies');
+    Cache::forget('top_taxonomies');
 
     $redirect = request('redirect');
     $redirect = $redirect ? $redirect : 'admin.taxonomy.index';
@@ -92,11 +82,15 @@ class TaxonomyController extends Controller
    */
   public function update(Request $request, Taxonomy $taxonomy)
   {
+
     $data = $this->validateTaxonomies($taxonomy->id);
 
     DB::transaction(function () use ($taxonomy, $data) {
       $taxonomy->update($data);
     });
+
+    Cache::forget('taxonomies');
+    Cache::forget('top_taxonomies');
 
     $redirect = request('redirect');
     $redirect = $redirect ? $redirect : 'admin.taxonomy.index';
