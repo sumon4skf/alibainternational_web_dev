@@ -181,18 +181,13 @@ function reload_quantity_from_Cart() {
 }
 
 function filter_attribute(reload = 0) {
-  let filter = $(document)
-    .find(".product_size_switch")
-    .find("span.active")
-    .attr("data-filter");
-  let colorName = $(document)
-    .find(".product_size_switch")
-    .find("span.active")
-    .attr("data-color-name");
+  let product_size = $(document).find(".product_size_switch");
+  let activeAttr = product_size.find("span.active");
+  let filter = activeAttr.attr("data-filter");
+  let colorName = activeAttr.attr("data-color-name");
   if (filter) {
     let itemCalculationTable = $(document).find("#itemCalculationTable");
-    let isHasFilter = itemCalculationTable.find("tbody tr." + filter)
-      .length;
+    let isHasFilter = itemCalculationTable.find("tbody tr." + filter).length;
     if (isHasFilter) {
       itemCalculationTable.find("tbody tr").hide();
       itemCalculationTable.find("tbody tr." + filter).show();
@@ -211,6 +206,12 @@ function filter_attribute(reload = 0) {
 }
 
 $(document).on("click", ".product_size_switch span", function () {
+  $(this)
+    .siblings(this)
+    .removeClass("active")
+    .end()
+    .addClass("active");
+
   let fullImageUrl = $(this).attr("data-fullimageurl");
   if (fullImageUrl) {
     $(document)
@@ -258,6 +259,7 @@ function append_from_china_to_bd() {
 
   if (cart.length) {
     let product = cart.find(item => item.Id === item_id);
+    // console.log('product', product);
     if (!_.isEmpty(product)) {
       let totalQuantity = product.totalQuantity;
       let totalPrice = Math.round(product.totalPrice);
@@ -341,7 +343,6 @@ function product_change_effect(
   const shipped_by = $("#shipping_rate").val();
   let newQty = Number(qty) * NextLotQuantity;
   let ActualPrice = generateConfigCurrentPrice(ConfiguredItem, Price, QuantityRanges);
-
   let newItemData = {
     itemCode: itemCode,
     maxQuantity: maxQuantity,
@@ -355,50 +356,34 @@ function product_change_effect(
   let newItem = true;
 
   if (cart.length > 0) {
-    cart = cart.map(cartItem => {
-      if (cartItem.Id === item_id) {
-        let itemData = cartItem.itemData;
-        if (itemData?.length > 0) {
-          itemData = itemData.map(findData => {
-            findData.subTotal = Number(findData.quantity) * Number(findData.price);
-            if (findData.itemCode === itemCode) {
-              findData.price = ActualPrice;
-              findData.image = mainImage;
-              findData.quantity = newQty;
-              findData.subTotal = Number(newQty) * Number(ActualPrice);
-              // return findData;
-            } else {
-              if (!_.isEmpty(QuantityRanges)) {
-                findData.price = ActualPrice;
-                findData.subTotal = Number(findData.quantity) * Number(ActualPrice);
-              }
-            }
-            return findData;
-          });
-
-          let findItem = itemData.find(findData => findData.itemCode === itemCode);
-
-          if (findItem) {
-            itemData = [...itemData, newItemData];
-          }
-
-          if (Number(newQty) === 0) {
-            itemData = itemData.filter(
-              findData => findData.itemCode !== itemCode
-            );
-          }
-        } else {
-          itemData = [newItemData];
+    let findProduct = cart.find(findCart => findCart.Id === item_id);
+    if (findProduct) {
+      let itemData = findProduct?.itemData || [];
+      let findItem = itemData?.find(findItem => findItem.itemCode === itemCode);
+      if (findItem) {
+        findItem.image = mainImage;
+        findItem.quantity = newQty;
+        findItem.price = ActualPrice;
+        findItem.subTotal = Number(newQty) * Number(ActualPrice);
+        if (QuantityRanges?.length > 0) {
+          findItem.price = ActualPrice;
+          findItem.subTotal = Number(itemData.quantity) * Number(ActualPrice);
         }
-        let calculateTotal = calculateProductItemTotal(itemData, false);
-        cartItem.itemData = itemData;
-        cartItem.totalQuantity = calculateTotal.totalQuantity;
-        cartItem.totalPrice = calculateTotal.totalPrice;
-        newItem = false;
-        return cartItem;
+        itemData = itemData.filter(findFilter => findFilter.itemCode !== itemCode);
+        itemData = [...itemData, findItem];
+      } else {
+        itemData = [...itemData, newItemData];
       }
-      return cartItem;
-    });
+
+      let calculateTotal = calculateProductItemTotal(itemData, false);
+
+      findProduct.itemData = itemData;
+      findProduct.totalQuantity = calculateTotal.totalQuantity;
+      findProduct.totalPrice = calculateTotal.totalPrice;
+      newItem = false;
+      cart = cart.filter(findCart => findCart.Id !== item_id);
+      cart = [...cart, findProduct];
+    }
   }
 
   if (newItem) {
@@ -548,10 +533,6 @@ function is_available_on_cart() {
   }
 }
 
-$(document).on("change", "#shipping_rate", function (event) {
-  event.preventDefault();
-  let charge = $(this).attr("data-charge");
-});
 
 function validateToProcessCheckout() {
   const itemFull = currentProductDetails();

@@ -140,51 +140,6 @@
     slick_slider();
   });
 
-  /*======= PRODUCT COLOR JS ===============*/
-  $(".product_color_switch span").each(function () {
-    var get_color = $(this).attr("data-color");
-    $(this).css("background-color", get_color);
-  });
-
-  $(document).on(
-    "click",
-    ".product_color_switch span,.product_size_switch span",
-    function () {
-      $(this)
-        .siblings(this)
-        .removeClass("active")
-        .end()
-        .addClass("active");
-    }
-  );
-
-  /*======== PRICE FILTER JS ==============*/
-  $("#price_filter").each(function () {
-    var $filter_selector = $(this);
-    var a = $filter_selector.data("min-value");
-    var b = $filter_selector.data("max-value");
-    var c = $filter_selector.data("price-sign");
-    $filter_selector.slider({
-      range: true,
-      min: $filter_selector.data("min"),
-      max: $filter_selector.data("max"),
-      values: [a, b],
-      slide: function (event, ui) {
-        $("#flt_price").html(
-          c + ui.values[0] + " - " + c + ui.values[1]
-        );
-        $("#price_first").val(ui.values[0]);
-        $("#price_second").val(ui.values[1]);
-      }
-    });
-    $("#flt_price").html(
-      c +
-      $filter_selector.slider("values", 0) +
-      " - " +
-      c +
-      $filter_selector.slider("values", 1)
-    );
-  });
 
   /*========= RATING STAR JS ============*/
   $(document).on("ready", function () {
