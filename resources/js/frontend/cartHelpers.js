@@ -318,8 +318,6 @@ export const validateCartProducts = (proceedLink = null) => {
       }
     }
 
-    console.log("passItem", passItem);
-
     if (!passItem.length && proceed) {
       Swal.fire({
         icon: "warning",

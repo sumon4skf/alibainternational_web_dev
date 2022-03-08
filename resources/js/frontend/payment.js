@@ -216,17 +216,7 @@ function s_manager_payment_process(transaction_id) {
 
 function load_the_payment_confirm(pay_method) {
   let OrderItem = productCart().filter(filter => filter.isCart === true);
-  OrderItem = OrderItem.map(product => {
-    let itemData = product.itemData;
-    if (_.isArray(itemData)) {
-      product.itemData = itemData.filter(
-        filter => filter.isChecked === true
-      );
-    }
-    return product;
-  });
-
-  // console.log('OrderItem', OrderItem);
+  OrderItem = OrderItem.filter(product => product?.itemData?.filter(filter => filter.isChecked === true));
 
   let address = customer_address();
   let summary = window.localStorage.getItem("summary");
@@ -244,7 +234,7 @@ function load_the_payment_confirm(pay_method) {
     .then(response => {
       let responseData = response.data;
       if (responseData.status) {
-        clearProductCart();
+        // clearProductCart();
         if (pay_method === "bkash") {
           window.location.replace("/bkash/payment");
         } else if (pay_method === "nagad") {
@@ -259,12 +249,6 @@ function load_the_payment_confirm(pay_method) {
           window.location.assign("/dashboard?tab=orders");
         }
       }
-    })
-    .catch(error => {
-      console.log(error);
-    })
-    .then(() => {
-      console.log("complete");
     });
 }
 
