@@ -1,0 +1,6 @@
+
+
+
+ALTER TABLE `chinaonlinebd_web`.`order_item` 
+ADD COLUMN `order_note` TEXT NULL AFTER `status`,
+ADD COLUMN `purchase_by` BIGINT UNSIGNED NULL AFTER `order_note`;

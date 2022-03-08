@@ -318,6 +318,13 @@ class OrderController extends Controller
     if ($orderItem) {
       $validData['quantity'] = $orderItem->itemVariations->sum('quantity');
       $validData['product_value'] = $orderItem->itemVariations->sum('subTotal');
+      $status = $validData['status'];
+      if ($status == 'purchased') {
+        $validData['purchase_by'] = auth()->id();
+        if (request('order_note')) {
+          $validData['order_note'] = request('order_note');
+        }
+      }
       $orderItem->update($validData);
       $order_id = $orderItem->order->id ?? null;
       $this->recalculateOrderItemsDue($order_id);

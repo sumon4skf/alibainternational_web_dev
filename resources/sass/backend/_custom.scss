@@ -12,8 +12,6 @@ body {
     font-size: 14px;
 }
 
-
-
 .text-sm .card-title {
     font-size: 1.4rem;
 }
@@ -136,4 +134,18 @@ body {
 .custome-checkbox input[disabled] + .form-check-label::before,
 .custome-radio input[disabled] + .form-check-label::before {
     border-color: #e8e8e8;
+}
+
+.popover-body {
+    ol {
+        margin: 0;
+        padding: 10px;
+        li {
+            padding: 0;
+            padding-bottom: 3px;
+            &:last-child {
+                padding-bottom: 0;
+            }
+        }
+    }
 }

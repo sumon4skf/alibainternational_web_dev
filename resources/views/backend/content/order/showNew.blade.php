@@ -411,7 +411,6 @@ $currency = get_setting('currency_icon')
 
 @push('after-scripts')
 {{script('assets/plugins/select2/js/select2.full.min.js')}}
-{!! script('assets/js/manage-wallet.js') !!}
 <script>
   const popupCenter = ({url, title, w, h}) => {
         // Fixes dual-screen position Most browsers      Firefox

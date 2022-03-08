@@ -123,12 +123,10 @@ export const calculateCheckoutTotalQuantity = productId => {
 export const calculateProductItemTotal = itemData => {
   let totalQuantity = 0;
   let totalPrice = 0;
-  if (isArray(itemData)) {
-    itemData.map(item => {
-      totalQuantity += item.quantity;
-      totalPrice += item.subTotal;
-    });
-  }
+  itemData?.map(item => {
+    totalQuantity += item.quantity;
+    totalPrice += item.subTotal;
+  });
   return { totalQuantity: totalQuantity, totalPrice: totalPrice };
 };
 
@@ -139,8 +137,8 @@ export const checkedItemTotalSummary = itemData => {
     itemData
       .filter(filter => filter.isChecked === true)
       .map(item => {
-        totalQuantity += item.quantity;
-        totalPrice += item.subTotal;
+        totalQuantity += parseInt(item.quantity);
+        totalPrice += parseInt(item.subTotal);
       });
   }
   return { totalQuantity: totalQuantity, totalPrice: totalPrice };

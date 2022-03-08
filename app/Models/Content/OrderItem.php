@@ -23,6 +23,11 @@ class OrderItem extends Model
     return $this->belongsTo(User::class, 'user_id', 'id');
   }
 
+  public function purchaseBy()
+  {
+    return $this->belongsTo(User::class, 'purchase_by', 'id');
+  }
+
   public function order()
   {
     return $this->belongsTo(Order::class, 'order_id', 'id');

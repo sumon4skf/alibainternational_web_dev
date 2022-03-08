@@ -46,8 +46,7 @@ class OrderTable extends TableComponent
 
   public function query(): Builder
   {
-    $order =  Order::with('user');
-
+    $order =  Order::with(['user:id,name,phone', 'orderItems']);
     $status = $this->status;
     if ($status) {
       if ($status == 'trashed') {
@@ -56,7 +55,6 @@ class OrderTable extends TableComponent
         $order->where('status', $status);
       }
     }
-
     return $order;
   }
 
@@ -108,6 +106,14 @@ class OrderTable extends TableComponent
         }),
       Column::make('PaymentMethod', 'pay_method')
         ->searchable(),
+      Column::make('PurchaseBy', 'orderItems')
+        ->format(function (Order $model) {
+          return view('backend.content.order.includes.purchaseBy', ['orderItems' => $model->orderItems]);
+        }),
+      Column::make('Note', 'order_note')
+        ->format(function (Order $model) {
+          return view('backend.content.order.includes.purchaseNote', ['orderItems' => $model->orderItems]);
+        }),
       Column::make('Status', 'status')
         ->searchable()
         ->format(function (Order $model) {
@@ -130,17 +136,16 @@ class OrderTable extends TableComponent
 
   public function setTableHeadClass($attribute): ?string
   {
-    $array = ['order_number', 'action', 'pay_method', 'status', 'dueForProducts', 'needToPay', 'amount', 'coupon_victory', 'transaction_id', 'created_at'];
+    $array = ['order_number', 'order_note', 'orderItems', 'action', 'pay_method', 'status', 'dueForProducts', 'needToPay', 'amount', 'coupon_victory', 'transaction_id', 'created_at'];
     if (in_array($attribute, $array)) {
       return ' text-center';
     }
     return $attribute;
   }
 
-
   public function setTableDataClass($attribute, $value): ?string
   {
-    $array = ['order_number', 'action', 'pay_method', 'status', 'dueForProducts', 'needToPay', 'amount', 'coupon_victory', 'transaction_id', 'created_at'];
+    $array = ['order_number', 'order_note', 'orderItems', 'action', 'pay_method', 'status', 'dueForProducts', 'needToPay', 'amount', 'coupon_victory', 'transaction_id', 'created_at'];
     if (in_array($attribute, $array)) {
       return 'text-center align-middle';
     }

@@ -367,7 +367,7 @@ function product_change_effect(
         findItem.subTotal = Number(newQty) * Number(ActualPrice);
         if (QuantityRanges?.length > 0) {
           findItem.price = ActualPrice;
-          findItem.subTotal = Number(itemData.quantity) * Number(ActualPrice);
+          findItem.subTotal = Number(newQty) * Number(ActualPrice);
         }
         itemData = itemData.filter(findFilter => findFilter.itemCode !== itemCode);
         itemData = [...itemData, findItem];
@@ -375,7 +375,7 @@ function product_change_effect(
         itemData = [...itemData, newItemData];
       }
 
-      let calculateTotal = calculateProductItemTotal(itemData, false);
+      let calculateTotal = calculateProductItemTotal(itemData);
 
       findProduct.itemData = itemData;
       findProduct.totalQuantity = calculateTotal.totalQuantity;
