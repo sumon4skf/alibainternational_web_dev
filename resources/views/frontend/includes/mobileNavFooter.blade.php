@@ -9,7 +9,7 @@
     <div class="col">
       <a class="nav-link" href="{{route('frontend.user.dashboard')}}">
         <i class="icon-user-male"></i>
-       <p>Account</p>
+        <p>Account</p>
       </a>
     </div>
     <div class="col">
@@ -25,7 +25,7 @@
     </div>
     <div class="col">
       <a class="nav-link" href="https://m.me/23423" target="_blank">
-        <i class="icon-chat-empty"></i> 
+        <i class="icon-chat-empty"></i>
         <p>Chat</p>
       </a>
     </div>

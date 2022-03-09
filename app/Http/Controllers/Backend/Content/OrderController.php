@@ -244,7 +244,7 @@ class OrderController extends Controller
 
   public function walletOrders()
   {
-    $customers = User::role('user')->withCount('orders')->orderBy('first_name')->get();
+    $customers = User::role('user')->withCount('orders')->orderBy('name')->get();
     $findable[''] = ' - Select Customer - ';
     foreach ($customers as $customer) {
       $findable[$customer->id] = $customer->name;

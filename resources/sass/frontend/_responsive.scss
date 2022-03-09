@@ -1074,8 +1074,8 @@
             text-align: center;
             padding: 0;
             .nav-link {
-              text-align: center;
-              padding: 6px 0px;
+                text-align: center;
+                padding: 0px 0px;
                 i {
                     font-size: 30px;
                     color: $themeColor;
@@ -1091,7 +1091,7 @@
             .mobile_home_icon {
                 i {
                     font-size: 44px;
-                    color:rgb(0, 128, 0);
+                    color: rgb(0, 128, 0);
                 }
                 img {
                     width: 70px !important;
@@ -1100,6 +1100,21 @@
                     background: $themeColor;
                 }
             }
+        }
+    }
+
+    .mobileCartButtons {
+        background: #fff;
+        background-color: #fff;
+        box-shadow: 0.25rem 0 0.5rem rgba(0, 0, 0, 0.15) !important;
+        .col {
+            text-align: center;
+            padding: 4px;
+        }
+        .btn-addToCart,
+        .btnBuyNow,
+        .add_wishlist {
+            padding: 10px 0;
         }
     }
 

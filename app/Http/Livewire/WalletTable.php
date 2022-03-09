@@ -59,7 +59,7 @@ class WalletTable extends TableComponent
       return $v != 'null';
     });
 
-    $orderItem = OrderItem::with(['user:id,name,first_name,last_name,phone', 'order', 'product:id,Title']);
+    $orderItem = OrderItem::with(['user:id,name,phone', 'order', 'product']);
     $orderItem = !empty($status) ? $orderItem->whereIn('status', $status) : $orderItem;
     return $customer ? $orderItem->where('user_id', $customer) : $orderItem;
   }
@@ -69,7 +69,7 @@ class WalletTable extends TableComponent
     return [
       Column::make('<input type="checkbox" id="allSelectCheckbox">', 'checkbox')
         ->format(function (OrderItem $model) {
-          $checkbox = '<span class="d-none productInfo" data-product-id="' . $model->product_id . '" data-product-name="' . $model->product->Title . '"></span>';
+          $checkbox = '<span class="d-none productInfo" data-product-id="' . $model->product_id . '" data-product-name="' . $model->name . '"></span>';
           $checkbox .= '<input type="checkbox" class="checkboxItem " data-status="' . $model->status . '" data-user="' . $model->user_id . '"  name="wallet[]" value="' . $model->id . '">';
           return $this->html($checkbox);
         })->excludeFromExport(),
