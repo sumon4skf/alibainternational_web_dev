@@ -32,6 +32,7 @@ Route::namespace('Content')->group(function () {
   Route::get('invoice/restore/{invoice}', 'InvoiceController@restore')->name('invoice.restore');
   Route::get('invoice/confirm-received/{invoice}', [InvoiceController::class, 'confirm_received'])->name('invoice.confirm.received');
   Route::get('invoice/details/{invoice}', [InvoiceController::class, 'details'])->name('invoice.details');
+  Route::post('invoice/generate/prepare', [InvoiceController::class, 'generatePrepare']); // ajax
   Route::resource('invoice', 'InvoiceController');
 
   Route::get('coupon/trashed', 'CouponController@trashed')->name('coupon.trashed');

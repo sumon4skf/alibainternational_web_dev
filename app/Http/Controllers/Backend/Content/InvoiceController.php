@@ -23,14 +23,30 @@ class InvoiceController extends Controller
     return view('backend.content.invoice.index');
   }
 
-  /**
-   * Show the form for creating a new resource.
-   *
-   * @return \Illuminate\Http\Response
-   */
-  public function create()
+
+  public function generatePrepare()
   {
-    //
+    $items = request('items', []);
+
+    $orderItems = OrderItem::whereIn('id', $items)->get();
+    $array = ["received-in-BD-warehouse", "out-of-stock", "adjustment", "refunded"];
+    $status = true;
+    $msg = 'Invoice Generate on process';
+    $user_id = $orderItems->count() ? $orderItems->first()->user_id : null;
+    foreach ($orderItems as $item) {
+      if (!in_array($item->status, $array)) {
+        $status = false;
+        $msg = 'Selected Items not ready for Invoice Generate';
+        break;
+      }
+      if ($user_id != $item->user_id) {
+        $status = false;
+        $msg = 'Selected Items is not the similar customer';
+        break;
+      }
+    }
+
+    return response(['items' => $orderItems, 'status' => $status, 'msg' => $msg]);
   }
 
   /**
@@ -41,93 +57,90 @@ class InvoiceController extends Controller
    */
   public function store(Request $request)
   {
-    $invoices = json_decode(request('invoices'), true);
-    $related = json_decode(request('related'), true);
-    $status = false;
-    if (!empty($related)) {
-      $user_id = $related['user_id'];
-      $isNotify = $related['isNotify'];
-      $courier_bill = $related['courier_bill'];
-      $payment_method = $related['payment_method'];
-      $delivery_method = $related['delivery_method'];
-      $user = User::with('shipping')->find($user_id);
+    $courier_bill = request('courier_bill');
+    $payment_method = request('payment_method');
+    $delivery_method = request('delivery_method');
+    $user_id = request('user_id');
+    $items = request('items', []);
+    $additional = request('additional', []);
+    $user = User::find($user_id);
+    $totalItems = is_array($items) ? count($items) : 0;
+    $response = [
+      'status' => false,
+      'invoice_no' => null,
+      'msg' => 'Invoice generated failed',
+    ];
+    if ($totalItems) {
       $shipping = $user ? $user->shipping : [];
       $invoice = Invoice::create([
-        // 'transaction_id' => uniqid('SSL'),
         'customer_name' => $user->name,
         'customer_phone' => $user->phone,
         'customer_address' => json_encode($shipping),
         'total_courier' => $courier_bill,
         'payment_method' => $payment_method,
         'delivery_method' => $delivery_method,
+        'additional' => json_encode($additional),
         'status' => 'Pending',
         'user_id' => $user_id,
       ]);
       $invoice->update([
         'invoice_no' => 'INV' . generate_order_number($invoice->id, 4),
       ]);
-      $item_ids = [];
-      $total_invoices = is_array($invoices) ? count($invoices) : 0;
-      $courier_bill = calculateOneItemCourierBill($courier_bill, $total_invoices);
 
-      if (!empty($invoices)) {
-        foreach ($invoices as $item) {
-          $item_id = $item['id'] ?? null;
-          array_push($item_ids, $item_id);
-          $orderItem = OrderItem::with('order')->find($item_id);
-          if ($orderItem->status == 'received-in-BD-warehouse') {
-            $invoice_status = 'on-transit-to-customer';
-          } else {
-            $invoice_status = $item['status'];
-          }
-          $due = calculateItemDue($orderItem);
-          $totalDue = $due + $courier_bill;
-          $first_payment = $orderItem->first_payment;
-          $items_payable = $orderItem->first_payment + $totalDue;
-          InvoiceItem::create([
-            'invoice_id' => $invoice->id,
-            'order_id' => $orderItem->order_id,
-            'item_id' => $item_id,
-            'product_id' => $item['product_id'],
-            'product_name' => $item['product_name'],
-            'items_total' => $orderItem->product_value,
-            'china_shipping' => $orderItem->chinaLocalDelivery,
-            'weight' => $orderItem->actual_weight,
-            'shipping_rate' => $orderItem->shipping_rate,
-            'courier_bill' => $courier_bill,
-            'items_payable' => $items_payable,
-            'deposit' => $first_payment,
-            'due_payment' => $totalDue,
-            'second_payment' => null,
-            'status' => $invoice_status,
-            'user_id' => $user_id,
-          ]);
-          if ($isNotify) {
-            generate_customer_notifications('on-transit-to-customer', $user, $orderItem->order_item_number, $totalDue, "");
-          }
+      $courier_bill = calculateOneItemCourierBill($courier_bill, $totalItems);
+
+      $orderItems = OrderItem::whereIn('id', $items)->get();
+      $subTotalDue = 0;
+      foreach ($orderItems as $orderItem) {
+        $item_id = $orderItem->id;
+        if ($orderItem->status == 'received-in-BD-warehouse') {
+          $invoice_status = 'on-transit-to-customer';
+        } else {
+          $invoice_status = $orderItem->status;
         }
-      }
-      $orderItem = null;
-      foreach ($item_ids as $item_id) {
-        $orderItem = OrderItem::find($item_id);
-        if ($orderItem) {
-          if ($orderItem->status == 'received-in-BD-warehouse') {
-            $order_item_status = 'on-transit-to-customer';
-          } else {
-            $order_item_status = $orderItem->status;
-          }
-          $orderItem->update([
-            'courier_bill' => $courier_bill,
-            'invoice_no' => $invoice->invoice_no,
-            'status' => $order_item_status
-          ]);
-        }
+        $due = calculateItemDue($orderItem);
+        $totalDue = $due + $courier_bill;
+        $first_payment = $orderItem->first_payment;
+        $items_payable = $orderItem->first_payment + $totalDue;
+        $subTotalDue += $items_payable;
+        InvoiceItem::create([
+          'invoice_id' => $invoice->id,
+          'order_id' => $orderItem->order_id,
+          'item_id' => $item_id,
+          'product_id' => $orderItem->product_id,
+          'product_name' => $orderItem->product_name,
+          'items_total' => $orderItem->product_value,
+          'china_shipping' => $orderItem->chinaLocalDelivery,
+          'weight' => $orderItem->actual_weight,
+          'shipping_rate' => $orderItem->shipping_rate,
+          'courier_bill' => $courier_bill,
+          'items_payable' => $items_payable,
+          'deposit' => $first_payment,
+          'due_payment' => $totalDue,
+          'second_payment' => null,
+          'status' => $invoice_status,
+          'user_id' => $user_id,
+        ]);
+
+        $orderItem->update([
+          'courier_bill' => $courier_bill,
+          'invoice_no' => $invoice->invoice_no,
+          'status' => $invoice_status
+        ]);
       }
 
-      $status = $orderItem ? true : false;
+      if (request('notify')) {
+        generate_customer_notifications('on-transit-to-customer', $user, $invoice->invoice_no, $subTotalDue, "");
+      }
+      $response = [
+        'status' => true,
+        'invoice_no' => $invoice->invoice_no,
+        'redirect' => url('admin/invoice'),
+        'msg' => 'Invoice generated successfully',
+      ];
     }
 
-    return response()->json(['status' => $status]);
+    return response($response);
   }
 
   /**

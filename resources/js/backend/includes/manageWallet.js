@@ -228,135 +228,66 @@ $(function () {
     $("#statusChargeForm").trigger("reset");
   });
 
+
+  function generateInvoiceItems(itemsData) {
+    let html = '';
+    let hiddenUser = '';
+    let hiddenField = '';
+    let totalDue = 0;
+    let totalWeight = 0;
+    itemsData?.map((item, index) => {
+      let serial = index + 1;
+      let itemNumber = item?.order_item_number;
+      let name = item?.name;
+      let status = item?.status;
+      let weight = item?.actual_weight ? Number(item?.actual_weight) : 0;
+      let actual_weight = weight.toFixed(3);
+      let due_payment = item?.due_payment ? Math.round(item.due_payment) : 0;
+      totalDue += due_payment;
+      totalWeight += weight;
+      hiddenUser = `<input type="hidden" name="user_id" value="${item?.user_id}"/>`;
+      hiddenField += `<input type="hidden" name="items[]" value="${item?.id}"/>`;
+      html = `<tr> <td class=" align-middle">${index + 1}</td><td class=" align-middle">${itemNumber}</td><td class="text-left align-middle">${name}</td><td class=" align-middle">${status}</td><td class="text-right align-middle">${actual_weight}</td><td class="text-right align-middle">${due_payment}</td></tr>`;
+    });
+    const invoiceFooter = $("#invoiceFooter");
+    invoiceFooter.find(".total_weight").text(Number(totalWeight).toFixed(3));
+    invoiceFooter.find(".total_due").text(totalDue);
+    invoiceFooter.find(".total_payable").text(totalDue);
+    invoiceFooter.find(".TotalWithCharges").text(totalDue);
+    $(".hiddenField").html(hiddenUser + hiddenField);
+    return html;
+  }
+
   body.on("click", "#generateInvoiceButton", function () {
     var generateInvoiceModal = $("#generateInvoiceModal");
-    var hiddenInput = "";
-    var is_generate = true;
-    var duePayment = "";
-    var serial = 1;
-    var userTrack = 0;
-    var total_due = 0;
-    var total_weight = 0;
-    var invoices = [];
-
-    $("input.checkboxItem:checked").each(function (index) {
+    var items = [];
+    $("input.checkboxItem:checked").each(function () {
       var item_id = $(this).val();
-      var status = $(this).attr("data-status");
-      var user_id = $(this).attr("data-user");
-      var invoice_item = {};
-      if (userTrack === 0) {
-        userTrack = user_id;
-      }
-      if (userTrack !== 0 && userTrack !== user_id) {
-        is_generate = false;
-      }
-      var status_allow = [
-        "received-in-BD-warehouse",
-        "out-of-stock",
-        "adjustment",
-        "refunded"
-      ];
-      // received-in-BD-warehouse
-      // alert(status);
-      if (!status_allow.includes(status)) {
-        is_generate = false;
-      }
-      if (is_generate) {
-        var itemRow = $(document).find("#" + item_id);
-        var product_name = itemRow
-          .find(".productInfo")
-          .attr("data-product-name");
-        var product_id = itemRow
-          .find(".productInfo")
-          .attr("data-product-id");
-        var order_item_number = itemRow
-          .find(".order_item_number")
-          .text();
-        var actual_weight = itemRow.find(".actual_weight").text();
-        var due_payment = itemRow.find(".due_payment").text();
-
-        total_due += Number(due_payment);
-        total_weight += Number(actual_weight);
-        duePayment += `<tr>
-                          <td class=" align-middle">${serial}</td>
-                          <td class=" align-middle">${order_item_number}</td>
-                          <td class="text-left align-middle">${product_name}</td>
-                          <td class=" align-middle">${status}</td>
-                          <td class="text-right align-middle">${Number(
-          actual_weight
-        ).toFixed(3)}</td>
-                          <td class="text-right align-middle">${Number(
-          due_payment
-        ).toFixed(2)}</td>
-                        </tr>`;
-        invoice_item.id = item_id;
-        invoice_item.order_item_number = order_item_number;
-        invoice_item.product_id = product_id;
-        invoice_item.product_name = product_name;
-        invoice_item.actual_weight = actual_weight;
-        invoice_item.due_payment = due_payment;
-        invoice_item.status = status;
-      }
-      serial += 1;
-      invoices.push(invoice_item);
+      items.push(item_id);
     });
-
-    if (is_generate) {
-      var invoiceFooter = $("#invoiceFooter");
-      invoiceFooter
-        .find(".total_weight")
-        .text(Number(total_weight).toFixed(3));
-      invoiceFooter.find(".total_due").text(Number(total_due).toFixed(2));
-      // invoiceFooter.find('.courier_bill').text(Number(0.00).toFixed(2));
-      invoiceFooter
-        .find(".total_payable")
-        .text(Number(total_due).toFixed(2));
-      invoiceFooter.find(".total_payable").attr("data-user", userTrack);
-      invoiceFooter
-        .find(".total_payable")
-        .attr(
-          "data-invoices",
-          encodeURIComponent(JSON.stringify(invoices))
-        );
-      $("#invoiceItem").html(duePayment);
-      generateInvoiceModal.modal("show");
-    } else {
-      Swal.fire({
-        icon: "warning",
-        text: "Selected items are not ready for generate invoice"
-      });
+    if (items.length) {
+      axios.post('/admin/invoice/generate/prepare', { items: items })
+        .then(response => {
+          let data = response.data;
+          if (data.status) {
+            let itemsData = data?.items;
+            let htmlData = generateInvoiceItems(itemsData);
+            $("#invoiceItem").html(htmlData);
+            generateInvoiceModal.modal("show");
+          } else {
+            Swal.fire({
+              icon: "warning",
+              text: data.msg
+            });
+          }
+        });
     }
-    //console.log('invoices', invoices);
-    // hiddenField.html(hiddenInput);
-    // changeStatusModal.modal('show');
   });
-
-  function generate_process_related_data() {
-    var invoiceFooter = $("#invoiceFooter");
-    var courier_bill = invoiceFooter.find(".courier_bill").text();
-    var payment_method = invoiceFooter.find("#payment_method").val();
-    var delivery_method = invoiceFooter.find("#delivery_method").val();
-    var total_payable = invoiceFooter.find(".total_payable").text();
-    var total_due = invoiceFooter.find(".total_due").text();
-    var customer_id = invoiceFooter
-      .find(".total_payable")
-      .attr("data-user");
-    var isNotify = $("#notifyUser").is(":checked") ? 1 : 0;
-    var related_data = {};
-    related_data.courier_bill = courier_bill;
-    related_data.payment_method = payment_method;
-    related_data.delivery_method = delivery_method;
-    related_data.total_due = total_due;
-    related_data.total_payable = total_payable;
-    related_data.user_id = customer_id;
-    related_data.isNotify = isNotify;
-    return related_data;
-  }
 
   $(document).on("click", ".applyCourierBtn", function () {
     var courier_bill = $(this)
       .closest(".input-group")
-      .find(".form-control")
+      .find("input")
       .val();
     var total_due = $("#invoiceFooter")
       .find(".total_due")
@@ -364,10 +295,10 @@ $(function () {
     var total_payable = Number(courier_bill) + Number(total_due);
     $("#invoiceFooter")
       .find(".courier_bill")
-      .text(Number(courier_bill).toFixed(2));
+      .text(Math.round(courier_bill));
     $("#invoiceFooter")
       .find(".total_payable")
-      .text(Number(total_payable).toFixed(2));
+      .text(Math.round(total_payable));
 
     $(".courier_bill_text").show();
     $(".courierSubmitForm").hide();
@@ -391,50 +322,40 @@ $(function () {
     $(".courierSubmitForm").show();
   });
 
-  $(document).on("click", "#generateSubmitBtn", function () {
-    var invoices = $("#invoiceFooter")
-      .find(".total_payable")
-      .attr("data-invoices");
-    if (invoices) {
-      invoices = decodeURIComponent(invoices);
-    }
-    var related = generate_process_related_data();
-    var csrf = $('meta[name="csrf-token"]');
-    $.ajax({
-      type: "POST",
-      url: $(this).attr("data-action"),
-      data: {
-        invoices: invoices,
-        related: JSON.stringify(related)
-      },
-      headers: {
-        "X-CSRF-TOKEN": csrf.attr("content")
-      },
-      beforeSend: function () {
-        // before loading...
-      },
-      success: function (response) {
-        if (response.status) {
-          window.location.href = "/admin/invoice";
+  $(document).on("submit", "#generateInvoiceForm", function (e) {
+    e.preventDefault();
+    const action = $(this).attr('action');
+    const formData = $(this).serialize();
+    axios.post(action, formData)
+      .then(response => {
+        let data = response.data;
+        if (data.status) {
+          let invoice_no = data.invoice_no;
+          let redirect = data.redirect;
+          Swal.fire({
+            icon: "success",
+            title: `Invoice No. #${invoice_no}`,
+            text: data.msg,
+            showCancelButton: true,
+            confirmButtonText: 'Yes, Go Invoice ',
+            cancelButtonText: 'Stay Here'
+          }).then(result => {
+            if (result.value) {
+              window.location = redirect;
+            }
+          });
+          $("#generateInvoiceModal").modal('hide');
         } else {
           Swal.fire({
             icon: "warning",
-            text: "Invoice Generate Fail"
+            text: data.msg
           });
         }
-      },
-      error: function (xhr) {
-        // if error occurred
-        Swal.fire({
-          icon: "warning",
-          text: "Invoice Generate Error"
-        });
-      },
-      complete: function () {
-        $("#generateInvoiceModal").modal("hide");
-      }
-    });
+      });
   });
+
+
+
 });
 
 $(function () {

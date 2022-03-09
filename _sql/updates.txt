@@ -4,3 +4,10 @@
 ALTER TABLE `chinaonlinebd_web`.`order_item` 
 ADD COLUMN `order_note` TEXT NULL AFTER `status`,
 ADD COLUMN `purchase_by` BIGINT UNSIGNED NULL AFTER `order_note`;
+
+
+ALTER TABLE `chinaonlinebd_web`.`invoices` 
+ADD COLUMN `additional` TEXT NULL AFTER `delivery_method`;
+
+ALTER TABLE `chinaonlinebd_web`.`invoices` 
+CHANGE COLUMN `total_courier` `total_courier` DOUBLE NULL ;
