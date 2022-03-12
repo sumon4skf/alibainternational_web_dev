@@ -79,7 +79,7 @@
   <div class="easy_connect d-none d-lg-block">
     <ul class="list-group">
       <li class="list-group-item">
-        <a class="mobile" href="https://m.me/232" target="_blank">
+        <a class="mobile" href="https://m.me/109012968398097" target="_blank">
           <span class="desktop_stick_nav_icon"><i class="icon-chat-empty"></i></span>
           <span class="desktop_stick_nav_text">Chat Us</span>
         </a>

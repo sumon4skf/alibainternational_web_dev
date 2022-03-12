@@ -4,7 +4,7 @@ If you discover a security vulnerability within this boilerplate, please send an
 
 ### Have You Any Query ??
 
-Have you any query please contact with us [sumon4skf@gmail.com](mailto:sumon4skf@gmail.com)
+Developed for Chinaonlinebd.com Have you any query please contact with us [sumon4skf@gmail.com](mailto:sumon4skf@gmail.com)
 
 ### License
 
