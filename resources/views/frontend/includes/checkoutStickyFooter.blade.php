@@ -1,7 +1,10 @@
-<div class="fixed-bottom mobileNavFooter d-lg-none">
-  <nav class="row m-0">
-    <div class="col">
-      <a href="{{route('frontend.payment')}}" style="padding: 12px 0;" class="btn btn-block btn-default proceedButton">Proceed</a>
+<nav class="fixed-bottom mobileNavFooter d-lg-none mobileCartButtons">
+  <div class="container">
+    <div class="row">
+      <div class="col">
+        <a href="{{route('frontend.payment')}}"
+          class="btn btn-block btn-addToCart proceedButton">Proceed</a>
+      </div>
     </div>
-  </nav>
-</div>
+  </div>
+</nav>

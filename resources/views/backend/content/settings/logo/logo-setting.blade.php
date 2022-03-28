@@ -42,16 +42,6 @@ $demoImg = 'images/backend/front-logo.png';
           </div> <!-- col-->
         </div> <!-- form-group-->
         <div class="form-group row mb-4">
-          {{html()->label('Favicon (32x32)')->class('col-md-4 form-control-label text-right')->for('favicon')}}
-          <div class="col-md-8">
-            @php($favicon = get_setting('favicon') ?? $demoImg )
-            <label for="favicon">
-              <img src="{{asset($favicon)}}" class="border img-fluid rounded holder" alt="Image upload">
-            </label>
-            {{html()->file('favicon')->class('form-control-file image d-none')->id('favicon')->acceptImage()}}
-          </div> <!-- col-->
-        </div> <!-- form-group-->
-        <div class="form-group row mb-4">
           <label for="bg-color-input" class="col-sm-4 col-form-label text-right">Front Navbar BG</label>
           <div class="col-md-8">
             @php($fbg = get_setting('front_navbar_bg') ?? '#508aeb' )
