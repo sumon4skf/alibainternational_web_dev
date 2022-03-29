@@ -99,6 +99,20 @@ class SettingController extends Controller
   }
 
 
+  public function smsTest($key)
+  {
+    $text  = get_setting($key);
+    $user = request()->user();
+    $phone = $user->phone ?? null;
+    if ($text && $phone) {
+      $res = send_ware_SMS($text, $phone);
+      return redirect()->back()->withFlashSuccess('SMS text send to your phone.');
+    }
+
+    return redirect()->back()->withFlashDanger('Please update your phone number first');
+  }
+
+
   public function messageStore()
   {
 

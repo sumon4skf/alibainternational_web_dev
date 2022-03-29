@@ -17,6 +17,11 @@ if (!function_exists('send_ware_SMS')) {
       return mim_sms($txt, $phone);
     }
 
+    if ($active_sms == 'ssl_sms') {
+      $csms_id = uniqid();
+      return singleSms($phone, $txt, $csms_id);
+    }
+
     // $csms_id = uniqid();
     // return singleSms($phone, $txt, $csms_id);
     // return mdl_sms($txt, $phone);
@@ -26,17 +31,17 @@ if (!function_exists('send_ware_SMS')) {
 
 
 if (!function_exists('singleSms')) {
-  function singleSms($msisdn, $messageBody, $csmsId)
+  function singleSms($phone, $txt, $csmsId)
   {
-    $API_TOKEN = config('app.ISMS_API_TOKEN'); //put ssl provided api_token here
-    $SID = config('app.ISMS_SID'); // put ssl provided sid here
+    $API_TOKEN = get_setting('ssl_api_token');
+    $SID = get_setting('ssl_api_sid');
     $DOMAIN = "https://smsplus.sslwireless.com";
 
     $params = [
       "api_token" => $API_TOKEN,
       "sid" => $SID,
-      "msisdn" => $msisdn,
-      "sms" => $messageBody,
+      "msisdn" => $phone,
+      "sms" => $txt,
       "csms_id" => $csmsId
     ];
     $url = trim($DOMAIN, '/') . "/api/v3/send-sms";

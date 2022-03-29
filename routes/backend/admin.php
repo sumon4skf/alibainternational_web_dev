@@ -86,6 +86,7 @@ Route::namespace('Content')->group(function () {
     Route::post('limitationStore', [SettingController::class, 'limitationStore'])->name('limitationStore');
 
     Route::get('message', [SettingController::class, 'message'])->name('message');
+    Route::get('sms-test/{key}', [SettingController::class, 'smsTest'])->name('sms-test');
     Route::post('message-store', [SettingController::class, 'messageStore'])->name('message.store');
 
     Route::post('airShippingStore', [SettingController::class, 'airShippingStore'])->name('airShippingStore');

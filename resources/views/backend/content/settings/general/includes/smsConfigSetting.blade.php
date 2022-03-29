@@ -37,6 +37,24 @@
     </div> <!-- form-group-->
   </div> <!--  .card-body -->
 
+  
+  <div class="card-body">
+    <div class="form-group">
+      <div class="form-check form-check-inline">
+        {{html()->radio('active_sms', get_setting('active_sms') == 'ssl_sms', 'ssl_sms')->id('ssl_sms')->class('form-check-input')}}
+        {{ html()->label("SSL SMS")->class('form-check-label')->for('ssl_sms') }}
+      </div>
+    </div> <!-- form-group-->
+    <div class="form-group">
+      {{html()->label('SSL API token')->for('ssl_api_token')}}
+      {{html()->text('ssl_api_token', get_setting('ssl_api_token'))->class('form-control')->placeholder('SSL Api Token')}}
+    </div> <!-- form-group-->
+    <div class="form-group">
+      {{html()->label('SSL API SID')->for('ssl_api_sid')}}
+      {{html()->text('ssl_api_sid', get_setting('ssl_api_sid'))->class('form-control')->placeholder('SSL Api SID')}}
+    </div> <!-- form-group-->
+  </div> <!--  .card-body -->
+
   <div class="card-footer">
     <div class="form-group">
       {{html()->button('Update')->class('btn btn-block  btn-primary')}}
