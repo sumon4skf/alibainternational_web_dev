@@ -25,7 +25,7 @@ class DashboardController extends Controller
    */
   public function index()
   {
-    $this->updateUserMissingInformation();
+   // $this->updateUserMissingInformation();
 
     $orders = Order::latest()->get();
 
