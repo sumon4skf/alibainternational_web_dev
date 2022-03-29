@@ -16,7 +16,7 @@
         </div>
         <div class="col">
           <a class="nav-link mobile_home_icon" href="{{route('frontend.index')}}">
-            <img src="{{asset('images/chinaonline.jpg')}}" class="img-fluid" alt="chinaonline">
+            <img src="{{asset('images/chinaonline.png')}}" class="img-fluid" alt="chinaonline">
           </a>
         </div>
         <div class="col">

@@ -1097,17 +1097,17 @@
                     color: rgb(0, 128, 0);
                 }
                 img {
-                    width: 4rem;
-                    border-radius: 50%;
-                    box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.175) !important;
-                    background: #112c36;
-                    height: 4rem;
-                    padding: 8px;
-                    position: absolute;
-                    top: -18px;
-                    left: 0;
-                    right: 0;
-                    margin: 0 auto;
+                  width: 4rem;
+                  border-radius: 50%;
+                  box-shadow: 0 1rem 3rem rgba(0,0,0,.175)!important;
+                  background: #ffffff;
+                  height: 4rem;
+                  padding: 0;
+                  position: absolute;
+                  top: -18px;
+                  left: 0;
+                  right: 0;
+                  margin: 0 auto;
                 }
             }
         }
