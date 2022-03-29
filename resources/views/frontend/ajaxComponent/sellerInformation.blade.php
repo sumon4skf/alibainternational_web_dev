@@ -5,6 +5,7 @@ $ItemScore = $Scores["ItemScore"] ?? 0 ;
 $ServiceScore = $Scores["ServiceScore"] ?? 0 ;
 ?>
 
+
 <div class="row d-flex justify-content-center">
   <div class="col-sm-6">
     <table class="table table-bordered">
@@ -23,21 +24,21 @@ $ServiceScore = $Scores["ServiceScore"] ?? 0 ;
       <tr>
         <td class="text-capitalize">Delivery Score</td>
         @php
-            $dClass = $DeliveryScore >= 4 ? 'badge-danger' : 'badge-secondary';
+        $dClass = $DeliveryScore >= 4 ? 'badge-danger' : 'badge-secondary';
         @endphp
         <td class="text-capitalize"><span class="badge {{$dClass}}">{{$DeliveryScore}}</span></td>
       </tr>
       <tr>
         <td class="text-capitalize">Item Score</td>
         @php
-            $dClass = $ItemScore >= 4 ? 'badge-danger' : 'badge-secondary';
+        $dClass = $ItemScore >= 4 ? 'badge-danger' : 'badge-secondary';
         @endphp
         <td class="text-capitalize"><span class="badge {{$dClass}}">{{$ItemScore}}</span></td>
       </tr>
       <tr>
         <td class="text-capitalize">Service Score</td>
         @php
-            $dClass = $ItemScore >= 4 ? 'badge-danger' : 'badge-secondary';
+        $dClass = $ItemScore >= 4 ? 'badge-danger' : 'badge-secondary';
         @endphp
         <td class="text-capitalize"><span class="badge {{$dClass}}">{{$ServiceScore}}</span></td>
       </tr>

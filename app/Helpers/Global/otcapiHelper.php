@@ -130,6 +130,7 @@ if (!function_exists('GetItemDescription')) {
 if (!function_exists('GetVendorInfo')) {
   function GetVendorInfo($vendorId)
   {
+    $provider = get_setting('otc_api_provider');
     $query = setOtcParams();
     $query['vendorId'] = $vendorId;
     $response = load_otc_api()->request('GET', 'GetVendorInfo', ['query' => $query]);

@@ -48,7 +48,7 @@ Route::get('product/{item}', [HomeController::class, 'productDetails'])->name('p
 Route::group(['as' => 'ajax.', 'prefix' => 'ajax'], function () {
   Route::post('load-product-details', [AjaxController::class, 'getItemPrice'])->name('getItemPrice');
   Route::post('Qllmw4OadnItXxXdD3jXaYyANGXfARf6cPZ4Lboc', [AjaxController::class, 'getItemDescription'])->name('getItemDescription');
-  Route::post('aBxQohiFDuK1iCkVtd2xO1JmYDA6sLcCvVvRh9nT', [AjaxController::class, 'getItemSellerInformation'])->name('getItemSellerInformation');
+  Route::post('load-seller-info', [AjaxController::class, 'getItemSellerInformation'])->name('getItemSellerInformation');
   Route::post('update-customer-cart', [AjaxController::class, 'LoadCustomerCart']);
 
   Route::post('LZPhsFSUice8hB5rYzNHuLZmmG5pJYcdNeH', [AjaxController::class, 'subscribeEmail'])->name('subscribeEmail');

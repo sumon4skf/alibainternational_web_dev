@@ -145,15 +145,17 @@ $(document).on("click", "#loadSellerInformation", function (event) {
   var sellerUrl = $(document)
     .find(".main_content")
     .attr("data-js2vlTEbP355hrBUhDo5");
-  var vendor_id = $(document).attr("data-vendor");
+  var vendor_id = $(this).attr("data-vendor");
 
   var Seller = $("#Seller");
   Seller.html(loadingText);
   axios
-    .post(sellerUrl, { vendor_id: vendor_id })
+    .post(sellerUrl, { vendor_id })
     .then(response => {
       let resData = response.data;
-      Seller.html(resData);
+      if (resData) {
+        Seller.html(resData.html);
+      }
     })
     .catch(error => {
       Seller.html(loadingFail);

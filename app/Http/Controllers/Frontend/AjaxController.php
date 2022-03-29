@@ -158,7 +158,11 @@ class AjaxController extends Controller
     $vendorId = request('vendor_id');
     $sellerInformation = GetVendorInfo($vendorId);
 
-    return view('frontend.ajaxComponent.sellerInformation', compact('sellerInformation'));
+    $html = view('frontend.ajaxComponent.sellerInformation', compact('sellerInformation'))->render();
+    return response([
+      'html' => $html,
+      // 'info' => $sellerInformation,
+    ]);
   }
 
   public function orderConfirm()

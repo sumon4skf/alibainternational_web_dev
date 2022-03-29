@@ -11,3 +11,7 @@ ADD COLUMN `additional` TEXT NULL AFTER `delivery_method`;
 
 ALTER TABLE `chinaonlinebd_web`.`invoices` 
 CHANGE COLUMN `total_courier` `total_courier` DOUBLE NULL ;
+
+
+ALTER TABLE `chinaonlinebd_web`.`users` 
+CHANGE COLUMN `phone` `phone` VARCHAR(191) CHARACTER SET 'utf8mb4' COLLATE 'utf8mb4_unicode_ci' NULL ;

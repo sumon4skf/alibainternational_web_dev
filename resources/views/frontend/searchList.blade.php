@@ -37,10 +37,12 @@ $productLoader = get_setting('product_image_loader');
         <div class="card-body">
           <div class="justify-content-center row row-cols-lg-5 row-cols-md-4 row-cols-sm-3 row-cols-2">
             @include('frontend.ajaxComponent.singleProduct', ['Product' => $items, 'productLoader' => $productLoader])
-
-            {{ $items->links() }}
-
           </div> <!-- row -->
+          <div class="row">
+            <div class="col-md-12">
+              {{ $items->links() }}
+            </div>
+          </div>
         </div>
       </div>
 

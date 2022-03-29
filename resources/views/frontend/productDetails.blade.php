@@ -273,7 +273,8 @@ $VendorId = $product->VendorId;
               <div class="border-bottom heading_s4 pb-2">
                 <h2>Related Products</h2>
               </div>
-              <div id="related_products" data-product-id="{{$product->ItemId}}" data-category-id="{{$product->CategoryId}}"
+              <div id="related_products" data-product-id="{{$product->ItemId}}"
+                data-category-id="{{$product->CategoryId}}"
                 class="product_slider carousel_slider dot_style1 nav_style5">
                 {{-- section content append by ajax --}}
               </div>
