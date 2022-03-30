@@ -160,8 +160,8 @@ table {
 .btn-quantity {
     border: none;
     color: #fff;
-    background: #ec8923;
-    background: linear-gradient(to right, #ec8923, #b5a409);
+    background: #d82b4f;
+    // background: linear-gradient(to right, #ec8923, #b5a409);
     padding-left: 10px !important;
     padding-right: 10px !important;
     &:hover {
@@ -174,18 +174,19 @@ table {
 .add_wishlist {
     border: none;
     color: #fff;
-    background: #ec8923;
+    background: #d82b4f;
     color: #fff;
-    background: linear-gradient(to right, #ec8923, #b5a409);
+    // background: linear-gradient(to right, #ec8923, #b5a409);
     font-size: 1rem;
     &:hover,
     &:focus {
         color: #fff;
-        background: linear-gradient(to right, #ec8920, #b5a404);
+        background: #d82b4f;
+        // background: linear-gradient(to right, #ec8920, #b5a404);
     }
     &.active {
         color: #fff;
-        background: #ec8920;
+        background: #d82b4f;
     }
 }
 

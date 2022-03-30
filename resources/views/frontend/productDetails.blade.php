@@ -113,7 +113,7 @@ $VendorId = $product->VendorId;
 
                         <table class="table table-bordered text-center" id="fromChinatoBd" style="table-layout: fixed;">
                           <tbody>
-                            <tr class="names" style="background-color: #ec8923;color:#fff;">
+                            <tr class="names" style="background-color: #d82b4f;color:#fff;">
                               <td>Quantity</td>
                               <td>Total</td>
                               <td>Approx Weight</td>

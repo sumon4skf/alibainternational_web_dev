@@ -8,17 +8,13 @@
     <div class="container">
       <div class="row justify-content-center align-items-center">
 
-        <div class="col-xl-6 col-md-6">
+        <div class="col-lg-4 col-md-6 col-sm-12">
           <div class="login_wrap">
             <div class="padding_eight_all bg-white">
-              <div class="heading_s1">
-                <h3>Reset Password</h3>
 
-                @if(session('status'))
-                <div class="alert alert-success">
-                  {{ session('status') }}
-                </div>
-                @endif
+              <div class="text-center">
+                <img src="{{asset(get_setting('frontend_logo_menu'))}}" style="height: 80px " alt="chinaonline">
+                <h2 class="font-weight-bold my-2 my-3">Reset Password</h2>
               </div>
 
               {{ html()->form('POST', route('frontend.auth.password.email.post'))->open() }}
@@ -26,21 +22,30 @@
               <div class="form-group">
                 {{ html()->label(__('validation.attributes.frontend.email'))->for('email') }}
                 {{ html()->email('email')
-                          ->class('form-control')
-                          ->placeholder(__('validation.attributes.frontend.email'))
-                          ->attribute('maxlength', 191)
-                          ->required()
-                          ->autofocus() }}
+                ->class('form-control')
+                ->placeholder(__('validation.attributes.frontend.email'))
+                ->attribute('maxlength', 191)
+                ->required()
+                ->autofocus() }}
               </div>
+
+              @if(session('status'))
+              <div class="alert alert-success">
+                {{ session('status') }}
+              </div>
+              @endif
+
               <div class="form-group">
-                {{ form_submit(__('labels.frontend.passwords.send_password_reset_link_button'),'btn btn-fill-out') }}
+                {{ form_submit(__('labels.frontend.passwords.send_password_reset_link_button'),'btn btn-block
+                btn-fill-out') }}
               </div>
               {{ html()->form()->close() }}
               <div class="different_login">
                 <span> or</span>
               </div>
-              <div class="form-note text-center"> Have an Account? <a href="{{route('frontend.auth.login')}}">Sign In
-                  now</a></div>
+              <div class="form-note text-center"> 
+                Have an Account? <a href="{{route('frontend.auth.login')}}">Sign In now</a>
+              </div>
             </div>
           </div>
         </div>

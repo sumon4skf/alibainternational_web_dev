@@ -234,7 +234,7 @@ function load_the_payment_confirm(pay_method) {
     .then(response => {
       let responseData = response.data;
       if (responseData.status) {
-        // clearProductCart();
+        clearProductCart();
         if (pay_method === "bkash") {
           window.location.replace("/bkash/payment");
         } else if (pay_method === "nagad") {

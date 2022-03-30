@@ -8,13 +8,12 @@
   <div class="login_register_wrap section" style="padding-bottom: 50px">
     <div class="container">
       <div class="row justify-content-center">
-        <div class="col-md-4">
+        <div class="col-lg-4 col-md-6 col-sm-12">
           <div class="login_wrap loginSubmitCard shadow">
             <div class="padding_eight_all bg-white">
-              <div class="heading_s1">
-                <div class="text-center border-0">
-                  <h3 class="font-weight-bold my-2">Login</h3>
-                </div>
+              <div class="text-center">
+                <img src="{{asset(get_setting('frontend_logo_menu'))}}" style="height: 80px " alt="chinaonline">
+                <h2 class="font-weight-bold my-2 my-3">Login</h2>
               </div>
 
               @include('frontend.auth.includes.socialite')
@@ -40,8 +39,12 @@
               </div>
 
               <div class="form-group text-center mb-5">
-                <a href="{{ route('frontend.auth.password.reset') }}" class="btn p-0 text-primary">@lang('Forgot
-                  Password')</a>
+                <a href="{{ route('frontend.auth.register') }}" class="btn d-block h4 p-0 text-primary">
+                  @lang('Register Now')
+                </a>
+                <a href="{{ route('frontend.auth.password.reset') }}" class="btn d-block h4 p-0 text-primary">
+                  @lang('Forgot Password')
+                </a>
               </div> <!-- form-group -->
 
             </div>

@@ -49,7 +49,7 @@ class HomeController extends Controller
     if ($page) {
       return view('frontend.pages.page', compact('page'));
     }
-    $category = Taxonomy::where('slug', trim($slug))->firstOrFail();
+    $category = Taxonomy::where('slug', trim($slug))->withCount('children')->firstOrFail();
     if (!$category->children_count) {
       $subcategory = null;
       $search = $category->keyword ? $category->keyword : $category->name;

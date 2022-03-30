@@ -9,15 +9,14 @@
     <div class="container">
       <div class="row justify-content-center">
         
-        <div class="col-md-4">
+        <div class="col-lg-4 col-md-6 col-sm-12">
           <div class="login_wrap">
 
             <div class="padding_eight_all bg-white">
-              <div class="heading_s1">
-                <div class="text-center border-0">
-                  <h3 class="my-2" style="text-transform: none;">@lang('Create an account')</h3>
-                  <p class="login_info_msg">to continue to <b>{{app_name()}}</b></p>
-                </div>
+              
+              <div class="text-center">
+                <img src="{{asset(get_setting('frontend_logo_menu'))}}" style="height: 80px " alt="chinaonline">
+                <h2 class="font-weight-bold my-2 my-3">@lang('Create an account')</h2>
               </div>
 
               @include('frontend.auth.includes.socialite')
