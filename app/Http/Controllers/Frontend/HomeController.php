@@ -220,8 +220,7 @@ class HomeController extends Controller
     $page = request('page', 0);
     $offset = $page * 35;
     $limit = 35;
-    $resData = SearchItemsFrame($search, $type, $offset, $limit);
-
+    $resData = AvanctecaSearchItemsFrame($search, $type, $offset, $limit);
     $TotalCount = getArrayKeyData($resData, 'TotalCount', 0);
     $Contents = getArrayKeyData($resData, 'Content', []);
     return new Paginator($Contents, $TotalCount, $limit, $page, [

@@ -55,6 +55,29 @@ if (!function_exists('getArrayKeyData')) {
 }
 
 
+if (!function_exists('AvanctecaSearchItemsFrame')) {
+  function AvanctecaSearchItemsFrame($search, $type, $offset = 1, $limit = 24)
+  {
+    $query = setOtcParams();
+    $query['type'] = $type;
+    $query['search'] = $search;
+    $query['framePosition'] = $offset;
+    $query['frameSize'] = $limit;
+
+    $response = load_otc_api()->request('GET', 'SearchItemsFrame', ['query' => $query]);
+
+    $statusCode = $response->getStatusCode();
+    if ($statusCode == 200) {
+      $body = json_decode($response->getBody(), true);
+      if (is_array($body)) {
+        $Result = getArrayKeyData($body, 'Result', []);
+        return getArrayKeyData($Result, 'Items', []);
+      }
+    }
+    return [];
+  }
+}
+
 if (!function_exists('SearchItemsFrame')) {
   function SearchItemsFrame($search, $type, $offset = 1, $limit = 35)
   {
