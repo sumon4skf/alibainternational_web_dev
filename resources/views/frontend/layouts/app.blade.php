@@ -19,10 +19,15 @@
   <meta property="og:image" content="@yield('meta_image')">
 
 
-  <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('images/brand/apple-touch-icon.png')}}">
-  <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('images/brand/favicon-32x32.png')}}">
-  <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('images/brand/favicon-16x16.png')}}">
-  <link rel="manifest" href="{{ asset('images/brand/site.webmanifest')}}">
+  <link rel="apple-touch-icon" sizes="180x180" href="{{asset('images/brand/apple-touch-icon.png')}}">
+  <link rel="icon" type="image/png" sizes="32x32" href="{{asset('images/brand/favicon-32x32.png')}}">
+  <link rel="icon" type="image/png" sizes="16x16" href="{{asset('images/brand/favicon-16x16.png')}}">
+  <link rel="manifest" href="{{asset('images/brand/site.webmanifest')}}">
+  <link rel="mask-icon" href="{{asset('images/brand/safari-pinned-tab.svg')}}" color="#5bbad5">
+  <link rel="shortcut icon" href="{{asset('images/brand/favicon.ico')}}">
+  <meta name="msapplication-TileColor" content="#da532c">
+  <meta name="msapplication-config" content="{{asset('images/brand/browserconfig.xml')}}">
+  <meta name="theme-color" content="#ffffff">
 
   @yield('meta')
 
@@ -70,7 +75,6 @@
   @include('includes.partials.messages')
 
 
-
   <main>
     @yield('content')
   </main>
@@ -79,7 +83,7 @@
   <div class="easy_connect d-none d-lg-block">
     <ul class="list-group">
       <li class="list-group-item">
-        <a class="mobile" href="https://m.me/109012968398097" target="_blank">
+        <a class="mobile" href="https://m.me/106088497868581" target="_blank">
           <span class="desktop_stick_nav_icon"><i class="icon-chat-empty"></i></span>
           <span class="desktop_stick_nav_text">Chat Us</span>
         </a>

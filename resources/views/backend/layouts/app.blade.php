@@ -13,10 +13,15 @@
   <meta name="description" content="@yield('meta_description', 'avanteca.com.bd')">
   <meta name="author" content="@yield('meta_author', 'Avanteca Web Apps Ltd.')">
 
-  <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('images/brand/apple-touch-icon.png')}}">
-  <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('images/brand/favicon-32x32.png')}}">
-  <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('images/brand/favicon-16x16.png')}}">
-  <link rel="manifest" href="{{ asset('images/brand/site.webmanifest')}}">
+  <link rel="apple-touch-icon" sizes="180x180" href="{{asset('images/brand/apple-touch-icon.png')}}">
+  <link rel="icon" type="image/png" sizes="32x32" href="{{asset('images/brand/favicon-32x32.png')}}">
+  <link rel="icon" type="image/png" sizes="16x16" href="{{asset('images/brand/favicon-16x16.png')}}">
+  <link rel="manifest" href="{{asset('images/brand/site.webmanifest')}}">
+  <link rel="mask-icon" href="{{asset('images/brand/safari-pinned-tab.svg')}}" color="#5bbad5">
+  <link rel="shortcut icon" href="{{asset('images/brand/favicon.ico')}}">
+  <meta name="msapplication-TileColor" content="#da532c">
+  <meta name="msapplication-config" content="{{asset('images/brand/browserconfig.xml')}}">
+  <meta name="theme-color" content="#ffffff">
 
   @yield('meta')
 

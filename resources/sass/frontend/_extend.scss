@@ -160,7 +160,7 @@ table {
 .btn-quantity {
     border: none;
     color: #fff;
-    background: #d82b4f;
+    background: #ff4000;
     // background: linear-gradient(to right, #ec8923, #b5a409);
     padding-left: 10px !important;
     padding-right: 10px !important;
@@ -174,19 +174,19 @@ table {
 .add_wishlist {
     border: none;
     color: #fff;
-    background: #d82b4f;
+    background: #ff4000;
     color: #fff;
     // background: linear-gradient(to right, #ec8923, #b5a409);
     font-size: 1rem;
     &:hover,
     &:focus {
         color: #fff;
-        background: #d82b4f;
+        background: #ff4000;
         // background: linear-gradient(to right, #ec8920, #b5a404);
     }
     &.active {
         color: #fff;
-        background: #d82b4f;
+        background: #ff4000;
     }
 }
 

@@ -75,7 +75,7 @@
           </div>
         </div> <!-- form-group -->
         <div class="row">
-          <div class="card-title col">Thumbnail (920 × 400 px)</div>
+          <div class="card-title col">Thumbnail (620 × 400 px)</div>
         </div> <!-- row -->
         <hr class="mt-0">
         <div class="form-group">

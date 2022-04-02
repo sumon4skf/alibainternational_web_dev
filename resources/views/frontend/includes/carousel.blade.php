@@ -6,7 +6,6 @@
           <div class="banner_section slide_medium shop_banner_slider staggered-animation-wrap">
             <div id="carouselExampleControls" class="carousel slide carousel-fade light_arrow" data-ride="carousel">
               <div class="carousel-inner">
-
                 @forelse ($banners as $banner)
                 <div class="carousel-item @if($loop->first) active @endif background_bg"
                   data-img-src="{{asset($banner->post_thumb)}}">
@@ -27,7 +26,7 @@
             </div> <!-- carouselExampleControls -->
           </div>
         </div> <!--  col-lg-8 -->
-        <div class="col-lg-4">
+        <div class="col-lg-4 d-none d-lg-block">
           <div class="login_wrap loginSubmitCard" style="margin-top:8px">
             <div class="padding_eight_all bg-white">
               <div class="text-center">
@@ -35,18 +34,24 @@
               </div>
 
               <div class="loginWithOtp">
-                <div class="form-group mb-4">
-                  <input type="text" id="phone_number" class="form-control" placeholder="{{ __('Your phone number') }}"
-                    required="required" autocomplete="off" />
-                  <input type="hidden" name="phone" id="phone" value="1" required="required">
-                  <p class="text-danger d-none small phone_error_msg"></p>
-                </div> <!-- form-group -->
+                <div class="form-group">
+                  {{ html()->email('email')
+                  ->class('form-control')
+                  ->placeholder(__('validation.attributes.frontend.email'))
+                  ->attributes(['maxlength'=> 191, 'autocomplete' => 'email'])
+                  ->required() }}
+                </div>
+                <div class="form-group">
+                  {{ html()->password('password')
+                  ->class('form-control')
+                  ->placeholder(__('validation.attributes.frontend.password'))
+                  ->required() }}
+                </div>
 
                 {{html()->hidden('remember')->value(1)}}
 
                 <div class="form-group">
-                  <button type="submit" id="otpSubmitBtn" class="btn btn-default btn-block" name="login">SIGN UP
-                    / LOGIN</button>
+                  <button type="submit" id="otpSubmitBtn" class="btn btn-default btn-block" name="login">LOGIN</button>
                 </div>
               </div>
 
