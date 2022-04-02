@@ -23,7 +23,7 @@
     <div class="container">
       <div class="nav_block">
         <a class="navbar-brand" href="{{route('frontend.index')}}">
-          <img class="logo_dark" src="{{asset(get_setting('frontend_logo_menu')) }}" alt="{{get_setting('site_name')}}">
+          <img class="logo_dark" src="{{asset(get_setting('frontend_logo_menu')) }}" alt="{{app_name()}}">
         </a>
         <div class="product_search_form radius_input search_form_btn">
           @include('frontend.includes.searchForm')

@@ -7,9 +7,9 @@
   <meta name="csrf-token" content="{{ csrf_token() }}">
   <title>@yield('title', app_name()) - {{app_name()}}</title>
   <meta name="description" content="@yield('meta_description', app_name())">
-  <meta name="author" content="@yield('meta_author', 'Avanteca Web Apps Ltd.')">
+  <meta name="author" content="@yield('meta_author', 'Avanteca Ltd.')">
 
-  <meta property="fb:pages" content="103822615082014" />
+  <meta property="fb:pages" content="" />
   <meta property="fb:app_id" content="" />
   <meta property="og:local" content="{{ str_replace('_', '-', app()->getLocale()) }}">
   <meta property="og:type" content="article">
