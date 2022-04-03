@@ -9,7 +9,7 @@ import { tns } from "tiny-slider";
       controls: true,
       controlsPosition: "bottom",
       controlsText: ['<i class="icon-left-open"></i>', '<i class="icon-right-open"></i>'],
-      nav: true,
+      nav: false,
       navPosition: "bottom",
       autoplay: true,
       autoplayButtonOutput: false,
@@ -21,9 +21,9 @@ import { tns } from "tiny-slider";
       controlsText: ['<i class="icon-left-open"></i>', '<i class="icon-right-open"></i>'],
       responsive: {
         0: { items: 3 },
-        380: { items: 4 },
-        991: { items: 6 },
-        1199: { items: 7 }
+        380: { items: 3 },
+        991: { items: 3 },
+        1199: { items: 4 }
       }
     });
   }

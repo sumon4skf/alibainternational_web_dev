@@ -25,53 +25,15 @@
                   class="icon-right-open"></i></a>
             </div> <!-- carouselExampleControls -->
           </div>
+
+          @include('frontend.includes.OurPriorities')
         </div> <!--  col-lg-8 -->
         <div class="col-lg-4 d-none d-lg-block">
-          <div class="login_wrap loginSubmitCard" style="margin-top:8px">
-            <div class="padding_eight_all bg-white">
-              <div class="text-center">
-                <h2 class="font-weight-bold my-2 my-3">Login</h2>
-              </div>
-
-              <div class="loginWithOtp">
-                <div class="form-group">
-                  {{ html()->email('email')
-                  ->class('form-control')
-                  ->placeholder(__('validation.attributes.frontend.email'))
-                  ->attributes(['maxlength'=> 191, 'autocomplete' => 'email'])
-                  ->required() }}
-                </div>
-                <div class="form-group">
-                  {{ html()->password('password')
-                  ->class('form-control')
-                  ->placeholder(__('validation.attributes.frontend.password'))
-                  ->required() }}
-                </div>
-
-                {{html()->hidden('remember')->value(1)}}
-
-                <div class="form-group">
-                  <button type="submit" id="otpSubmitBtn" class="btn btn-default btn-block" name="login">LOGIN</button>
-                </div>
-              </div>
-
-              <div class="form-group text-center">
-                <a href="{{ route('frontend.auth.register') }}" class="btn d-block h5 p-0 text-primary">
-                  @lang('Register Now')
-                </a>
-                <a href="{{ route('frontend.auth.password.reset') }}" class="btn d-block h5 p-0 text-primary">
-                  @lang('Forgot Password')
-                </a>
-              </div> <!-- form-group -->
-
-              <div class="different_login">
-                <span> or</span>
-              </div>
-              
-              @include('frontend.auth.includes.socialite')
-
-            </div>
-          </div>
+          @guest
+          @include('frontend.includes.loginCompolents.loginForm')
+          @else
+          @include('frontend.includes.loginCompolents.miniDashboard')
+          @endguest
         </div> <!--  col-lg-4 -->
 
       </div> <!--  row -->

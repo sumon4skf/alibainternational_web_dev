@@ -44,6 +44,9 @@ $VendorId = $product->VendorId;
         <div class="col-md-12">
           <div class="card productDetailsCard  bg-white">
             <div class="card-body">
+              <h4 class="product_title mb-3" style="font-size: 20px; ">{!! strip_tags($Title) !!}
+              </h4>
+
               <div class="row">
                 <div class="col-md-6 mb-4 mb-md-0">
                   <div class="product-image">
@@ -92,10 +95,12 @@ $VendorId = $product->VendorId;
                 <div class=" col-md-6">
                   <div class="pr_detail" id="itemFullInfo" data-id="{{$item_id}}">
                     <div class="product_description">
-                      <h4 class="product_title" style="font-size: 16px;line-height: 1.5;">{!! strip_tags($Title) !!}
-                      </h4>
-                      <div class="product_price mainPrice table-responsive">
-                        {{-- product price will append here --}}
+                      <div class="card mb-3" style="background: #e63b2c;">
+                        <div class="card-body py-3">
+                          <div class="product_price mainPrice table-responsive">
+                            {{-- product price will append here --}}
+                          </div>
+                        </div>
                       </div>
                       <div class="attributesLoader">
                         {{-- product attributes will append here --}}
@@ -231,10 +236,6 @@ $VendorId = $product->VendorId;
                       aria-controls="Description" aria-selected="false">Description</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" id="Seller-tab" data-toggle="tab" href="#Seller" role="tab"
-                      aria-controls="Seller" aria-selected="false">Seller Info</a>
-                  </li>
-                  <li class="nav-item">
                     <a class="nav-link" id="Shipping-tab" data-toggle="tab" href="#Shipping" role="tab"
                       aria-controls="Shipping" aria-selected="false">Shipping & Delivery</a>
                   </li>
@@ -247,12 +248,6 @@ $VendorId = $product->VendorId;
                   <div class="tab-pane fade" id="Description" role="tabpanel" aria-labelledby="Description-tab">
                     <p class="text-center">
                       <a href="#" class="btn btn-fill-out" id="loadDescription">Show Full Description</a>
-                    </p>
-                  </div>
-                  <div class="tab-pane fade" id="Seller" role="tabpanel" aria-labelledby="Seller-tab">
-                    <p class="text-center">
-                      <a href="#" class="btn btn-fill-out" data-vendor="{{$VendorId}}" id="loadSellerInformation">Show
-                        Seller Information</a>
                     </p>
                   </div>
                   <div class="tab-pane fade" id="Shipping" role="tabpanel" aria-labelledby="Shipping-tab">

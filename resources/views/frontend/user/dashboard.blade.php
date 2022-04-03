@@ -22,40 +22,91 @@
     <div class="container">
       <div class="card">
         <div class="card-body">
+
           <div class="row">
-            <div class="col-lg-12 col-md-12">
-              <div class="dashboard_menu">
-                @php
-                $tab = request('tab');
-                @endphp
-                <ul class="nav nav-tabs nav-pills mb-3" role="tablist">
-                  <li class="nav-item">
-                    <a class="nav-link @if(!$tab || $tab == 'dashboard') active @endif" id="dashboard-tab"
-                      data-toggle="tab" href="#dashboard" role="tab" aria-controls="dashboard" aria-selected="false"><i
-                        class="ti-layout-grid2"></i>Dashboard</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link @if($tab == 'orders') active @endif" id="orders-tab" data-toggle="tab"
-                      href="#orders" role="tab" aria-controls="orders" aria-selected="false"><i
-                        class="ti-shopping-cart-full"></i>Orders</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link @if($tab == 'invoice') active @endif" id="invoice-tab" data-toggle="tab"
-                      href="#invoice" role="tab" aria-controls="orders" aria-selected="false"><i
-                        class="icon-bag"></i>@lang('My Invoice')</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link @if($tab == 'address') active @endif" id="address-tab" data-toggle="tab"
-                      href="#address" role="tab" aria-controls="address" aria-selected="true"><i
-                        class="ti-location-pin"></i>My Address</a>
-                  </li>
-                  <li class="nav-item @if($tab == 'account') active @endif">
-                    <a class="nav-link" id="account-detail-tab" data-toggle="tab" href="#account" role="tab"
-                      aria-controls="account-detail" aria-selected="true"><i class="ti-id-badge"></i>Account details</a>
-                  </li>
-                </ul>
-              </div> <!-- dashboard_menu -->
-            </div>
+            <div class="col-lg-2 col-md-3 col-sm-4">
+              <a href="{{route('frontend.user.dashboard')}}">
+                <div class="card mb-3">
+                  <div class="card-body text-center">
+                    <h2><i class="icon-th-thumb-empty"></i></h2>
+                    <h4>Dashboard</h4>
+                  </div>
+                </div>
+              </a>
+            </div> <!-- col-md-6 -->
+            <div class="col-lg-2 col-md-3 col-sm-4">
+              <a href="{{route('frontend.user.dashboard', ['tab' => 'orders'])}}">
+                <div class="card mb-3">
+                  <div class="card-body text-center">
+                    <h2><i class="icon-cart"></i></h2>
+                    <h4>Orders</h4>
+                  </div>
+                </div>
+              </a>
+            </div> <!-- col-md-6 -->
+            <div class="col-lg-2 col-md-3 col-sm-4">
+              <a href="{{route('frontend.user.dashboard', ['tab' => 'wishlist'])}}">
+                <div class="card mb-3">
+                  <div class="card-body text-center">
+                    <h2><i class="icon-heart-1"></i></h2>
+                    <h4>Wishlist</h4>
+                  </div>
+                </div>
+              </a>
+            </div> <!-- col-md-6 -->
+            <div class="col-lg-2 col-md-3 col-sm-4">
+              <a href="{{route('frontend.user.dashboard', ['tab' => 'invoice'])}}">
+                <div class="card mb-3">
+                  <div class="card-body text-center">
+                    <h2><i class="icon-link-ext"></i></h2>
+                    <h4>Invoices</h4>
+                  </div>
+                </div>
+              </a>
+            </div> <!-- col-md-6 -->
+            <div class="col-lg-2 col-md-3 col-sm-4">
+              <a href="{{route('frontend.user.dashboard', ['tab' => 'address'])}}">
+                <div class="card mb-3">
+                  <div class="card-body text-center">
+                    <h2><i class=" icon-location"></i></h2>
+                    <h4>Address</h4>
+                  </div>
+                </div>
+              </a>
+            </div> <!-- col-md-6 -->
+            <div class="col-lg-2 col-md-3 col-sm-4">
+              <a href="{{route('frontend.user.dashboard', ['tab' => 'account'])}}">
+                <div class="card mb-3">
+                  <div class="card-body text-center">
+                    <h2><i class="icon-user-male"></i></h2>
+                    <h4>Account</h4>
+                  </div>
+                </div>
+              </a>
+            </div> <!-- col-md-6 -->
+            <div class="col-lg-2 col-md-3 col-sm-4">
+              <a href="{{ route('frontend.auth.logout') }}">
+                <div class="card mb-3">
+                  <div class="card-body text-center">
+                    <h2><i class="icon-right"></i></h2>
+                    <h4>Logout</h4>
+                  </div>
+                </div>
+              </a>
+            </div> <!-- col-md-4 -->
+          </div>
+
+
+
+
+          <hr>
+
+
+          @php
+          $tab = request('tab');
+          @endphp
+
+          <div class="row">
             <div class="col-lg-12 col-md-12">
               <div class="tab-content dashboard_content">
                 <div class="tab-pane fade @if(!$tab || $tab == 'dashboard') active show @endif " id="dashboard"
@@ -80,7 +131,7 @@
                 </div>
               </div>
             </div>
-          </div>  <!-- row -->
+          </div> <!-- row -->
         </div> <!-- card-body -->
       </div> <!-- card -->
 

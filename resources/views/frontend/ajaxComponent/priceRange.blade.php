@@ -6,7 +6,7 @@ $QuantityRanges = $product->QuantityRanges ? json_decode($product->QuantityRange
 
 
 @if (!empty($QuantityRanges))
-<table class="table table-bordered table-sm text-center">
+<table class="table m-0 table-bordered table-sm text-center">
   @php
   $heading = '';
   $body = '';

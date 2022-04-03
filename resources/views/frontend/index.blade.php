@@ -55,9 +55,7 @@ $top_cats = get_top_taxonomies();
 @include('frontend.includes.carousel', ['banners' => $banners])
 
 <div class="main_content">
-
-  @include('frontend.includes.OurPriorities')
-
+  
   <div class="section pt-3">
     <div class="container">
       <div class="card">
@@ -66,7 +64,7 @@ $top_cats = get_top_taxonomies();
           <div class="row align-items-center">
             <div class="col-12">
               <div class="border-bottom heading_s4 pb-2">
-                <h2>Top Categories</h2>
+                <h2>Trending Now</h2>
               </div>
             </div>
             <div class="col-12">
@@ -176,7 +174,7 @@ $top_cats = get_top_taxonomies();
           <div class="row justify-content-center">
             <div class="col-12">
               <div class="border-bottom heading_s4 pb-2">
-                <h2>Just Ordered</h2>
+                <h2>Recent Ordered</h2>
               </div>
             </div>
           </div>
@@ -199,7 +197,7 @@ $top_cats = get_top_taxonomies();
           <div class="row justify-content-center">
             <div class="col-12">
               <div class="border-bottom heading_s4 pb-2">
-                <h2>Someone Loved</h2>
+                <h2>Someone Favorite</h2>
               </div>
             </div>
           </div>
@@ -292,11 +290,11 @@ $top_cats = get_top_taxonomies();
 @endsection
 
 
-@push('middle-styles')
+{{-- @push('middle-styles')
 <link rel="stylesheet" href="{{ asset('assets/plugins/intl-tel-input/css/intlTelInput.css') }}">
 @endpush
 
 @push('after-scripts')
 <script src="{{asset('assets/plugins/intl-tel-input/js/intlTelInput.js')}}"></script>
 <script src="{{asset('assets/plugins/scripts.js')}}"></script>
-@endpush
+@endpush --}}
