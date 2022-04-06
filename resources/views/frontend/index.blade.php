@@ -290,11 +290,11 @@ $top_cats = get_top_taxonomies();
 @endsection
 
 
-{{-- @push('middle-styles')
+@push('middle-styles')
 <link rel="stylesheet" href="{{ asset('assets/plugins/intl-tel-input/css/intlTelInput.css') }}">
 @endpush
 
 @push('after-scripts')
 <script src="{{asset('assets/plugins/intl-tel-input/js/intlTelInput.js')}}"></script>
 <script src="{{asset('assets/plugins/scripts.js')}}"></script>
-@endpush --}}
+@endpush

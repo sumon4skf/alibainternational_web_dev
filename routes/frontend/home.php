@@ -58,6 +58,9 @@ Route::group(['as' => 'ajax.', 'prefix' => 'ajax'], function () {
   Route::post('LHZLLfEpaQVdK0qCYDletmxqfKmklEXMr5m', [OtpLoginController::class, 'loginWithOtp']); // login with otp
   Route::post('IEMsZPlg72Adiuc1pSVrkI6iiUzKXWykNhd', [OtpLoginController::class, 'OtpCodeVerify']); // login with otp
 
+  Route::post('check-customer-email', [OtpLoginController::class, 'checkCustomerEmail']); // email check
+  Route::post('check-password', [OtpLoginController::class, 'checkCustomerPassword']);
+
   Route::post('m8sBOYY33Vp9JTD8h2ksp58snyvRHHXPF0h', [AjaxController::class, 'couponCodeValidate']);
 
   Route::group(['middleware' => 'auth', 'as' => 'customer.'], function () {

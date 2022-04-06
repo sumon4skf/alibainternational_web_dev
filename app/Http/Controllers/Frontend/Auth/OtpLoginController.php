@@ -10,6 +10,7 @@ use App\Models\Auth\User;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use LangleyFoxall\LaravelNISTPasswordRules\PasswordRules;
 
 /**
@@ -51,8 +52,7 @@ class OtpLoginController extends Controller
       }
     }
 
-
-    $appUrl = env('APP_URL', 'dearbd.com');
+    $appUrl = env('APP_URL');
     if (get_setting('sms_active_otp_message')) {
       $txt = get_setting('sms_otp_message');
       $txt = str_replace('[otp]', $otp, $txt);
@@ -96,5 +96,37 @@ class OtpLoginController extends Controller
     }
 
     return response(['status' => $status]);
+  }
+
+
+  public function checkCustomerEmail()
+  {
+    $email = request('email');
+    $status = false;
+    $user = User::where('email', $email)
+      ->whereNotNull('active')
+      ->first();
+
+    if ($user) {
+      $status = true;
+      return response(['status' => $status, 'email' => $email, 'hasUser' => true]);
+    }
+    return response(['status' => $status, 'email' => null, 'hasUser' => false]);
+  }
+
+  public function checkCustomerPassword()
+  {
+    $email = request('email');
+    $password = request('password');
+    $status = false;
+    $user = User::where('email', $email)
+      ->whereNotNull('active')
+      ->first();
+    if (Hash::check($password, $user->password)) {
+      $status = true;
+      Auth::login($user, true);
+      return response(['status' => $status]);
+    }
+    return response(['status' => $status, 'msg' => 'Password does not matched. Try again']);
   }
 }

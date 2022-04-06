@@ -108,12 +108,6 @@
             <div class="collapse navbar-collapse mobile_side_menu" id="navbarSidetoggle">
               <ul class="navbar-nav ml-auto">
                 <li>
-                  <a class="nav-link" href="#">Track Your Order</a>
-                </li>
-                <li>
-                  <span class="nav-link">|</span>
-                </li>
-                <li>
                   <span class="nav-link"> BDT(৳)</span>
                 </li>
                 <li>
