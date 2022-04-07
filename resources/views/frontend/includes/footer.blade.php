@@ -143,20 +143,15 @@ $top_cats = get_top_taxonomies();
     <div class="container">
       <div class="row ">
         <div class="col-md-12 d-flex justify-content-center ">
-          <div class="Ot_dr" style="">
+          {{-- <div class="Ot_dr" style="">
             <a href="https://otcommerce.com" target="_blank" title="Powered by OT Commerce">
               <img src="{{asset('images/brand/otcommerce.png')}}" style="width:50px">
             </a>
-          </div>
+          </div> --}}
           <div class="footer-text-center align-items-center d-flex mb-md-0 ml-2">
             {{get_setting('copyright_text')}}
           </div>
         </div>
-        {{-- <div class="col-md-6 d-flex justify-content-center">
-          <div class="footer-text-left align-items-center d-flex mb-md-0">
-            {{get_setting('copyright_text')}}
-          </div>
-        </div> --}}
       </div> <!-- row -->
     </div>
   </div>

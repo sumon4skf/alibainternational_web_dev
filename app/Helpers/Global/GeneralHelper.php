@@ -46,7 +46,9 @@ if (!function_exists('get_top_taxonomies')) {
     if ($taxonomies) {
       return $taxonomies;
     }
-    $taxonomies = Taxonomy::whereNotNull('active')->whereNull('ParentId')->withCount('children')->get()->toArray();
+    $taxonomies = Taxonomy::whereNotNull('active')
+      ->whereNotNull('is_top')
+      ->withCount('children')->get()->toArray();
     Cache::put('top_taxonomies', $taxonomies, now()->addDays(90));
     return $taxonomies;
   }
