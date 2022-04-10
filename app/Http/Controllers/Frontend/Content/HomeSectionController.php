@@ -5,14 +5,11 @@ namespace App\Http\Controllers\Frontend\Content;
 use App\Http\Controllers\Controller;
 use App\Models\Content\Frontend\Wishlist;
 use App\Models\Content\OrderItem;
-use App\Models\Content\Product;
 use App\Models\Content\RecentProducts;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cookie;
 
 class HomeSectionController extends Controller
 {
-
   public function recent_view_section()
   {
     $view_uid = Cookie::get('recent_view_uid');
@@ -24,13 +21,21 @@ class HomeSectionController extends Controller
 
   public function new_arrived_section()
   {
-    $products = RecentProducts::latest()->limit(15)->get();
+    $products = RecentProducts::orderByDesc('id')->limit(15)->get();
     return view('frontend.ajaxComponent.homeSection', compact('products'))->render();
   }
 
   public function just_ordered()
   {
-    $items = OrderItem::select('product_id')->latest()->limit(100)->groupBy('product_id')->pluck('product_id')->toArray();
+    $items = OrderItem::whereHas('order', function ($order) {
+      $order->whereNotIn('status', ['Waiting for Payment', 'canceled', 'refunded']);
+    })
+      ->select('product_id')
+      ->latest()
+      ->limit(100)
+      ->groupBy('product_id')
+      ->pluck('product_id')
+      ->toArray();
     $products = RecentProducts::whereIn('id', $items)->latest()->limit(15)->get();
     return view('frontend.ajaxComponent.homeSection', compact('products'))->render();
   }
@@ -44,8 +49,13 @@ class HomeSectionController extends Controller
 
   public function someone_buying()
   {
-    $items = Wishlist::select('product_id')->latest()->limit(100)->groupBy('product_id')->pluck('product_id')->toArray();;
-    $products = Product::whereIn('id', $items)->latest()->limit(15)->get();
+    $items = OrderItem::select('product_id')
+      ->latest()
+      ->limit(100)
+      ->groupBy('product_id')
+      ->pluck('product_id')
+      ->toArray();
+    $products = RecentProducts::whereIn('id', $items)->latest()->limit(15)->get();
     return view('frontend.ajaxComponent.homeSection', compact('products'))->render();
   }
 

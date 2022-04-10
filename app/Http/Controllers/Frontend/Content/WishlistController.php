@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Frontend\Content;
 
 use App\Http\Controllers\Controller;
 use App\Models\Content\Frontend\Wishlist;
-use App\Models\Content\Product;
+use App\Models\Content\RecentProducts;
 use Auth;
 use Illuminate\Http\Request;
 
@@ -40,13 +40,13 @@ class WishlistController extends Controller
   public function store(Request $request)
   {
     $item_id = request('item_id');
-    $product = Product::where('ItemId', $item_id)->first();
+    $product = RecentProducts::where('ItemId', $item_id)->first();
     $auth_id = auth()->id();
     Wishlist::updateOrCreate(['ItemId' => $item_id, 'user_id' => $auth_id], ['product_id' => $product->id]);
 
     $wishlist = Auth::user()->wishlist->count() ?? 0;
 
-    return response()->json(['total_w_list' => $wishlist]);
+    return response(['total_w_list' => $wishlist]);
   }
 
   /**

@@ -12,6 +12,7 @@ use App\Models\Content\Taxonomy;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Pagination\LengthAwarePaginator as Paginator;
+use Illuminate\Support\Str;
 
 /**
  * Class HomeController.
@@ -149,9 +150,20 @@ class HomeController extends Controller
       }
     }
 
+    $view_uid = Cookie::get('recent_view_uid');
+    if (!$view_uid) {
+      $view_uid = Str::random(60);
+      Cookie::queue('recent_view_uid', $view_uid, 43200);
+    }
+
     if (!$product) {
       $item = GetItemFullInfo($item_id);
-      $product = $this->updateOrInsertRecentProducts($item);
+      $product = $this->updateOrInsertRecentProducts($item, $view_uid);
+    } else {
+      $product->update([
+        'recent_view_uid' => $view_uid,
+        'created_at' => now(),
+      ]);
     }
 
     if (!$product) {

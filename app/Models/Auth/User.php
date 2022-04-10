@@ -9,7 +9,7 @@ use App\Models\Auth\Traits\Relationship\UserRelationship;
 use App\Models\Auth\Traits\Scope\UserScope;
 use App\Models\Content\Frontend\Address;
 use App\Models\Content\Order;
-use App\Models\Content\Product;
+use App\Models\Content\RecentProducts;
 use Illuminate\Notifications\Notifiable;
 
 /**
@@ -45,7 +45,7 @@ class User extends BaseUser
 
   public function wishlist()
   {
-    return $this->belongsToMany(Product::class, 'wishlists', 'user_id', 'ItemId', 'id', 'ItemId')->wherePivot('deleted_at', null);
+    return $this->belongsToMany(RecentProducts::class, 'wishlists', 'user_id', 'ItemId', 'id', 'ItemId')->wherePivot('deleted_at', null);
   }
 
   public function api_logs()

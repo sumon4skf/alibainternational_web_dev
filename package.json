@@ -3,6 +3,7 @@
     "author": "Sumon Ahmed sumon4skf@gmail.com",
     "private": true,
     "license": "MIT",
+    "version":"v1.0.0",
     "scripts": {
         "dev": "cross-var $npm_execpath run development",
         "development": "cross-env NODE_ENV=development webpack --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
